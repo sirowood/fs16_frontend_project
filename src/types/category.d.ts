@@ -6,5 +6,3 @@ type CategoryBase = {
 type Category = CategoryBase & {
   id: number,
 }
-
-export default Category;

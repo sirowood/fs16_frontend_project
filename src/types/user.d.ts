@@ -9,5 +9,3 @@ type User = UserBase & {
   id: number,
   role: 'customer' | 'admin',
 }
-
-export default User;

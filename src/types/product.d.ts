@@ -1,5 +1,3 @@
-import Category from "./category";
-
 type ProductBase = {
   title: string,
   description: string,
@@ -15,4 +13,8 @@ type Product = Omit<ProductBase, 'categoryId'> & {
   images: string[],
 }
 
-export default Product;
+type GetAllProductsProps = {
+  categoryId: number,
+  offset: number,
+  limit: number,
+}
