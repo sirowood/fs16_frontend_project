@@ -1,19 +1,13 @@
-type ProductBase = {
-  title: string,
-  description: string,
-  categoryId: number,
-  images: string[],
-}
-
-type Product = Omit<ProductBase, 'categoryId'> & {
+type Product = {
   id: number,
   title: string,
   description: string,
   category: Category,
+  categoryId: number,
   images: string[],
 }
 
-type GetAllProductsProps = {
+type GetProductsProps = {
   categoryId: number,
   offset: number,
   limit: number,
