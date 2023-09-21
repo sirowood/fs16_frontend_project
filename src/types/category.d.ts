@@ -1,8 +1,7 @@
-type CategoryBase = {
+type Category = {
+  id: number,
   name: string,
   image: string,
-};
-
-type Category = CategoryBase & {
-  id: number,
+  creationAt: string,
+  updatedAt: string,
 }

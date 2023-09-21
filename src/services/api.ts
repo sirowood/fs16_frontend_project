@@ -4,7 +4,7 @@ const baseUrl = 'https://api.escuelajs.co/api/v1/';
 
 const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ['Product'],
+  tagTypes: ['Products', 'Categories'],
   endpoints: () => ({}),
 });
 
