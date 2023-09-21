@@ -6,6 +6,9 @@ const productApi = api.injectEndpoints({
       query: ({ categoryId, offset, limit, title }) => `products?categoryId=${categoryId}&title=${title}&offset=${offset}&limit=${limit}`,
       providesTags: ['Products'],
     }),
+    getSingleProduct: build.query<ProductRes, number>({
+      query: (id) => `products/${id}`,
+    }),
     addProduct: build.mutation<ProductRes, AddProductReq>({
       query: (newProduct) => ({
         url: 'products',
