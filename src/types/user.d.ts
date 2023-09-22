@@ -1,11 +1,25 @@
-type UserBase = {
+type User = {
+  id: number,
   email: string,
-  password: string,
   name: string,
+  password: string,
+  role: 'customer' | 'admin',
   avatar: string,
 }
 
-type User = UserBase & {
+type UserRes = User;
+
+type RegisterUserReq = Omit<User, 'id'>;
+
+type UpdateUserReq = {
   id: number,
-  role: 'customer' | 'admin',
-}
+  userNewData: Partial<Omit<User, 'id' | 'role'>>
+};
+
+type CheckEmailReq = {
+  email: string,
+};
+
+type CheckEmailRes = {
+  isAvailable: boolean,
+};
