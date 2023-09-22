@@ -4,3 +4,10 @@ type Cart = {
   price: number,
   quantity: number,
 }[];
+
+
+type AddProductInCart = {
+  productId: number,
+  title: string,
+  price: number,
+};
