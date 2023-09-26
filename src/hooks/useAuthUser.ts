@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { useAppDispatch } from '../redux/store';
 import authApi, {
@@ -30,6 +31,12 @@ const useAuthUser = () => {
       getUser(loginData.access_token);
     }
   }, [getUser, loginData]);
+
+  useEffect(() => {
+    if (user) {
+      toast.success(`Welcome back, ${user.name}`);
+    }
+  }, [user]);
 
   return {
     user,

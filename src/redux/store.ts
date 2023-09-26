@@ -1,10 +1,20 @@
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import { configureStore } from "@reduxjs/toolkit";
+import { Middleware, configureStore, isRejectedWithValue } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
+import { toast } from 'react-hot-toast';
 
 import cartReducer from "./reducers/cartReducer";
 import api from "./services/api";
 import authApi from './services/authApi';
+
+const rtkQueryErrorMiddleware: Middleware =
+  () => (next) => (action) => {
+    if (isRejectedWithValue(action)) {
+      toast.error(action.payload.message);
+    }
+
+    return next(action);
+  };
 
 const store = configureStore({
   reducer: {
@@ -14,7 +24,8 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(api.middleware)
-    .concat(authApi.middleware),
+    .concat(authApi.middleware)
+    .concat(rtkQueryErrorMiddleware),
 });
 
 setupListeners(store.dispatch);
