@@ -2,6 +2,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 import { user, token } from './authData';
+import { categories } from './categoryData';
 
 const baseUrl = 'https://api.escuelajs.co/api/v1';
 
@@ -33,6 +34,12 @@ const server = setupServer(
     return res(
       ctx.status(401),
       ctx.json({ statusCode: 401, message: 'Unauthorized' }),
+    );
+  }),
+
+  rest.get(`${baseUrl}/categories`, async (req, res, ctx) => {
+    return res(
+      ctx.json(categories),
     );
   }),
 )
