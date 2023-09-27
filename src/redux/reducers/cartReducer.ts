@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-const updateCart = (newCart: Cart) => {
+const updateCart = (newCart: CartItem[]) => {
   localStorage.setItem('cart', JSON.stringify(newCart));
 };
 
-const getProductIndex = (productId: number, cart: Cart) => {
+const getProductIndex = (productId: number, cart: CartItem[]) => {
   return cart.findIndex((item) => item.productId === productId);
 };
 
-const initialState: Cart = JSON.parse(localStorage.getItem('cart') || '[]');
+const initialState: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
 
 const cartSlice = createSlice({
   name: 'cart',
