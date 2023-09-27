@@ -1,19 +1,13 @@
-import React, { ReactNode } from 'react';
-import { Provider } from 'react-redux';
 import { act } from 'react-dom/test-utils';
-import { renderHook, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 
-import store from '../../../redux/store';
 import {
   useLazyGetUserQuery,
   useLoginMutation,
 } from '../../../redux/services/authApi';
 import server from '../../shared/server';
+import getResult from '../../shared/testProvider';
 import { user, token } from '../../shared/authData';
-
-function Wrapper({ children }: { children: ReactNode }) {
-  return <Provider store={store}> {children} </Provider>;
-}
 
 beforeAll(() => {
   server.listen();
@@ -29,9 +23,7 @@ afterEach(() => {
 
 describe('authApi', () => {
   test('should get tokens successfully', async () => {
-    const { result } = renderHook(() => useLoginMutation(), {
-      wrapper: Wrapper,
-    });
+    const result = getResult(useLoginMutation);
 
     act(() => {
       result.current[0](user);
@@ -45,9 +37,7 @@ describe('authApi', () => {
   });
 
   test('should handle get tokens error', async () => {
-    const { result } = renderHook(() => useLoginMutation(), {
-      wrapper: Wrapper,
-    });
+    const result = getResult(useLoginMutation);
 
     act(() => {
       result.current[0]({ ...user, password: 'wrongpass' });
@@ -63,9 +53,7 @@ describe('authApi', () => {
   });
 
   test('should get user profile successfully', async () => {
-    const { result } = renderHook(() => useLazyGetUserQuery(), {
-      wrapper: Wrapper,
-    });
+    const result = getResult(useLazyGetUserQuery);
 
     act(() => {
       result.current[0](token.access_token);
@@ -79,9 +67,7 @@ describe('authApi', () => {
   });
 
   test('should handle get user profile error', async () => {
-    const { result } = renderHook(() => useLazyGetUserQuery(), {
-      wrapper: Wrapper,
-    });
+    const result = getResult(useLazyGetUserQuery);
 
     act(() => {
       result.current[0]('wrong token');
