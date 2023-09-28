@@ -19,7 +19,7 @@ afterEach(() => {
 
 describe('categoryApi', () => {
   test('should return categories successfully', async () => {
-    const result = getResult(useGetCategoriesQuery);
+    const result = getResult(useGetCategoriesQuery)();
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);

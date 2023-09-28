@@ -8,12 +8,9 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   return <Provider store={store}> {children} </Provider>;
 };
 
-const getResult = (hookFunc) => {
-  const { result } = renderHook(() => hookFunc(), {
+const getResult = (hookFunc: Function) => (arg?: any) =>
+  renderHook(() => (arg ? hookFunc(arg) : hookFunc()), {
     wrapper: Wrapper,
-  });
-
-  return result;
-};
+  }).result;
 
 export default getResult;

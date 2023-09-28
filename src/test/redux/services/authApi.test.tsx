@@ -23,7 +23,7 @@ afterEach(() => {
 
 describe('authApi', () => {
   test('should get tokens successfully', async () => {
-    const result = getResult(useLoginMutation);
+    const result = getResult(useLoginMutation)();
 
     act(() => {
       result.current[0](user);
@@ -37,7 +37,7 @@ describe('authApi', () => {
   });
 
   test('should handle get tokens error', async () => {
-    const result = getResult(useLoginMutation);
+    const result = getResult(useLoginMutation)();
 
     act(() => {
       result.current[0]({ ...user, password: 'wrongpass' });
@@ -53,7 +53,7 @@ describe('authApi', () => {
   });
 
   test('should get user profile successfully', async () => {
-    const result = getResult(useLazyGetUserQuery);
+    const result = getResult(useLazyGetUserQuery)();
 
     act(() => {
       result.current[0](token.access_token);
@@ -67,7 +67,7 @@ describe('authApi', () => {
   });
 
   test('should handle get user profile error', async () => {
-    const result = getResult(useLazyGetUserQuery);
+    const result = getResult(useLazyGetUserQuery)();
 
     act(() => {
       result.current[0]('wrong token');

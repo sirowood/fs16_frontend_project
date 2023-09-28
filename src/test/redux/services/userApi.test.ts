@@ -24,7 +24,7 @@ afterEach(() => {
 
 describe('userApi', () => {
   test('should register user successfully', async () => {
-    const result = getResult(useRegisterMutation);
+    const result = getResult(useRegisterMutation)();
 
     const newUser = {
       name: 'test name',
@@ -45,7 +45,7 @@ describe('userApi', () => {
   });
 
   test('should update user successfully', async () => {
-    const result = getResult(useUpdateUserMutation);
+    const result = getResult(useUpdateUserMutation)();
 
     act(() => {
       result.current[0]({
@@ -62,7 +62,7 @@ describe('userApi', () => {
   });
 
   test('should check valid email successfully', async () => {
-    const result = getResult(useCheckEmailMutation);
+    const result = getResult(useCheckEmailMutation)();
 
     act(() => {
       result.current[0]({ email: 'john@mail.com' });
@@ -78,7 +78,7 @@ describe('userApi', () => {
   });
 
   test('should check invalid email successfully', async () => {
-    const result = getResult(useCheckEmailMutation);
+    const result = getResult(useCheckEmailMutation)();
 
     act(() => {
       result.current[0]({ email: 'invalid@mail.com' });
