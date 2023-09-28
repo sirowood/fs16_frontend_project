@@ -17,7 +17,7 @@ const userApi = api.injectEndpoints({
       }),
     }),
     checkEmail: build.mutation<CheckEmailRes, CheckEmailReq>({
-      query: ({ email }) => ({
+      query: (email) => ({
         url: 'users/is-available',
         method: 'POST',
         body: email,
