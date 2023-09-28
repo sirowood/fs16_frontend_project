@@ -8,6 +8,9 @@ const productApi = api.injectEndpoints({
     }),
     getSingleProduct: build.query<ProductRes, number>({
       query: (id) => `products/${id}`,
+      transformErrorResponse() {
+        return { message: 'No such product' };
+      },
     }),
     addProduct: build.mutation<ProductRes, AddProductReq>({
       query: (newProduct) => ({
@@ -16,6 +19,9 @@ const productApi = api.injectEndpoints({
         body: newProduct,
       }),
       invalidatesTags: ['Products'],
+      transformErrorResponse() {
+        return { message: 'Something went wrong while adding new product' };
+      },
     }),
     updateProduct: build.mutation<ProductRes, UpdateProductReq>({
       query: ({ id, productNewData }) => ({
@@ -24,6 +30,9 @@ const productApi = api.injectEndpoints({
         body: productNewData,
       }),
       invalidatesTags: ['Products'],
+      transformErrorResponse() {
+        return { message: 'Something went wrong while updating the product' };
+      },
     }),
     removeProduct: build.mutation<boolean, number>({
       query: (id) => ({
@@ -31,12 +40,16 @@ const productApi = api.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: ['Products'],
+      transformErrorResponse() {
+        return { message: 'No such product' };
+      },
     }),
   }),
 });
 
 export const {
   useGetProductsQuery,
+  useGetSingleProductQuery,
   useAddProductMutation,
   useUpdateProductMutation,
   useRemoveProductMutation,
