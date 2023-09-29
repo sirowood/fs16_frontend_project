@@ -1,0 +1,21 @@
+name: CI tests
+
+on:
+  push:
+    branches:
+      - xuefeng
+
+jobs:
+  Redux:
+    runs-on: ubunto-latest
+    steps:
+      - name: Check files
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Run tests
+        run: |
+          npm install
+          npm test
