@@ -7,7 +7,7 @@ on:
 
 jobs:
   Redux:
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check files
         uses: actions/checkout@v3
@@ -17,5 +17,5 @@ jobs:
           node-version: '18'
       - name: Run tests
         run: |
-          npm install
+          npm ci
           npm test
