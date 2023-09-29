@@ -4,10 +4,17 @@ const productApi = api.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<ProductRes[], GetProductsReq>({
       query: ({ categoryId, offset, limit, title }) => `products?categoryId=${categoryId}&title=${title}&offset=${offset}&limit=${limit}`,
-      providesTags: ['Products'],
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.map(({ id }) => ({ type: 'Products' as const, id })),
+            { type: 'Products', id: 'LIST' },
+          ]
+          : [{ type: 'Products', id: 'LIST' }],
     }),
     getSingleProduct: build.query<ProductRes, number>({
       query: (id) => `products/${id}`,
+      providesTags: (_result, _error, id) => [{ type: 'Products', id }],
       transformErrorResponse() {
         return { message: 'No such product' };
       },
@@ -18,7 +25,7 @@ const productApi = api.injectEndpoints({
         method: 'POST',
         body: newProduct,
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
       transformErrorResponse() {
         return { message: 'Something went wrong while adding new product' };
       },
@@ -29,7 +36,7 @@ const productApi = api.injectEndpoints({
         method: 'PUT',
         body: productNewData,
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'Products', id }],
       transformErrorResponse() {
         return { message: 'Something went wrong while updating the product' };
       },
@@ -39,7 +46,7 @@ const productApi = api.injectEndpoints({
         url: `products/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: (_result, _error, id) => [{ type: 'Products', id }],
       transformErrorResponse() {
         return { message: 'No such product' };
       },
