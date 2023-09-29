@@ -1,8 +1,6 @@
-import { waitFor } from '@testing-library/react';
-
-import { useGetCategoriesQuery } from '../../../redux/services/categoryApi';
+import store from '../../../redux/store';
+import categoryApi from '../../../redux/services/categoryApi';
 import server from '../../shared/server';
-import getResult from '../../shared/testProvider';
 import { categories } from '../../shared/categoryData';
 
 beforeAll(() => {
@@ -19,12 +17,10 @@ afterEach(() => {
 
 describe('categoryApi', () => {
   test('should return categories successfully', async () => {
-    const result = getResult(useGetCategoriesQuery)();
+    const { data } = await store.dispatch(
+      categoryApi.endpoints.getCategories.initiate()
+    );
 
-    await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true);
-    });
-
-    expect(result.current.data).toEqual(categories);
+    expect(data).toEqual(categories);
   });
 });

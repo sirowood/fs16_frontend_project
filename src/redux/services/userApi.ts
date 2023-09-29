@@ -31,3 +31,4 @@ export const {
   useUpdateUserMutation,
   useCheckEmailMutation,
 } = userApi;
+export default userApi;

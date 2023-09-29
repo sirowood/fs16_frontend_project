@@ -1,13 +1,6 @@
-import { act } from 'react-dom/test-utils';
-import { waitFor } from '@testing-library/react';
-
-import {
-  useRegisterMutation,
-  useUpdateUserMutation,
-  useCheckEmailMutation,
-} from '../../../redux/services/userApi';
+import store from '../../../redux/store';
+import userApi from '../../../redux/services/userApi';
 import server from '../../shared/server';
-import getResult from '../../shared/testProvider';
 import { users } from '../../shared/userData';
 
 beforeAll(() => {
@@ -24,8 +17,6 @@ afterEach(() => {
 
 describe('userApi', () => {
   test('should register user successfully', async () => {
-    const result = getResult(useRegisterMutation)();
-
     const newUser = {
       name: 'test name',
       password: 'test password',
@@ -33,63 +24,35 @@ describe('userApi', () => {
       avatar: 'http://test.avatar.com/avatar.jpg',
     };
 
-    act(() => {
-      result.current[0](newUser);
-    });
+    const result: any = await store.dispatch(userApi.endpoints.register.initiate(newUser));
 
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual({ ...newUser, id: 4 });
+    expect(result.data).toEqual({ ...newUser, id: 4 });
   });
 
   test('should update user successfully', async () => {
-    const result = getResult(useUpdateUserMutation)();
-
-    act(() => {
-      result.current[0]({
+    const result: any = await store.dispatch(
+      userApi.endpoints.updateUser.initiate({
         id: 3,
         userNewData: { name: 'updated name' },
-      });
-    });
+      })
+    );
 
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual({ ...(users[2]), name: 'updated name' });
+    expect(result.data).toEqual({ ...(users[2]), name: 'updated name' });
   });
 
   test('should check valid email successfully', async () => {
-    const result = getResult(useCheckEmailMutation)();
+    const result: any = await store.dispatch(
+      userApi.endpoints.checkEmail.initiate({ email: 'john@mail.com' })
+    );
 
-    act(() => {
-      result.current[0]({ email: 'john@mail.com' });
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual({
-      isAvailable: true,
-    });
+    expect(result.data).toEqual({ isAvailable: true });
   });
 
   test('should check invalid email successfully', async () => {
-    const result = getResult(useCheckEmailMutation)();
+    const result: any = await store.dispatch(
+      userApi.endpoints.checkEmail.initiate({ email: 'invalid@mail.com' })
+    );
 
-    act(() => {
-      result.current[0]({ email: 'invalid@mail.com' });
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual({
-      isAvailable: false,
-    });
+    expect(result.data).toEqual({ isAvailable: false });
   });
 });

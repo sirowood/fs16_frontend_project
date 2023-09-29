@@ -54,3 +54,4 @@ export const {
   useUpdateProductMutation,
   useRemoveProductMutation,
 } = productApi;
+export default productApi;

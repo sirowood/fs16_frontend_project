@@ -1,12 +1,6 @@
-import { act } from 'react-dom/test-utils';
-import { waitFor } from '@testing-library/react';
-
-import {
-  useLazyGetUserQuery,
-  useLoginMutation,
-} from '../../../redux/services/authApi';
+import store from '../../../redux/store';
+import authApi from '../../../redux/services/authApi';
 import server from '../../shared/server';
-import getResult from '../../shared/testProvider';
 import { user, token } from '../../shared/authData';
 
 beforeAll(() => {
@@ -23,60 +17,35 @@ afterEach(() => {
 
 describe('authApi', () => {
   test('should get tokens successfully', async () => {
-    const result = getResult(useLoginMutation)();
+    const result: any = await store.dispatch(
+      authApi.endpoints.login.initiate(user)
+    );
 
-    act(() => {
-      result.current[0](user);
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual(token);
+    expect(result.data).toEqual(token);
   });
 
   test('should handle get tokens error', async () => {
-    const result = getResult(useLoginMutation)();
+    // Providing invalid password
+    const result: any = await store.dispatch(
+      authApi.endpoints.login.initiate({ ...user, password: 'wrongpass' })
+    );
 
-    act(() => {
-      result.current[0]({ ...user, password: 'wrongpass' });
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isError).toBe(true);
-    });
-
-    expect(result.current[1].error).toEqual({
-      message: 'Invalid username or password',
-    });
+    expect(result.error).toEqual({ message: 'Invalid username or password' });
   });
 
   test('should get user profile successfully', async () => {
-    const result = getResult(useLazyGetUserQuery)();
+    const { data } = await store.dispatch(
+      authApi.endpoints.getUser.initiate(token.access_token)
+    );
 
-    act(() => {
-      result.current[0](token.access_token);
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isSuccess).toBe(true);
-    });
-
-    expect(result.current[1].data).toEqual(user);
+    expect(data).toEqual(user);
   });
 
   test('should handle get user profile error', async () => {
-    const result = getResult(useLazyGetUserQuery)();
+    const { error } = await store.dispatch(
+      authApi.endpoints.getUser.initiate('wrong token')
+    );
 
-    act(() => {
-      result.current[0]('wrong token');
-    });
-
-    await waitFor(() => {
-      expect(result.current[1].isError).toBe(true);
-    });
-
-    expect(result.current[1].error).toEqual({ message: 'Invalid token' });
+    expect(error).toEqual({ message: 'Invalid token' });
   });
 });
