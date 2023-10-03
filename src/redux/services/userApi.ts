@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import api from "./api";
 
 const userApi = api.injectEndpoints({
@@ -8,6 +9,13 @@ const userApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
+      async onQueryStarted(_args, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('Register success!');
+        } catch (e) { }
+      },
+      transformErrorResponse() { return { message: 'Register faild' }; },
     }),
     updateUser: build.mutation<UserRes, UpdateUserReq>({
       query: ({ id, userNewData }) => ({
@@ -15,6 +23,13 @@ const userApi = api.injectEndpoints({
         method: 'PUT',
         body: userNewData,
       }),
+      async onQueryStarted(_args, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('Update success!');
+        } catch (e) { }
+      },
+      transformErrorResponse() { return { message: 'Update faild' }; },
     }),
     checkEmail: build.mutation<CheckEmailRes, CheckEmailReq>({
       query: (email) => ({

@@ -4,8 +4,8 @@ import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { toast } from 'react-hot-toast';
 
 import cartReducer from "./reducers/cartReducer";
+import authReducer from './reducers/authReducer';
 import api from "./services/api";
-import authApi from './services/authApi';
 
 const rtkQueryErrorMiddleware: Middleware =
   () => (next) => (action) => {
@@ -19,12 +19,11 @@ const rtkQueryErrorMiddleware: Middleware =
 const store = configureStore({
   reducer: {
     cart: cartReducer,
-    [authApi.reducerPath]: authApi.reducer,
+    auth: authReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(api.middleware)
-    .concat(authApi.middleware)
     .concat(rtkQueryErrorMiddleware),
 });
 
