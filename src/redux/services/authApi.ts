@@ -37,7 +37,9 @@ const authApi = api.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
           toast.success('Welcome back!');
-        } catch (e) { }
+        } catch (e) {
+          localStorage.removeItem('token');
+        }
       },
       transformErrorResponse() {
         return { message: 'Invalid token' };

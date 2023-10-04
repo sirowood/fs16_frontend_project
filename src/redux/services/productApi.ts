@@ -1,20 +1,19 @@
+import { addProduct, removeProduct, setProducts, updateProduct } from "../reducers/productReducer";
 import api from "./api";
 
 const productApi = api.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<ProductRes[], GetProductsReq>({
       query: ({ categoryId, offset, limit, title }) => `products?categoryId=${categoryId}&title=${title}&offset=${offset}&limit=${limit}`,
-      providesTags: (result) =>
-        result
-          ? [
-            ...result.map(({ id }) => ({ type: 'Products' as const, id })),
-            { type: 'Products', id: 'LIST' },
-          ]
-          : [{ type: 'Products', id: 'LIST' }],
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setProducts(data));
+        } catch { }
+      },
     }),
     getSingleProduct: build.query<ProductRes, number>({
       query: (id) => `products/${id}`,
-      providesTags: (_result, _error, id) => [{ type: 'Products', id }],
       transformErrorResponse() {
         return { message: 'No such product' };
       },
@@ -25,7 +24,12 @@ const productApi = api.injectEndpoints({
         method: 'POST',
         body: newProduct,
       }),
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(addProduct(data));
+        } catch { }
+      },
       transformErrorResponse() {
         return { message: 'Something went wrong while adding new product' };
       },
@@ -36,7 +40,12 @@ const productApi = api.injectEndpoints({
         method: 'PUT',
         body: productNewData,
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: 'Products', id }],
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(updateProduct(data));
+        } catch { }
+      },
       transformErrorResponse() {
         return { message: 'Something went wrong while updating the product' };
       },
@@ -46,7 +55,12 @@ const productApi = api.injectEndpoints({
         url: `products/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_result, _error, id) => [{ type: 'Products', id }],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(removeProduct(id));
+        } catch { }
+      },
       transformErrorResponse() {
         return { message: 'No such product' };
       },
