@@ -1,10 +1,16 @@
 import api from "./api";
+import { setCategory } from "../reducers/categoryReducer";
 
 const categoryApi = api.injectEndpoints({
   endpoints: (build) => ({
     getCategories: build.query<Category[], void>({
       query: () => 'categories',
-      providesTags: ['Categories'],
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCategory(data));
+        } catch { }
+      },
     }),
   }),
 });
