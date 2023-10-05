@@ -5,7 +5,7 @@ import useRegisterModal from '../hooks/useRegisterModal';
 import { useRegisterMutation } from '../redux/services/userApi';
 
 const RegisterModal = () => {
-  const { isOpen, closeRegisterModal } = useRegisterModal();
+  const { isOpen, onClose } = useRegisterModal();
   const [register] = useRegisterMutation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ const RegisterModal = () => {
   return (
     <ModalProvider
       open={isOpen}
-      onClose={closeRegisterModal}
+      onClose={onClose}
     >
       <form onSubmit={handleSubmit}>
         <label>

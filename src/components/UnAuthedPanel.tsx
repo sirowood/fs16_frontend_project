@@ -1,12 +1,12 @@
 import { Box, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 
-import useAuthModal from '../hooks/useAuthModal';
+import useAuthModal from '../hooks/useLoginModal';
 import useRegisterModal from '../hooks/useRegisterModal';
 
 const HeaderAuthPanel = () => {
-  const { openAuthModal } = useAuthModal();
-  const { openRegisterModal } = useRegisterModal();
+  const { onOpen: openAuthModal } = useAuthModal();
+  const { onOpen: openRegisterModal } = useRegisterModal();
 
   return (
     <Box

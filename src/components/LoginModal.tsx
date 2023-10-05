@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import ModalProvider from './Modal';
-import useAuthModal from '../hooks/useAuthModal';
+import useAuthModal from '../hooks/useLoginModal';
 import { useLoginMutation } from '../redux/services/authApi';
 
-const AuthModal = () => {
+const LoginModal = () => {
   const [login, { isSuccess }] = useLoginMutation();
-  const { isOpen, closeAuthModal } = useAuthModal();
+  const { isOpen, onClose } = useAuthModal();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,14 +17,14 @@ const AuthModal = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      closeAuthModal();
+      onClose();
     }
-  }, [isSuccess, closeAuthModal]);
+  }, [isSuccess, onClose]);
 
   return (
     <ModalProvider
       open={isOpen}
-      onClose={closeAuthModal}
+      onClose={onClose}
     >
       <form onSubmit={handleSubmit}>
         <input
@@ -45,4 +45,4 @@ const AuthModal = () => {
   );
 };
 
-export default AuthModal;
+export default LoginModal;
