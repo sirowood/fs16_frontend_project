@@ -1,19 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Box, TextField, Button } from '@mui/material';
 
-import ModalProvider from './Modal';
+import Modal from './Modal';
 import useAuthModal from '../hooks/useLoginModal';
 import { useLoginMutation } from '../redux/services/authApi';
+import { LoginFormData } from '../types/modal';
+
+const schema = yup.object({
+  email: yup.string().email('Invalid email address').required('Required'),
+  password: yup.string().required('Required'),
+});
 
 const LoginModal = () => {
-  const [login, { isSuccess }] = useLoginMutation();
+  const [login, { isSuccess, isLoading }] = useLoginMutation();
   const { isOpen, onClose } = useAuthModal();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const defaultValues = useMemo(
+    () => ({
+      email: '',
+      password: '',
+    }),
+    []
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    login({ email, password });
+  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
+    login({ ...data });
   };
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -22,26 +45,57 @@ const LoginModal = () => {
   }, [isSuccess, onClose]);
 
   return (
-    <ModalProvider
+    <Modal
       open={isOpen}
       onClose={onClose}
     >
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              variant="standard"
+              label="Email"
+              error={Boolean(errors.email?.message)}
+              helperText={errors.email?.message}
+              sx={{ height: 80 }}
+              {...field}
+            />
+          )}
         />
-
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              variant="standard"
+              label="Password"
+              type="password"
+              error={Boolean(errors.password?.message)}
+              helperText={errors.password?.message}
+              sx={{ height: 80 }}
+              {...field}
+            />
+          )}
         />
-
-        <button type="submit">Login</button>
-      </form>
-    </ModalProvider>
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={isLoading || !isValid}
+        >
+          Login
+        </Button>
+      </Box>
+    </Modal>
   );
 };
 

@@ -10,7 +10,13 @@ type ModalProps = {
   onClose: () => void,
 };
 
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
 export type {
   ModalStore,
   ModalProps,
+  LoginFormData,
 };
