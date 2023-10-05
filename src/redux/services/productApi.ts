@@ -4,7 +4,10 @@ import api from "./api";
 const productApi = api.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<ProductRes[], GetProductsReq>({
-      query: ({ categoryId, offset, limit, title }) => `products?categoryId=${categoryId}&title=${title}&offset=${offset}&limit=${limit}`,
+      query: (params) => ({
+        url: 'products',
+        params,
+      }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
