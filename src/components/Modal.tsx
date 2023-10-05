@@ -20,6 +20,9 @@ const Modal = ({ children, open, onClose }: ModalProps) => {
           boxShadow: 24,
           p: 4,
           borderRadius: '8px',
+          maxHeight: '80%',
+          overflowY: 'auto',
+          minWidth: '200px',
         }}
       >
         {children}

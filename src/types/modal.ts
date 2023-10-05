@@ -1,3 +1,6 @@
+import { LoginReq } from "./auth";
+import { RegisterUserReq } from "./user";
+
 type ModalStore = {
   isOpen: boolean,
   onOpen: () => void,
@@ -10,13 +13,13 @@ type ModalProps = {
   onClose: () => void,
 };
 
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+type LoginFormData = LoginReq;
+
+type RegisterFormData = RegisterUserReq;
 
 export type {
   ModalStore,
   ModalProps,
   LoginFormData,
+  RegisterFormData,
 };

@@ -3,7 +3,7 @@ type User = {
   email: string,
   name: string,
   password: string,
-  role: 'customer' | 'admin',
+  role: string,
   avatar: string,
 };
 

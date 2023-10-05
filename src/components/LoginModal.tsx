@@ -26,23 +26,26 @@ const LoginModal = () => {
   );
 
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    login({ ...data });
+    login(data);
   };
 
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors, isValid },
   } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
+    mode: 'all',
   });
 
   useEffect(() => {
     if (isSuccess) {
       onClose();
+      reset();
     }
-  }, [isSuccess, onClose]);
+  }, [isSuccess, onClose, reset]);
 
   return (
     <Modal
