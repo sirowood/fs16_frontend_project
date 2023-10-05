@@ -5,9 +5,7 @@ type User = {
   password: string,
   role: 'customer' | 'admin',
   avatar: string,
-}
-
-type UserRes = User;
+};
 
 type RegisterUserReq = Omit<User, 'id'>;
 
@@ -16,10 +14,13 @@ type UpdateUserReq = {
   userNewData: Partial<Omit<User, 'id' | 'role'>>
 };
 
-type CheckEmailReq = {
-  email: string,
-};
-
 type CheckEmailRes = {
   isAvailable: boolean,
+};
+
+export type {
+  User,
+  RegisterUserReq,
+  UpdateUserReq,
+  CheckEmailRes,
 };

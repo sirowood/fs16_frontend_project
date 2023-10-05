@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 type Product = {
   id: number,
   title: string,
@@ -24,4 +26,12 @@ type AddProductReq = Omit<Product, 'id' | 'category' | 'creationAt' | 'updatedAt
 type UpdateProductReq = {
   id: number,
   productNewData: Partial<AddProductReq>,
+};
+
+export type {
+  Product,
+  GetProductsReq,
+  ProductRes,
+  AddProductReq,
+  UpdateProductReq,
 };

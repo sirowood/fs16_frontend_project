@@ -1,5 +1,7 @@
-import { addProduct, removeProduct, setProducts, updateProduct } from "../reducers/productReducer";
 import api from "./api";
+import { addProduct, removeProduct, setProducts, updateProduct } from "../reducers/productReducer";
+
+import { ProductRes, GetProductsReq, AddProductReq, UpdateProductReq } from "../../types/product";
 
 const productApi = api.injectEndpoints({
   endpoints: (build) => ({

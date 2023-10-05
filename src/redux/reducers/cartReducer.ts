@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { AddProductInCart, CartItem } from '../../types/cart';
 
 const updateCart = (newCart: CartItem[]) => {
   localStorage.setItem('cart', JSON.stringify(newCart));

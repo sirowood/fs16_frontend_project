@@ -1,9 +1,12 @@
 import toast from "react-hot-toast";
+
 import api from "./api";
+
+import { CheckEmailRes, RegisterUserReq, UpdateUserReq, User } from "../../types/user";
 
 const userApi = api.injectEndpoints({
   endpoints: (build) => ({
-    register: build.mutation<UserRes, RegisterUserReq>({
+    register: build.mutation<User, RegisterUserReq>({
       query: (body) => ({
         url: 'users',
         method: 'POST',
@@ -17,7 +20,7 @@ const userApi = api.injectEndpoints({
       },
       transformErrorResponse() { return { message: 'Register faild' }; },
     }),
-    updateUser: build.mutation<UserRes, UpdateUserReq>({
+    updateUser: build.mutation<User, UpdateUserReq>({
       query: ({ id, userNewData }) => ({
         url: `users/${id}`,
         method: 'PUT',

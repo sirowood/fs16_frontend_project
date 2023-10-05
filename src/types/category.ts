@@ -5,3 +5,7 @@ type Category = {
   creationAt: string,
   updatedAt: string,
 }
+
+export type {
+  Category,
+};

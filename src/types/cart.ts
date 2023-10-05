@@ -11,3 +11,8 @@ type AddProductInCart = {
   title: string,
   price: number,
 };
+
+export type {
+  CartItem,
+  AddProductInCart,
+};
