@@ -2,7 +2,6 @@ import toast from 'react-hot-toast';
 
 import api from './api';
 import { setUser } from '../reducers/authReducer';
-
 import { LoginReq, LoginRes } from '../../types/auth';
 import { User } from '../../types/user';
 

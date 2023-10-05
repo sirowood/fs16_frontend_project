@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
 
 import api from "./api";
-
 import { CheckEmailRes, RegisterUserReq, UpdateUserReq, User } from "../../types/user";
 
 const userApi = api.injectEndpoints({
