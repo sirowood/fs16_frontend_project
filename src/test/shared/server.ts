@@ -78,16 +78,9 @@ const server = setupServer(
     );
   }),
 
-  rest.post(`${baseUrl}/users/is-available`, async (req, res, ctx) => {
-    const body = await req.json();
-    const { email } = body;
-
-    const isAvailable = users.findIndex((user) => user.email === email) >= 0
-      ? true
-      : false;
-
+  rest.get(`${baseUrl}/users`, async (req, res, ctx) => {
     return res(
-      ctx.json({ isAvailable }),
+      ctx.json(users),
     );
   }),
 

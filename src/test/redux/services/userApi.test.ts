@@ -42,17 +42,17 @@ describe('userApi', () => {
 
   test('should check valid email successfully', async () => {
     const result: any = await store.dispatch(
-      userApi.endpoints.checkEmail.initiate({ email: 'john@mail.com' })
+      userApi.endpoints.checkEmail.initiate('john@mail.com')
     );
 
-    expect(result.data).toEqual({ isAvailable: true });
+    expect(result.data).toEqual({ isAvailable: false });
   });
 
   test('should check invalid email successfully', async () => {
     const result: any = await store.dispatch(
-      userApi.endpoints.checkEmail.initiate({ email: 'invalid@mail.com' })
+      userApi.endpoints.checkEmail.initiate('invalid@mail.com')
     );
 
-    expect(result.data).toEqual({ isAvailable: false });
+    expect(result.data).toEqual({ isAvailable: true });
   });
 });

@@ -31,12 +31,12 @@ const userApi = api.injectEndpoints({
       },
       transformErrorResponse() { return { message: 'Update faild' }; },
     }),
-    checkEmail: build.mutation<CheckEmailRes, CheckEmailReq>({
-      query: (email) => ({
-        url: 'users/is-available',
-        method: 'POST',
-        body: email,
-      }),
+    checkEmail: build.query<CheckEmailRes, string>({
+      query: () => ({ url: 'users' }),
+      transformResponse(response: User[], _meta, email) {
+        const isAvailable = response.findIndex((user) => user.email === email) < 0;
+        return { isAvailable };
+      },
     }),
   }),
 });
@@ -44,6 +44,6 @@ const userApi = api.injectEndpoints({
 export const {
   useRegisterMutation,
   useUpdateUserMutation,
-  useCheckEmailMutation,
+  useLazyCheckEmailQuery,
 } = userApi;
 export default userApi;
