@@ -12,11 +12,12 @@ import {
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ExploreIcon from '@mui/icons-material/Explore';
 
 import { useAppDispatch } from '../redux/store';
 import { logout } from '../redux/reducers/authReducer';
 
-const AuthedPanel = ({ avatar }: { avatar: string }) => {
+const AuthedPanel = ({ avatar, role }: { avatar: string; role: string }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -34,9 +35,14 @@ const AuthedPanel = ({ avatar }: { avatar: string }) => {
     dispatch(logout());
   };
 
-  const handleNavigate = () => {
+  const navigateToProfile = () => {
     handleCloseUserMenu();
     navigate('/profile');
+  };
+
+  const navigateToDashboard = () => {
+    handleCloseUserMenu();
+    navigate('/dashboard');
   };
 
   return (
@@ -63,12 +69,20 @@ const AuthedPanel = ({ avatar }: { avatar: string }) => {
         onClose={handleCloseUserMenu}
       >
         <MenuList>
-          <MenuItem onClick={handleNavigate}>
+          <MenuItem onClick={navigateToProfile}>
             <ListItemIcon>
               <AccountCircleIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText>Profile</ListItemText>
           </MenuItem>
+          {role === 'admin' && (
+            <MenuItem onClick={navigateToDashboard}>
+              <ListItemIcon>
+                <ExploreIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </MenuItem>
+          )}
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <LogoutIcon fontSize="small" />

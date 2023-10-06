@@ -26,7 +26,14 @@ const Header = () => {
       >
         <Typography color={'black'}>Home</Typography>
       </Link>
-      {user ? <AuthedPanel avatar={user.avatar} /> : <UnAuthedPanel />}
+      {user ? (
+        <AuthedPanel
+          avatar={user.avatar}
+          role={user.role}
+        />
+      ) : (
+        <UnAuthedPanel />
+      )}
     </Container>
   );
 };

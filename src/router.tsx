@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
 import ShoppingCart from './pages/ShoppingCart';
+import Dashboard from './pages/Dashboard';
 
 const routes: RouteObject[] = [
   {
@@ -28,6 +29,10 @@ const routes: RouteObject[] = [
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
       },
     ],
   },

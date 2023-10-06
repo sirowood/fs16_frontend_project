@@ -13,10 +13,10 @@ type Product = {
 };
 
 type GetProductsReq = {
-  categoryId: number,
-  offset: number,
-  limit: number,
-  title: string,
+  categoryId?: number,
+  offset?: number,
+  limit?: number,
+  title?: string,
 };
 
 type ProductRes = Omit<Product, 'categoryId'>;
