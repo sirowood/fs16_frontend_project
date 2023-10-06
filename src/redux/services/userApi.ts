@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 
 import api from "./api";
 import { CheckEmailRes, RegisterUserReq, UpdateUserReq, User } from "../../types/user";
+import { setUser } from "../reducers/authReducer";
 
 const userApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -25,9 +26,10 @@ const userApi = api.injectEndpoints({
         method: 'PUT',
         body: userNewData,
       }),
-      async onQueryStarted(_args, { queryFulfilled }) {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          await queryFulfilled;
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data));
           toast.success('Update success!');
         } catch (e) { }
       },

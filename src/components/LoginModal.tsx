@@ -3,6 +3,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Box, TextField, Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Modal from './Modal';
 import useAuthModal from '../hooks/useLoginModal';
@@ -95,7 +96,14 @@ const LoginModal = () => {
           type="submit"
           disabled={isLoading || !isValid}
         >
-          Login
+          {isLoading ? (
+            <CircularProgress
+              size="24px"
+              color="inherit"
+            />
+          ) : (
+            'Login'
+          )}
         </Button>
       </Box>
     </Modal>

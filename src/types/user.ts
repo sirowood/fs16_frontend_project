@@ -11,8 +11,12 @@ type RegisterUserReq = Omit<User, 'id'>;
 
 type UpdateUserReq = {
   id: number,
-  userNewData: Partial<Omit<User, 'id' | 'role'>>
+  userNewData: Partial<Omit<User, 'id' | 'role'>>;
 };
+
+type UpdateUserInfoFormProps = Omit<User, 'role' | 'password'>;
+
+type UpdateUserPasswordFormProps = Pick<User, 'id'>;
 
 type CheckEmailRes = {
   isAvailable: boolean,
@@ -21,6 +25,8 @@ type CheckEmailRes = {
 export type {
   User,
   RegisterUserReq,
+  UpdateUserInfoFormProps,
+  UpdateUserPasswordFormProps,
   UpdateUserReq,
   CheckEmailRes,
 };

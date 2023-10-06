@@ -3,6 +3,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Box, TextField, Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Modal from './Modal';
 import useRegisterModal from '../hooks/useRegisterModal';
@@ -58,6 +59,7 @@ const RegisterModal = () => {
       reset();
     }
   }, [onClose, reset, isSuccess]);
+
   return (
     <Modal
       open={isOpen}
@@ -149,7 +151,14 @@ const RegisterModal = () => {
           type="submit"
           disabled={isLoading || !isValid}
         >
-          Register
+          {isLoading ? (
+            <CircularProgress
+              size="24px"
+              color="inherit"
+            />
+          ) : (
+            'Register'
+          )}
         </Button>
       </Box>
     </Modal>
