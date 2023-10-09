@@ -6,9 +6,9 @@ import { Box, TextField, Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Modal from './Modal';
-import useAuthModal from '../hooks/useLoginModal';
-import { useLoginMutation } from '../redux/services/authApi';
-import { LoginFormData } from '../types/modal';
+import useAuthModal from '../../hooks/useLoginModal';
+import { useLoginMutation } from '../../redux/services/authApi';
+import { LoginFormData } from '../../types/modal';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email address').required('Required'),

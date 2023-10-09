@@ -6,9 +6,9 @@ import { Box, TextField, Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Modal from './Modal';
-import useRegisterModal from '../hooks/useRegisterModal';
-import { useRegisterMutation } from '../redux/services/userApi';
-import { RegisterFormData } from '../types/modal';
+import useRegisterModal from '../../hooks/useRegisterModal';
+import { useRegisterMutation } from '../../redux/services/userApi';
+import { RegisterFormData } from '../../types/modal';
 
 const schema = yup.object({
   name: yup.string().min(4, 'At least 4 characters').required('Required'),

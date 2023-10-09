@@ -1,7 +1,7 @@
-import AddProductModal from '../components/AddProductModal';
-import EditProductModal from '../components/EditProductModal ';
-import LoginModal from '../components/LoginModal';
-import RegisterModal from '../components/RegisterModal';
+import AddProductModal from '../components/modals/AddProductModal';
+import EditProductModal from '../components/modals/EditProductModal ';
+import LoginModal from '../components/modals/LoginModal';
+import RegisterModal from '../components/modals/RegisterModal';
 
 const ModalProvider = () => {
   return (

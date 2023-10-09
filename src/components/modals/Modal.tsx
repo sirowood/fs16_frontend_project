@@ -1,6 +1,6 @@
 import { Box, Modal as MaterialModal } from '@mui/material';
 
-import { ModalProps } from '../types/modal';
+import { ModalProps } from '../../types/modal';
 
 const Modal = ({ children, open, onClose }: ModalProps) => {
   return (

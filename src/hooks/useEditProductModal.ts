@@ -1,17 +1,6 @@
 import { create } from "zustand";
 
-import { ModalStore } from "../types/modal";
-
-type DefaultValues = {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  categoryId: number;
-  images: { url: string }[];
-};
-
-type EditProductModalProps = ModalStore & { defaultValues: DefaultValues, setDefaultValues: (defaultValues: DefaultValues) => void };
+import { ProductDefaultValues, EditProductModalStore } from "../types/modal";
 
 const defaultValues = {
   id: 0,
@@ -22,12 +11,12 @@ const defaultValues = {
   images: [{ url: '' }],
 }
 
-const useEditProductModal = create<EditProductModalProps>((set) => ({
+const useEditProductModal = create<EditProductModalStore>((set) => ({
   defaultValues,
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false, defaultValues }),
-  setDefaultValues: (defaultValues: DefaultValues) => set({ defaultValues }),
+  setDefaultValues: (defaultValues: ProductDefaultValues) => set({ defaultValues }),
 }));
 
 export default useEditProductModal;
