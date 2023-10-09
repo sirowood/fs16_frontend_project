@@ -1,12 +1,21 @@
 import {
   Control,
   FieldErrors,
+  FieldValues,
+  Path,
 } from 'react-hook-form';
-import {
-  InputBaseComponentProps
-} from '@mui/material';
+import { InputBaseComponentProps } from '@mui/material';
 
-type ProductDefaultValues = {
+import { LoginReq } from "./auth";
+import { RegisterUserReq } from "./user";
+
+type FieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>
+
+type LoginFormValues = LoginReq;
+
+type RegisterFormValues = RegisterUserReq;
+
+type FullProductFormValues = {
   id: number;
   title: string;
   price: number;
@@ -15,38 +24,43 @@ type ProductDefaultValues = {
   images: { url: string }[];
 };
 
+type ProductFormValues = Omit<FullProductFormValues, 'id'>;
+
 type ProductFormProps = {
-  errors: FieldErrors<ProductDefaultValues>;
-  defaultValues: ProductDefaultValues;
+  errors: FieldErrors<ProductFormValues>;
+  defaultValues: ProductFormValues;
   disabled: boolean;
   loading: boolean;
   submitButtonText: string;
-  control: Control<Omit<ProductDefaultValues, 'id'>, any>;
+  control: Control<ProductFormValues, any>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 };
 
 type InputFieldProps = {
-  name: "title" | "price" | "description" | "categoryId" | "images" | `images.${number}` | `images.${number}.url`,
+  name: FieldPath<ProductFormValues>,
   label: string,
   errorMessage?: string,
   type?: string,
   inputProps?: InputBaseComponentProps,
-  control: Control<Omit<ProductDefaultValues, 'id'>, any>;
+  control: Control<ProductFormValues, any>;
 }
 
 type CategorySelectProps = {
   errorMessage?: string,
   defaultValue: number,
-  control: Control<Omit<ProductDefaultValues, 'id'>, any>;
+  control: Control<ProductFormValues, any>;
 };
 
 type ImageURLFieldsProps = {
-  errors: FieldErrors<ProductDefaultValues>,
-  control: Control<Omit<ProductDefaultValues, 'id'>, any>,
+  errors: FieldErrors<ProductFormValues>,
+  control: Control<ProductFormValues, any>,
 };
 
 export type {
-  ProductDefaultValues,
+  LoginFormValues,
+  RegisterFormValues,
+  FullProductFormValues,
+  ProductFormValues,
   ProductFormProps,
   InputFieldProps,
   CategorySelectProps,

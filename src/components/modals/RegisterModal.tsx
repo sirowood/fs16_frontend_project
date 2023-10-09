@@ -1,26 +1,14 @@
 import { useMemo, useEffect } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { Box, TextField, Button } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import Modal from './Modal';
 import useRegisterModal from '../../hooks/useRegisterModal';
 import { useRegisterMutation } from '../../redux/services/userApi';
-import { RegisterFormData } from '../../types/modal';
-
-const schema = yup.object({
-  name: yup.string().min(4, 'At least 4 characters').required('Required'),
-  email: yup.string().email('Invalid email address').required('Required'),
-  password: yup.string().min(8, 'At least 8 characters').required('Required'),
-  confirmPassword: yup
-    .string()
-    .required('Required')
-    .oneOf([yup.ref('password')], 'Passwords must match'),
-  avatar: yup.string().required('Avatar required'),
-  role: yup.string().required(),
-});
+import registerFormSchema from '../../schemas/registerFormSchema';
+import { RegisterFormValues } from '../../types/form';
 
 const RegisterModal = () => {
   const { isOpen, onClose } = useRegisterModal();
@@ -38,7 +26,7 @@ const RegisterModal = () => {
     []
   );
 
-  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
     register(data);
   };
 
@@ -49,7 +37,7 @@ const RegisterModal = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerFormSchema),
     mode: 'all',
   });
 
@@ -146,20 +134,15 @@ const RegisterModal = () => {
             />
           )}
         />
-        <Button
-          variant="contained"
+        <LoadingButton
           type="submit"
+          fullWidth
+          variant="contained"
           disabled={isLoading || !isValid}
+          loading={isLoading}
         >
-          {isLoading ? (
-            <CircularProgress
-              size="24px"
-              color="inherit"
-            />
-          ) : (
-            'Register'
-          )}
-        </Button>
+          Register
+        </LoadingButton>
       </Box>
     </Modal>
   );

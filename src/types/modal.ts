@@ -1,6 +1,4 @@
-import { LoginReq } from "./auth";
-import { RegisterUserReq } from "./user";
-import { ProductDefaultValues } from "./form";
+import { FullProductFormValues } from "./form";
 
 type ModalStore = {
   isOpen: boolean,
@@ -8,8 +6,8 @@ type ModalStore = {
   onClose: () => void,
 };
 type EditProductModalStore = ModalStore & {
-  defaultValues: ProductDefaultValues,
-  setDefaultValues: (defaultValues: ProductDefaultValues) => void,
+  defaultValues: FullProductFormValues,
+  setDefaultValues: (defaultValues: FullProductFormValues) => void,
 };
 
 type ModalProps = {
@@ -18,15 +16,8 @@ type ModalProps = {
   onClose: () => void,
 };
 
-type LoginFormData = LoginReq;
-
-type RegisterFormData = RegisterUserReq;
-
 export type {
-  ProductDefaultValues,
   ModalStore,
   EditProductModalStore,
   ModalProps,
-  LoginFormData,
-  RegisterFormData,
 };

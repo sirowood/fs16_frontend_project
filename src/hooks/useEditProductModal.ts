@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
-import { ProductDefaultValues, EditProductModalStore } from "../types/modal";
+import { EditProductModalStore } from "../types/modal";
+import { FullProductFormValues } from '../types/form';
 
 const defaultValues = {
   id: 0,
@@ -16,7 +17,7 @@ const useEditProductModal = create<EditProductModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false, defaultValues }),
-  setDefaultValues: (defaultValues: ProductDefaultValues) => set({ defaultValues }),
+  setDefaultValues: (defaultValues: FullProductFormValues) => set({ defaultValues }),
 }));
 
 export default useEditProductModal;

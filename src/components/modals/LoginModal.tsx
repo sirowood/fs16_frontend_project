@@ -1,19 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { Box, TextField, Button } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import Modal from './Modal';
 import useAuthModal from '../../hooks/useLoginModal';
 import { useLoginMutation } from '../../redux/services/authApi';
-import { LoginFormData } from '../../types/modal';
-
-const schema = yup.object({
-  email: yup.string().email('Invalid email address').required('Required'),
-  password: yup.string().required('Required'),
-});
+import loginFormSchema from '../../schemas/loginFormSchema';
+import { LoginFormValues } from '../../types/form';
 
 const LoginModal = () => {
   const [login, { isSuccess, isLoading }] = useLoginMutation();
@@ -26,7 +21,7 @@ const LoginModal = () => {
     []
   );
 
-  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     login(data);
   };
 
@@ -37,7 +32,7 @@ const LoginModal = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginFormSchema),
     mode: 'all',
   });
 
@@ -91,20 +86,15 @@ const LoginModal = () => {
             />
           )}
         />
-        <Button
-          variant="contained"
+        <LoadingButton
           type="submit"
+          fullWidth
+          variant="contained"
           disabled={isLoading || !isValid}
+          loading={isLoading}
         >
-          {isLoading ? (
-            <CircularProgress
-              size="24px"
-              color="inherit"
-            />
-          ) : (
-            'Login'
-          )}
-        </Button>
+          Login
+        </LoadingButton>
       </Box>
     </Modal>
   );

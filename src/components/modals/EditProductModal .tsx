@@ -8,14 +8,14 @@ import ProductForm from '../forms/ProductForm';
 import productFormSchema from '../../schemas/productFormSchema';
 import { useUpdateProductMutation } from '../../redux/services/productApi';
 import useEditProductModal from '../../hooks/useEditProductModal';
-import { ProductDefaultValues } from '../../types/modal';
+import { ProductFormValues, FullProductFormValues } from '../../types/form';
 
 const EditProductModal = () => {
   const [updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
   const { isOpen, onClose, defaultValues } = useEditProductModal();
 
-  const onSubmit: SubmitHandler<Omit<ProductDefaultValues, 'id'>> = (data) => {
-    const { id, ...rest } = data as ProductDefaultValues;
+  const onSubmit: SubmitHandler<ProductFormValues> = (data) => {
+    const { id, ...rest } = data as FullProductFormValues;
     const productNewData = {
       title: rest.title,
       price: rest.price,

@@ -8,7 +8,7 @@ import productFormSchema from '../../schemas/productFormSchema';
 import useAddProductModal from '../../hooks/useAddProductModal';
 import { useAddProductMutation } from '../../redux/services/productApi';
 import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
-import { ProductDefaultValues } from '../../types/modal';
+import { ProductFormValues } from '../../types/form';
 
 const AddProductModal = () => {
   useGetCategoriesQuery();
@@ -26,7 +26,7 @@ const AddProductModal = () => {
     []
   );
 
-  const onSubmit: SubmitHandler<Omit<ProductDefaultValues, 'id'>> = (data) => {
+  const onSubmit: SubmitHandler<ProductFormValues> = (data) => {
     const newProduct = {
       title: data.title,
       price: data.price,
