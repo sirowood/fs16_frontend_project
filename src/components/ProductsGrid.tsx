@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { Box } from '@mui/material';
 import {
@@ -6,10 +6,10 @@ import {
   GridColDef,
   GridValueGetterParams,
   GridActionsCellItem,
+  GridRowId,
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { useAppSelector } from '../redux/store';
 import {
   useGetProductsQuery,
   useRemoveProductMutation,
@@ -33,14 +33,13 @@ const dataGridStyle = {
 };
 
 const ProductsGrid = () => {
-  useGetProductsQuery({});
-  const data = useAppSelector((state) => state.products);
   const { onOpen, setDefaultValues } = useEditProductModal();
   const [removeProduct, { isLoading, isSuccess }] = useRemoveProductMutation();
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
     page: 0,
   });
+  const { data, isLoading: loadingProducts } = useGetProductsQuery({});
 
   const openEditProductModal = ({ row }: { row: ProductRes }) => {
     const productValues = {
@@ -54,6 +53,15 @@ const ProductsGrid = () => {
     setDefaultValues(productValues);
     onOpen();
   };
+
+  const handleDelete = useCallback(
+    (id: GridRowId) => {
+      setTimeout(() => {
+        removeProduct(+id);
+      });
+    },
+    [removeProduct]
+  );
 
   const columns: GridColDef[] = useMemo(
     () => [
@@ -90,7 +98,7 @@ const ProductsGrid = () => {
           return [
             <GridActionsCellItem
               label="Delete"
-              onClick={() => removeProduct(+id)}
+              onClick={() => handleDelete(id)}
               disabled={isLoading}
               icon={
                 <DeleteIcon
@@ -107,7 +115,7 @@ const ProductsGrid = () => {
         },
       },
     ],
-    [isLoading, removeProduct]
+    [handleDelete, isLoading]
   );
 
   useEffect(() => {
@@ -120,14 +128,15 @@ const ProductsGrid = () => {
     <Box component="section">
       {data && (
         <DataGrid
-          sx={dataGridStyle}
           autoHeight
+          sx={dataGridStyle}
           rows={data}
           columns={columns}
           pageSizeOptions={[5, 10, 20, 40]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           rowCount={data.length}
+          loading={loadingProducts}
           disableRowSelectionOnClick={true}
           onRowClick={openEditProductModal}
         />

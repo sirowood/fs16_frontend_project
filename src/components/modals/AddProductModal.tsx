@@ -7,11 +7,9 @@ import ProductForm from '../forms/ProductForm';
 import productFormSchema from '../../schemas/productFormSchema';
 import useAddProductModal from '../../hooks/useAddProductModal';
 import { useAddProductMutation } from '../../redux/services/productApi';
-import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
 import { ProductFormValues } from '../../types/form';
 
 const AddProductModal = () => {
-  useGetCategoriesQuery();
   const [addProduct, { isLoading, isSuccess }] = useAddProductMutation();
   const { isOpen, onClose } = useAddProductModal();
   const defaultValues = useMemo(
