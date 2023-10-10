@@ -9,13 +9,13 @@ import {
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { useAppSelector } from '../redux/store';
 import {
   useGetProductsQuery,
   useRemoveProductMutation,
 } from '../redux/services/productApi';
-import { Product, ProductRes } from '../types/product';
-import { useAppSelector } from '../redux/store';
 import useEditProductModal from '../hooks/useEditProductModal';
+import { Product, ProductRes } from '../types/product';
 
 const dataGridStyle = {
   boxShadow: 8,
@@ -33,6 +33,7 @@ const dataGridStyle = {
 };
 
 const ProductsGrid = () => {
+  useGetProductsQuery({});
   const data = useAppSelector((state) => state.products);
   const { onOpen, setDefaultValues } = useEditProductModal();
   const [removeProduct, { isLoading, isSuccess }] = useRemoveProductMutation();
@@ -40,8 +41,6 @@ const ProductsGrid = () => {
     pageSize: 10,
     page: 0,
   });
-
-  useGetProductsQuery({});
 
   const openEditProductModal = ({ row }: { row: ProductRes }) => {
     const productValues = {

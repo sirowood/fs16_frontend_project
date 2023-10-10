@@ -9,11 +9,9 @@ import { InputBaseComponentProps } from '@mui/material';
 import { LoginReq } from "./auth";
 import { RegisterUserReq } from "./user";
 
-type FieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>
-
 type LoginFormValues = LoginReq;
 
-type RegisterFormValues = RegisterUserReq;
+type RegisterFormValues = RegisterUserReq & { confirmPassword: string };
 
 type FullProductFormValues = {
   id: number;
@@ -26,28 +24,28 @@ type FullProductFormValues = {
 
 type ProductFormValues = Omit<FullProductFormValues, 'id'>;
 
-type ProductFormProps = {
-  errors: FieldErrors<ProductFormValues>;
-  defaultValues: ProductFormValues;
+type FormProps<T extends FieldValues> = {
+  errors: FieldErrors<T>;
+  defaultValues?: T;
   disabled: boolean;
   loading: boolean;
   submitButtonText: string;
-  control: Control<ProductFormValues, any>;
+  control: Control<T, any>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 };
 
-type InputFieldProps = {
-  name: FieldPath<ProductFormValues>,
+type InputProps<T extends FieldValues> = {
+  name: Path<T>,
   label: string,
   errorMessage?: string,
   type?: string,
   inputProps?: InputBaseComponentProps,
-  control: Control<ProductFormValues, any>;
+  control: Control<T, any>;
 }
 
 type CategorySelectProps = {
   errorMessage?: string,
-  defaultValue: number,
+  defaultValue?: number,
   control: Control<ProductFormValues, any>;
 };
 
@@ -61,8 +59,8 @@ export type {
   RegisterFormValues,
   FullProductFormValues,
   ProductFormValues,
-  ProductFormProps,
-  InputFieldProps,
+  InputProps,
+  FormProps,
   CategorySelectProps,
   ImageURLFieldsProps,
 };

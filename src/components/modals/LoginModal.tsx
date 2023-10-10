@@ -1,13 +1,12 @@
 import { useEffect, useMemo } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, TextField } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import Modal from './Modal';
-import useAuthModal from '../../hooks/useLoginModal';
-import { useLoginMutation } from '../../redux/services/authApi';
+import LoginForm from '../forms/LoginForm';
 import loginFormSchema from '../../schemas/loginFormSchema';
+import { useLoginMutation } from '../../redux/services/authApi';
+import useAuthModal from '../../hooks/useLoginModal';
 import { LoginFormValues } from '../../types/form';
 
 const LoginModal = () => {
@@ -48,54 +47,14 @@ const LoginModal = () => {
       open={isOpen}
       onClose={onClose}
     >
-      <Box
-        component="form"
+      <LoginForm
+        control={control}
+        errors={errors}
+        disabled={isLoading || !isValid}
+        loading={isLoading}
+        submitButtonText="Login"
         onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              variant="standard"
-              label="Email"
-              error={Boolean(errors.email?.message)}
-              helperText={errors.email?.message}
-              sx={{ height: 80 }}
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              variant="standard"
-              label="Password"
-              type="password"
-              error={Boolean(errors.password?.message)}
-              helperText={errors.password?.message}
-              sx={{ height: 80 }}
-              {...field}
-            />
-          )}
-        />
-        <LoadingButton
-          type="submit"
-          fullWidth
-          variant="contained"
-          disabled={isLoading || !isValid}
-          loading={isLoading}
-        >
-          Login
-        </LoadingButton>
-      </Box>
+      />
     </Modal>
   );
 };

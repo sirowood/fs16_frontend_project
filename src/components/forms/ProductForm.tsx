@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
+import Input from './Input';
 import CategorySelect from './CategorySelect';
 import ImageURLFields from './ImageURLFields';
-import InputField from './InputField';
-import { ProductFormProps } from '../../types/form';
+import { FormProps, ProductFormValues } from '../../types/form';
 
 const ProductForm = ({
   control,
@@ -14,7 +14,7 @@ const ProductForm = ({
   loading,
   submitButtonText,
   onSubmit,
-}: ProductFormProps) => {
+}: FormProps<ProductFormValues>) => {
   return (
     <Box
       component="form"
@@ -28,21 +28,21 @@ const ProductForm = ({
       <CategorySelect
         control={control}
         errorMessage={errors?.categoryId?.message}
-        defaultValue={defaultValues.categoryId}
+        defaultValue={defaultValues?.categoryId}
       />
-      <InputField
+      <Input
         label="Title"
         name="title"
         control={control}
         errorMessage={errors.title?.message}
       />
-      <InputField
+      <Input
         label="Description"
         name="description"
         control={control}
         errorMessage={errors.description?.message}
       />
-      <InputField
+      <Input
         label="Price"
         name="price"
         type="number"

@@ -1,16 +1,16 @@
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
-import { InputFieldProps } from '../../types/form';
+import { InputProps } from '../../types/form';
 
-const InputField = ({
+const Input = <T extends FieldValues>({
   name,
   label,
   type = 'text',
   inputProps,
   control,
   errorMessage,
-}: InputFieldProps) => {
+}: InputProps<T>) => {
   return (
     <Controller
       name={name}
@@ -32,4 +32,4 @@ const InputField = ({
   );
 };
 
-export default InputField;
+export default Input;
