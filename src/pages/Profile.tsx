@@ -20,6 +20,11 @@ const Profile = () => {
     <Container
       component="main"
       maxWidth="xl"
+      sx={{
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        transition: 'all .5s ease',
+      }}
     >
       <UpdateUserInfoForm
         id={user.id}

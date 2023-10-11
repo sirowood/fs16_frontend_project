@@ -16,7 +16,13 @@ const Cart = () => {
   }
 
   return (
-    <main>
+    <Box
+      sx={{
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        transition: 'all .5s ease',
+      }}
+    >
       <Box>
         <Typography variant="h5">Cart</Typography>
       </Box>
@@ -124,7 +130,7 @@ const Cart = () => {
           </Button>
         </Box>
       </Box>
-    </main>
+    </Box>
   );
 };
 

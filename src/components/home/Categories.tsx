@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+import { Box } from '@mui/material';
 
 import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
 
@@ -14,13 +15,15 @@ const Categories = ({ setCategoryId }: CategoriesProps) => {
   }
 
   return (
-    <section
-      style={{
+    <Box
+      component="section"
+      sx={{
         display: 'flex',
-        padding: '0px 24px',
+        padding: '24px 0px',
       }}
     >
       <button onClick={() => setCategoryId(0)}>All</button>
+      {/* TODO - Remove the slice  */}
       {data.slice(0, 5).map((category) => (
         <button
           key={category.id}
@@ -29,7 +32,7 @@ const Categories = ({ setCategoryId }: CategoriesProps) => {
           {category.name}
         </button>
       ))}
-    </section>
+    </Box>
   );
 };
 

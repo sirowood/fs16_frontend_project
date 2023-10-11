@@ -23,7 +23,14 @@ const Dashboard = () => {
     );
   }
   return (
-    <Box component="main">
+    <Box
+      component="main"
+      sx={{
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        transition: 'all .5s ease',
+      }}
+    >
       <Box>
         <Button
           fullWidth

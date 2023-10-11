@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 
 import Categories from '../components/home/Categories';
 
@@ -35,7 +36,17 @@ const Home = () => {
   }, [categoryId]);
 
   return (
-    <main>
+    <Box
+      component="main"
+      sx={{
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        transition: 'all .5s ease',
+        padding: '12px 24px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Categories setCategoryId={setCategoryId} />
       <section>
         <ProductsControl
@@ -58,7 +69,7 @@ const Home = () => {
           nextButtonDisabled={nextButtonDisabled}
         />
       </section>
-    </main>
+    </Box>
   );
 };
 

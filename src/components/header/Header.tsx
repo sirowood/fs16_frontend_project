@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Container, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 import { useAppSelector } from '../../redux/store';
 import UnAuthedPanel from './UnAuthedPanel';
@@ -11,19 +11,20 @@ const Header = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   return (
-    <Container
+    <Box
       component="header"
       sx={{
         position: 'sticky',
+        padding: '0px 24px',
         top: '0px',
         zIndex: '100',
         bgcolor: 'background.default',
+        color: 'text.primary',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         height: '56px',
-        borderRadius: '4px',
-        marginBottom: '16px',
+        transition: 'all .5s ease',
       }}
     >
       <Link
@@ -50,7 +51,7 @@ const Header = () => {
           <UnAuthedPanel />
         )}
       </Box>
-    </Container>
+    </Box>
   );
 };
 

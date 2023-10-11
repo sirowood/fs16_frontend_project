@@ -1,6 +1,19 @@
+import { Box } from '@mui/material';
+
 // TODO
 const Footer = () => {
-  return <footer>Footer</footer>;
+  return (
+    <Box
+      component="footer"
+      sx={{
+        padding: '12px 24px',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+      }}
+    >
+      Footer
+    </Box>
+  );
 };
 
 export default Footer;
