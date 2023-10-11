@@ -23,15 +23,6 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
   const navigate = useNavigate();
   const { addItem } = useCart();
 
-  const addProductInCart = useCallback(() => {
-    addItem({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      image: product.images[0],
-    });
-  }, [addItem, product.id, product.images, product.price, product.title]);
-
   const navigateToProduct = useCallback(() => {
     navigate(`/products/${product.id}`);
   }, [navigate, product.id]);
@@ -51,7 +42,14 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
       <CardActions>
         <IconButton
           size="small"
-          onClick={addProductInCart}
+          onClick={() =>
+            addItem({
+              id: product.id,
+              title: product.title,
+              price: product.price,
+              image: product.images[0],
+            })
+          }
         >
           <Badge
             badgeContent={badgeContent}
