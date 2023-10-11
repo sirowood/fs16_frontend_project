@@ -2,6 +2,7 @@ type CartItem = {
   productId: number,
   title: string,
   price: number,
+  image: string,
   quantity: number,
 };
 
@@ -9,6 +10,7 @@ type CartItem = {
 type AddProductInCart = {
   productId: number,
   title: string,
+  image: string,
   price: number,
 };
 

@@ -17,15 +17,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addProductInCart: (state, action: PayloadAction<AddProductInCart>) => {
-      const { productId, title, price } = action.payload;
+      const { productId } = action.payload;
 
       const productIndex = getProductIndex(productId, state);
 
       if (productIndex === -1) {
         state.push({
-          productId,
-          title,
-          price,
+          ...action.payload,
           quantity: 1,
         });
       } else {

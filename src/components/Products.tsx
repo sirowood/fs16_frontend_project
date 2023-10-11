@@ -1,22 +1,35 @@
-import { useNavigate } from 'react-router-dom';
+import { CSSProperties } from 'react';
+
+import { useAppSelector } from '../redux/store';
+import ProductCard from './ProductCard';
 import { ProductRes } from '../types/product';
 
 type ProductsProps = {
   productsToShow: ProductRes[];
 };
 
+const style: CSSProperties = {
+  backgroundColor: 'green',
+  padding: '24px',
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+};
+
 const Products = ({ productsToShow }: ProductsProps) => {
-  const navigate = useNavigate();
+  const cart = useAppSelector((state) => state.cart);
 
   return (
-    <div>
+    <div style={style}>
       {productsToShow.map((product) => (
-        <div
+        <ProductCard
           key={product.id}
-          onClick={() => navigate(`/products/${product.id}`)}
-        >
-          {product.title} {product.price}
-        </div>
+          product={product}
+          badgeContent={
+            cart.find((item) => item.productId === product.id)?.quantity || 0
+          }
+        />
       ))}
     </div>
   );
