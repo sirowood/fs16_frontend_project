@@ -1,5 +1,5 @@
 type CartItem = {
-  productId: number,
+  id: number,
   title: string,
   price: number,
   image: string,
@@ -8,7 +8,7 @@ type CartItem = {
 
 
 type AddProductInCart = {
-  productId: number,
+  id: number,
   title: string,
   image: string,
   price: number,

@@ -32,13 +32,13 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
   const addProduct = useCallback(() => {
     dispatch(
       addProductInCart({
-        productId: product.id,
+        id: product.id,
         title: product.title,
         price: product.price,
         image: product.images[0],
       })
     );
-  }, [dispatch, product.id, product.images, product.price, product.title]);
+  }, [dispatch, product]);
 
   return (
     <Card>

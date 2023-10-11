@@ -27,7 +27,7 @@ const Products = ({ productsToShow }: ProductsProps) => {
           key={product.id}
           product={product}
           badgeContent={
-            cart.find((item) => item.productId === product.id)?.quantity || 0
+            cart.find((item) => item.id === product.id)?.quantity || 0
           }
         />
       ))}
