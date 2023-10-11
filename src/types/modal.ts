@@ -5,6 +5,7 @@ type ModalStore = {
   onOpen: () => void,
   onClose: () => void,
 };
+
 type EditProductModalStore = ModalStore & {
   defaultValues: FullProductFormValues,
   setDefaultValues: (defaultValues: FullProductFormValues) => void,

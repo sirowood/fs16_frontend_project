@@ -1,40 +1,36 @@
-import { useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Typography, IconButton, Badge, Box } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Link } from 'react-router-dom';
+import { Container, Typography, Box } from '@mui/material';
 
 import { useAppSelector } from '../../redux/store';
 import UnAuthedPanel from './UnAuthedPanel';
 import AuthedPanel from './AuthedPanel';
-import useCart from '../../hooks/useCart';
+import DarkModeSwitch from './DarkModeSwitch';
+import CartButton from './CartButton';
 
 const Header = () => {
-  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  const { cartBadgeContent } = useCart();
-
-  const navigateToShoppingCart = useCallback(() => {
-    navigate('cart');
-  }, [navigate]);
 
   return (
     <Container
       component="header"
       sx={{
-        bgcolor: '#FAFAFA',
+        position: 'sticky',
+        top: '0px',
+        zIndex: '100',
+        bgcolor: 'background.default',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         height: '56px',
         borderRadius: '4px',
-        boxShadow: '0px 4px 4px 2px #EEE',
+        marginBottom: '16px',
       }}
     >
       <Link
         to="/"
         style={{ textDecoration: 'none' }}
       >
-        <Typography color={'black'}>Home</Typography>
+        <Typography color={'text.primary'}>Home</Typography>
       </Link>
       <Box
         sx={{
@@ -43,17 +39,8 @@ const Header = () => {
           gap: '8px',
         }}
       >
-        <IconButton
-          size="large"
-          onClick={navigateToShoppingCart}
-        >
-          <Badge
-            badgeContent={cartBadgeContent}
-            color="info"
-          >
-            <AddShoppingCartIcon color="primary" />
-          </Badge>
-        </IconButton>
+        <DarkModeSwitch />
+        <CartButton />
         {user ? (
           <AuthedPanel
             avatar={user.avatar}
