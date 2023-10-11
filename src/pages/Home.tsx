@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import Categories from '../components/Categories';
+import Categories from '../components/home/Categories';
 
 import useDebounce from '../hooks/useDebounce';
-import ProductsControl from '../components/ProductsControl';
-import PaginationControl from '../components/PaginationControl';
-import Products from '../components/Products';
+import ProductsControl from '../components/home/ProductsControl';
+import PaginationControl from '../components/home/PaginationControl';
+import Products from '../components/home/Products';
 import useProductsToShow from '../hooks/useProductsToShow';
 
 const Home = () => {

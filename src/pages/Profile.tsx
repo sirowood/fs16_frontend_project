@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../redux/store';
 import { Container } from '@mui/material';
-import UpdateUserInfoForm from '../components/UpdateUserInfoForm';
-import UpdateUserPasswordForm from '../components/UpdateUserPasswordForm';
+import UpdateUserInfoForm from '../components/forms/UpdateUserInfoForm';
+import UpdateUserPasswordForm from '../components/forms/UpdateUserPasswordForm';
 
 const Profile = () => {
   const user = useAppSelector((state) => state.auth.user);

@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { useAppSelector } from '../redux/store';
 import useAddProductModal from '../hooks/useAddProductModal';
-import ProductsGrid from '../components/ProductsGrid';
+import ProductsGrid from '../components/dashboard/ProductsGrid';
 
 const Dashboard = () => {
   const user = useAppSelector((state) => state.auth.user);

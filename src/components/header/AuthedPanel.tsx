@@ -14,8 +14,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ExploreIcon from '@mui/icons-material/Explore';
 
-import { useAppDispatch } from '../redux/store';
-import { logout } from '../redux/reducers/authReducer';
+import { useAppDispatch } from '../../redux/store';
+import { logout } from '../../redux/reducers/authReducer';
 
 const AuthedPanel = ({ avatar, role }: { avatar: string; role: string }) => {
   const navigate = useNavigate();

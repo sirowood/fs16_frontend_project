@@ -12,9 +12,9 @@ import {
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { addProductInCart } from '../redux/reducers/cartReducer';
+import { addProductInCart } from '../../redux/reducers/cartReducer';
 
-import { ProductRes } from '../types/product';
+import { ProductRes } from '../../types/product';
 
 type ProductCardProps = {
   product: ProductRes;

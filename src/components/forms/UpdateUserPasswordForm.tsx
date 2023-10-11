@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import Input from './forms/Input';
-import updateUserPasswordFormScheme from '../schemas/updateUserPasswordFormSchema';
-import { useUpdateUserMutation } from '../redux/services/userApi';
-import { UpdateUserPasswordFormProps, User } from '../types/user';
+import Input from './Input';
+import updateUserPasswordFormScheme from '../../schemas/updateUserPasswordFormSchema';
+import { useUpdateUserMutation } from '../../redux/services/userApi';
+import { UpdateUserPasswordFormProps, User } from '../../types/user';
 
 const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
   const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();

@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import Input from './forms/Input';
-import updateUserInfoFormSchema from '../schemas/updateUserInfoFormSchema';
-import { useUpdateUserMutation } from '../redux/services/userApi';
-import { UpdateUserInfoFormProps } from '../types/user';
+import Input from './Input';
+import updateUserInfoFormSchema from '../../schemas/updateUserInfoFormSchema';
+import { useUpdateUserMutation } from '../../redux/services/userApi';
+import { UpdateUserInfoFormProps } from '../../types/user';
 
 const UpdateUserInfoForm = ({
   id,

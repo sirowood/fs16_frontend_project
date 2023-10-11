@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Container, Typography, IconButton, Badge, Box } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { useAppSelector } from '../redux/store';
+import { useAppSelector } from '../../redux/store';
 import UnAuthedPanel from './UnAuthedPanel';
 import AuthedPanel from './AuthedPanel';
 

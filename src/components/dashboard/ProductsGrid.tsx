@@ -13,9 +13,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   useGetProductsQuery,
   useRemoveProductMutation,
-} from '../redux/services/productApi';
-import useEditProductModal from '../hooks/useEditProductModal';
-import { Product, ProductRes } from '../types/product';
+} from '../../redux/services/productApi';
+import useEditProductModal from '../../hooks/useEditProductModal';
+import { Product, ProductRes } from '../../types/product';
 
 const dataGridStyle = {
   boxShadow: 8,

@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 
-import { useAppSelector } from '../redux/store';
+import { useAppSelector } from '../../redux/store';
 import ProductCard from './ProductCard';
-import { ProductRes } from '../types/product';
+import { ProductRes } from '../../types/product';
 
 type ProductsProps = {
   productsToShow: ProductRes[];

@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 
-import { useGetCategoriesQuery } from '../redux/services/categoryApi';
+import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
 
 type CategoriesProps = {
   setCategoryId: (value: SetStateAction<number>) => void;
