@@ -1,25 +1,13 @@
 import { useEffect } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
+import Input from './forms/Input';
+import updateUserPasswordFormScheme from '../schemas/updateUserPasswordFormSchema';
 import { useUpdateUserMutation } from '../redux/services/userApi';
 import { UpdateUserPasswordFormProps, User } from '../types/user';
-
-const schema = yup.object({
-  password: yup.string().min(8, 'At least 8 characters').required('Required'),
-  confirmPassword: yup
-    .string()
-    .required('Required')
-    .oneOf([yup.ref('password')], 'Passwords must match'),
-});
 
 const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
   const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
@@ -36,7 +24,7 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(updateUserPasswordFormScheme),
     mode: 'all',
   });
 
@@ -59,51 +47,29 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
     >
       <Typography variant="h6">Password</Typography>
 
-      <Controller
+      <Input
+        control={control}
         name="password"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            variant="standard"
-            label="New password"
-            type="password"
-            error={Boolean(errors.password?.message)}
-            helperText={errors.password?.message}
-            sx={{ height: 80 }}
-            {...field}
-          />
-        )}
+        label="Password"
+        type="password"
+        errorMessage={errors.password?.message}
       />
-      <Controller
+      <Input
+        control={control}
         name="confirmPassword"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            variant="standard"
-            label="Confirm password"
-            type="password"
-            error={Boolean(errors.confirmPassword?.message)}
-            helperText={errors.confirmPassword?.message}
-            sx={{ height: 80 }}
-            {...field}
-          />
-        )}
+        label="Confirm password"
+        type="password"
+        errorMessage={errors.confirmPassword?.message}
       />
-
-      <Button
-        variant="contained"
+      <LoadingButton
         type="submit"
+        fullWidth
+        variant="contained"
         disabled={isLoading || !isValid}
+        loading={isLoading}
       >
-        {isLoading ? (
-          <CircularProgress
-            size="24px"
-            color="inherit"
-          />
-        ) : (
-          'Save'
-        )}
-      </Button>
+        Save
+      </LoadingButton>
     </Box>
   );
 };

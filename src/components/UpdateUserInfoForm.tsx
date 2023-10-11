@@ -1,23 +1,13 @@
 import { useEffect } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
+import Input from './forms/Input';
+import updateUserInfoFormSchema from '../schemas/updateUserInfoFormSchema';
 import { useUpdateUserMutation } from '../redux/services/userApi';
 import { UpdateUserInfoFormProps } from '../types/user';
-
-const schema = yup.object({
-  name: yup.string().min(4, 'At least 4 characters').required('Required'),
-  email: yup.string().email('Invalid email address').required('Required'),
-  avatar: yup.string().required('Avatar required'),
-});
 
 const UpdateUserInfoForm = ({
   id,
@@ -34,7 +24,7 @@ const UpdateUserInfoForm = ({
     formState: { errors, isValid, isDirty },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(updateUserInfoFormSchema),
     mode: 'all',
   });
 
@@ -68,63 +58,33 @@ const UpdateUserInfoForm = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <Typography variant="h6">User information</Typography>
-      <Controller
+      <Input
         name="name"
+        label="Name"
         control={control}
-        render={({ field }) => (
-          <TextField
-            variant="standard"
-            label="Name"
-            error={Boolean(errors.name?.message)}
-            helperText={errors.name?.message}
-            sx={{ height: 80 }}
-            {...field}
-          />
-        )}
+        errorMessage={errors.name?.message}
       />
-      <Controller
+      <Input
         name="email"
+        label="Email"
         control={control}
-        render={({ field }) => (
-          <TextField
-            variant="standard"
-            label="Email"
-            error={Boolean(errors.email?.message)}
-            helperText={errors.email?.message}
-            sx={{ height: 80 }}
-            {...field}
-          />
-        )}
+        errorMessage={errors.email?.message}
       />
-      <Controller
+      <Input
         name="avatar"
+        label="Avatar"
         control={control}
-        render={({ field }) => (
-          <TextField
-            variant="standard"
-            label="Avatar"
-            error={Boolean(errors.avatar?.message)}
-            helperText={errors.avatar?.message}
-            sx={{ height: 80 }}
-            {...field}
-          />
-        )}
+        errorMessage={errors.avatar?.message}
       />
-
-      <Button
-        variant="contained"
+      <LoadingButton
         type="submit"
+        fullWidth
+        variant="contained"
         disabled={isLoading || !isValid || !isDirty}
+        loading={isLoading}
       >
-        {isLoading ? (
-          <CircularProgress
-            size="24px"
-            color="inherit"
-          />
-        ) : (
-          'Save'
-        )}
-      </Button>
+        Save
+      </LoadingButton>
     </Box>
   );
 };
