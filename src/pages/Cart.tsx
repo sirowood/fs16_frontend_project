@@ -1,5 +1,3 @@
-import { useCallback, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,51 +5,11 @@ import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
-import { useAppSelector } from '../redux/store';
-import {
-  addProductInCart,
-  clearCart,
-  removeProductInCart,
-  substractProductInCart,
-} from '../redux/reducers/cartReducer';
-import { CartItem } from '../types/cart';
+import useCart from '../hooks/useCart';
 
-// TODO
 const Cart = () => {
-  const dispatch = useDispatch();
-  const cart = useAppSelector((state) => state.cart);
-
-  const totalAmount = useMemo(() => {
-    return cart.reduce(
-      (total, product) => total + product.quantity * product.price,
-      0
-    );
-  }, [cart]);
-
-  const substractItem = useCallback(
-    (id: number) => {
-      dispatch(substractProductInCart(id));
-    },
-    [dispatch]
-  );
-
-  const addItem = useCallback(
-    (product: CartItem) => {
-      dispatch(addProductInCart({ ...product }));
-    },
-    [dispatch]
-  );
-
-  const removeItem = useCallback(
-    (id: number) => {
-      dispatch(removeProductInCart(id));
-    },
-    [dispatch]
-  );
-
-  const emptyCart = useCallback(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+  const { cart, totalAmount, addItem, substractItem, removeItem, emptyCart } =
+    useCart();
 
   if (cart.length === 0) {
     return <main>No products in cart</main>;

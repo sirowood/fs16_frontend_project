@@ -1,7 +1,7 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useCallback } from 'react';
 
-import { useAppSelector } from '../../redux/store';
 import ProductCard from './ProductCard';
+import useCart from '../../hooks/useCart';
 import { ProductRes } from '../../types/product';
 
 type ProductsProps = {
@@ -9,7 +9,6 @@ type ProductsProps = {
 };
 
 const style: CSSProperties = {
-  backgroundColor: 'green',
   padding: '24px',
   display: 'flex',
   flexDirection: 'row',
@@ -18,7 +17,14 @@ const style: CSSProperties = {
 };
 
 const Products = ({ productsToShow }: ProductsProps) => {
-  const cart = useAppSelector((state) => state.cart);
+  const { cart } = useCart();
+
+  const getBadgeContent = useCallback(
+    (id: number) => {
+      return cart.find((item) => item.id === id)?.quantity || 0;
+    },
+    [cart]
+  );
 
   return (
     <div style={style}>
@@ -26,9 +32,7 @@ const Products = ({ productsToShow }: ProductsProps) => {
         <ProductCard
           key={product.id}
           product={product}
-          badgeContent={
-            cart.find((item) => item.id === product.id)?.quantity || 0
-          }
+          badgeContent={getBadgeContent(product.id)}
         />
       ))}
     </div>

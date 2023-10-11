@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Typography, IconButton, Badge, Box } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -6,15 +6,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useAppSelector } from '../../redux/store';
 import UnAuthedPanel from './UnAuthedPanel';
 import AuthedPanel from './AuthedPanel';
+import useCart from '../../hooks/useCart';
 
 const Header = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  const cart = useAppSelector((state) => state.cart);
-
-  const badgeContent = useMemo(() => {
-    return cart.reduce((total, next) => total + next.quantity, 0);
-  }, [cart]);
+  const { cartBadgeContent } = useCart();
 
   const navigateToShoppingCart = useCallback(() => {
     navigate('cart');
@@ -51,7 +48,7 @@ const Header = () => {
           onClick={navigateToShoppingCart}
         >
           <Badge
-            badgeContent={badgeContent}
+            badgeContent={cartBadgeContent}
             color="info"
           >
             <AddShoppingCartIcon color="primary" />

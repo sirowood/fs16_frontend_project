@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Card,
@@ -12,8 +11,7 @@ import {
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { addProductInCart } from '../../redux/reducers/cartReducer';
-
+import useCart from '../../hooks/useCart';
 import { ProductRes } from '../../types/product';
 
 type ProductCardProps = {
@@ -22,23 +20,21 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { addItem } = useCart();
+
+  const addProductInCart = useCallback(() => {
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0],
+    });
+  }, [addItem, product.id, product.images, product.price, product.title]);
 
   const navigateToProduct = useCallback(() => {
     navigate(`/products/${product.id}`);
   }, [navigate, product.id]);
-
-  const addProduct = useCallback(() => {
-    dispatch(
-      addProductInCart({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        image: product.images[0],
-      })
-    );
-  }, [dispatch, product]);
 
   return (
     <Card>
@@ -55,7 +51,7 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
       <CardActions>
         <IconButton
           size="small"
-          onClick={addProduct}
+          onClick={addProductInCart}
         >
           <Badge
             badgeContent={badgeContent}
