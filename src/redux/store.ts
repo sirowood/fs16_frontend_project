@@ -5,8 +5,6 @@ import { toast } from 'react-hot-toast';
 
 import cartReducer from "./reducers/cartReducer";
 import authReducer from './reducers/authReducer';
-import productReducer from './reducers/productReducer';
-import categoryReducer from './reducers/categoryReducer';
 import api from "./services/api";
 
 const rtkQueryErrorMiddleware: Middleware =
@@ -22,8 +20,6 @@ const store = configureStore({
   reducer: {
     cart: cartReducer,
     auth: authReducer,
-    products: productReducer,
-    categories: categoryReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
