@@ -25,6 +25,7 @@ type FullProductFormValues = {
 type ProductFormValues = Omit<FullProductFormValues, 'id'>;
 
 type FormProps<T extends FieldValues> = {
+  title: string;
   errors: FieldErrors<T>;
   defaultValues?: T;
   disabled: boolean;

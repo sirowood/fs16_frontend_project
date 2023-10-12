@@ -53,6 +53,7 @@ const RegisterModal = () => {
       onClose={onClose}
     >
       <RegisterForm
+        title="Register"
         control={control}
         errors={errors}
         disabled={isLoading || !isValid}

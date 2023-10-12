@@ -48,6 +48,7 @@ const LoginModal = () => {
       onClose={onClose}
     >
       <LoginForm
+        title="Login"
         control={control}
         errors={errors}
         disabled={isLoading || !isValid}

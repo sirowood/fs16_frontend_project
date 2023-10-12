@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
@@ -6,6 +6,7 @@ import { FormProps, RegisterFormValues } from '../../types/form';
 import modalForm from '../../styles/form';
 
 const RegisterForm = ({
+  title,
   control,
   errors,
   disabled,
@@ -19,6 +20,7 @@ const RegisterForm = ({
       onSubmit={onSubmit}
       sx={modalForm}
     >
+      <Typography variant="h6">{title}</Typography>
       <Input
         label="Email"
         name="email"

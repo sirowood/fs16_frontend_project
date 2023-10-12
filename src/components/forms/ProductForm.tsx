@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
@@ -8,6 +8,7 @@ import { FormProps, ProductFormValues } from '../../types/form';
 import modalForm from '../../styles/form';
 
 const ProductForm = ({
+  title,
   control,
   errors,
   defaultValues,
@@ -22,6 +23,7 @@ const ProductForm = ({
       onSubmit={onSubmit}
       sx={modalForm}
     >
+      <Typography variant="h6">{title}</Typography>
       <CategorySelect
         control={control}
         errorMessage={errors?.categoryId?.message}

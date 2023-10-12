@@ -60,6 +60,7 @@ const AddProductModal = () => {
       onClose={onClose}
     >
       <ProductForm
+        title="Add product"
         control={control}
         errors={errors}
         defaultValues={defaultValues}

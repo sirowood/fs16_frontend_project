@@ -55,6 +55,7 @@ const EditProductModal = () => {
       onClose={onClose}
     >
       <ProductForm
+        title="Edit product"
         control={control}
         errors={errors}
         defaultValues={defaultValues}
