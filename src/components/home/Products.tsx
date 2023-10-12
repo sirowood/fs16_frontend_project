@@ -13,7 +13,7 @@ const style: CSSProperties = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'space-between',
+  gap: '8px',
 };
 
 const Products = ({ productsToShow }: ProductsProps) => {

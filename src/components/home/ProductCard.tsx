@@ -28,7 +28,7 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
   }, [navigate, product.id]);
 
   return (
-    <Card>
+    <Card sx={{ width: 256 }}>
       <CardMedia
         onClick={navigateToProduct}
         image={product.images[0]}

@@ -22,6 +22,7 @@ describe('userApi', () => {
       password: 'test password',
       email: 'test@mail.com',
       avatar: 'http://test.avatar.com/avatar.jpg',
+      role: 'customer',
     };
 
     const result: any = await store.dispatch(userApi.endpoints.register.initiate(newUser));

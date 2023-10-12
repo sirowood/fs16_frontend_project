@@ -8,13 +8,15 @@ import cartReducer, {
 describe('cartReducer', () => {
   test('should handle adding a product to the cart', () => {
     const initialState = [
-      { productId: 1, title: 'Product 1', price: 10, quantity: 1 },
+      { id: 1, productId: 1, title: 'Product 1', price: 10, quantity: 1, image: '' },
     ];
 
     const newProduct = {
+      id: 0,
       productId: 2,
       title: 'Product 2',
       price: 15,
+      image: '',
     };
 
     const action = addProductInCart(newProduct);
@@ -27,8 +29,8 @@ describe('cartReducer', () => {
 
   test('should handle subtracting a product from the cart', () => {
     const initialState = [
-      { productId: 1, title: 'Product 1', price: 10, quantity: 2 },
-      { productId: 2, title: 'Product 2', price: 15, quantity: 3 },
+      { id: 1, productId: 1, title: 'Product 1', price: 10, quantity: 2, image: '' },
+      { id: 2, productId: 2, title: 'Product 2', price: 15, quantity: 3, image: '' },
     ];
 
     const action = substractProductInCart(2);
@@ -40,8 +42,8 @@ describe('cartReducer', () => {
 
   test('should handle removing a product from the cart', () => {
     const initialState = [
-      { productId: 1, title: 'Product 1', price: 10, quantity: 2 },
-      { productId: 2, title: 'Product 2', price: 15, quantity: 3 },
+      { id: 1, productId: 1, title: 'Product 1', price: 10, quantity: 2, image: '' },
+      { id: 2, productId: 2, title: 'Product 2', price: 15, quantity: 3, image: '' },
     ];
 
     const action = removeProductInCart(1);
@@ -53,8 +55,8 @@ describe('cartReducer', () => {
 
   test('should handle clearing the cart', () => {
     const initialState = [
-      { productId: 1, title: 'Product 1', price: 10, quantity: 2 },
-      { productId: 2, title: 'Product 2', price: 15, quantity: 3 },
+      { id: 1, productId: 1, title: 'Product 1', price: 10, quantity: 2, image: '' },
+      { id: 2, productId: 2, title: 'Product 2', price: 15, quantity: 3, image: '' },
     ];
 
     const action = clearCart();
