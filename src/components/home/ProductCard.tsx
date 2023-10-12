@@ -28,18 +28,34 @@ const ProductCard = ({ product, badgeContent }: ProductCardProps) => {
   }, [navigate, product.id]);
 
   return (
-    <Card sx={{ width: 256 }}>
+    <Card sx={{ display: 'flex', flexDirection: 'column' }}>
       <CardMedia
+        component="img"
         onClick={navigateToProduct}
         image={product.images[0]}
         title={product.title}
-        sx={{ height: 256, width: 256 }}
+        sx={{
+          ':hover': {
+            cursor: 'pointer',
+          },
+        }}
       />
-      <CardContent>
-        <Typography variant="h6">{product.title}</Typography>
-        <Typography>{product.price}</Typography>
+      <CardContent
+        sx={{
+          padding: '8px',
+          flexGrow: 1,
+        }}
+      >
+        <Typography variant="body1">{product.title}</Typography>
       </CardContent>
-      <CardActions>
+      <CardActions
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '8px',
+        }}
+      >
+        <Typography variant="subtitle2">€ {product.price}</Typography>
         <IconButton
           size="small"
           onClick={() =>

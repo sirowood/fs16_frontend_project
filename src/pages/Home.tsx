@@ -12,7 +12,7 @@ import useProductsToShow from '../hooks/useProductsToShow';
 const Home = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
   const [searchTitle, setSearchTitle] = useState('');
   const [orderBy, setOrderBy] = useState('Default');
 
