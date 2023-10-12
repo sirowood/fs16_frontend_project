@@ -5,6 +5,7 @@ import Input from './Input';
 import CategorySelect from './CategorySelect';
 import ImageURLFields from './ImageURLFields';
 import { FormProps, ProductFormValues } from '../../types/form';
+import modalForm from '../../styles/form';
 
 const ProductForm = ({
   control,
@@ -19,11 +20,7 @@ const ProductForm = ({
     <Box
       component="form"
       onSubmit={onSubmit}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
+      sx={modalForm}
     >
       <CategorySelect
         control={control}

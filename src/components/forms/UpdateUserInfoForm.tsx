@@ -8,6 +8,7 @@ import Input from './Input';
 import updateUserInfoFormSchema from '../../schemas/updateUserInfoFormSchema';
 import { useUpdateUserMutation } from '../../redux/services/userApi';
 import { UpdateUserInfoFormProps } from '../../types/user';
+import { updateUserForm } from '../../styles/profile';
 
 const UpdateUserInfoForm = ({
   id,
@@ -49,12 +50,7 @@ const UpdateUserInfoForm = ({
   return (
     <Box
       component="form"
-      sx={{
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
+      sx={updateUserForm}
       onSubmit={handleSubmit(onSubmit)}
     >
       <Typography variant="h6">User information</Typography>

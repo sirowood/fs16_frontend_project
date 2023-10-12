@@ -5,6 +5,7 @@ import { useAppSelector } from '../redux/store';
 import UpdateUserInfoForm from '../components/forms/UpdateUserInfoForm';
 import UpdateUserPasswordForm from '../components/forms/UpdateUserPasswordForm';
 import Main from '../components/Main';
+import { profileBox } from '../styles/profile';
 
 const Profile = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -20,16 +21,7 @@ const Profile = () => {
 
   return (
     <Main>
-      <Box
-        sx={{
-          margin: 'auto',
-          width: '100%',
-          maxWidth: 'lg',
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: 'space-around',
-        }}
-      >
+      <Box sx={profileBox}>
         <UpdateUserInfoForm
           id={user.id}
           name={user.name}

@@ -16,21 +16,7 @@ import {
 } from '../../redux/services/productApi';
 import useEditProductModal from '../../hooks/useEditProductModal';
 import { Product, ProductRes } from '../../types/product';
-
-const dataGridStyle = {
-  boxShadow: 8,
-  borderRadius: '8px',
-  '& .MuiDataGrid-columnHeaderTitle': {
-    fontWeight: 600,
-    fontSize: '1.1em',
-  },
-  '& .MuiDataGrid-row:hover': {
-    cursor: 'pointer',
-  },
-  '& .MuiDataGrid-cell:focus': {
-    outline: 'none',
-  },
-};
+import { dataGrid } from '../../styles/dashboard';
 
 const ProductsGrid = () => {
   const { onOpen, setDefaultValues } = useEditProductModal();
@@ -129,7 +115,7 @@ const ProductsGrid = () => {
       {data && (
         <DataGrid
           autoHeight
-          sx={dataGridStyle}
+          sx={dataGrid}
           rows={data}
           columns={columns}
           pageSizeOptions={[5, 10, 20, 40]}

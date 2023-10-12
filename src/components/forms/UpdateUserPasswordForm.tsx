@@ -8,6 +8,7 @@ import Input from './Input';
 import updateUserPasswordFormScheme from '../../schemas/updateUserPasswordFormSchema';
 import { useUpdateUserMutation } from '../../redux/services/userApi';
 import { UpdateUserPasswordFormProps, User } from '../../types/user';
+import { updateUserForm } from '../../styles/profile';
 
 const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
   const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
@@ -37,12 +38,7 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
   return (
     <Box
       component="form"
-      sx={{
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
+      sx={updateUserForm}
       onSubmit={handleSubmit(onSubmit)}
     >
       <Typography variant="h6">Password</Typography>

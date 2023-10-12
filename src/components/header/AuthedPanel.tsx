@@ -50,7 +50,6 @@ const AuthedPanel = ({ avatar, role }: { avatar: string; role: string }) => {
       <IconButton
         onClick={handleOpenUserMenu}
         size="small"
-        sx={{ padding: '0px' }}
       >
         <Avatar src={avatar} />
       </IconButton>

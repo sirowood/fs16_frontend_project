@@ -1,6 +1,7 @@
 import { Box, Modal as MaterialModal } from '@mui/material';
 
 import { ModalProps } from '../../types/modal';
+import modalBox from '../../styles/modal';
 
 const Modal = ({ children, open, onClose }: ModalProps) => {
   return (
@@ -11,19 +12,7 @@ const Modal = ({ children, open, onClose }: ModalProps) => {
     >
       <Box
         component="section"
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: '8px',
-          maxHeight: '80%',
-          overflowY: 'auto',
-          minWidth: '200px',
-        }}
+        sx={modalBox}
       >
         {children}
       </Box>

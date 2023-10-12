@@ -4,15 +4,18 @@ import { Badge, Box, Button, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { useGetSingleProductQuery } from '../redux/services/productApi';
-import Loading from '../components/Loading';
-import Error from '../components/Error';
-import useCart from '../hooks/useCart';
 import Main from '../components/Main';
+import useCart from '../hooks/useCart';
+import {
+  productAddButtonBox,
+  productBox,
+  productInfoBox,
+} from '../styles/product';
 
 const Product = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetSingleProductQuery(+params?.id!);
+  const { data } = useGetSingleProductQuery(+params?.id!);
   const { cart, addItem } = useCart();
 
   const getBadgeContent = useCallback(
@@ -21,14 +24,6 @@ const Product = () => {
     },
     [cart]
   );
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <Error />;
-  }
 
   if (!data) {
     return null;
@@ -39,17 +34,7 @@ const Product = () => {
       <Box>
         <Button onClick={() => navigate('/')}>Return</Button>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: {
-            xs: 'column',
-            md: 'row',
-          },
-          gap: '24px',
-          margin: 'auto',
-        }}
-      >
+      <Box sx={productBox}>
         <Box>
           <Box
             component="img"
@@ -58,24 +43,12 @@ const Product = () => {
             width="100%"
           />
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            gap: '16px',
-          }}
-        >
+        <Box sx={productInfoBox}>
           <Box>
             <Typography variant="h4">{data.title}</Typography>
             <Typography>{data.description}</Typography>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <Box sx={productAddButtonBox}>
             <Badge
               badgeContent={getBadgeContent(data.id)}
               color="info"

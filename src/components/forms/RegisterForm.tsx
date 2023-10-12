@@ -3,6 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
 import { FormProps, RegisterFormValues } from '../../types/form';
+import modalForm from '../../styles/form';
 
 const RegisterForm = ({
   control,
@@ -16,11 +17,7 @@ const RegisterForm = ({
     <Box
       component="form"
       onSubmit={onSubmit}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
+      sx={modalForm}
     >
       <Input
         label="Email"

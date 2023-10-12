@@ -7,6 +7,18 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import Main from '../components/Main';
 import useCart from '../hooks/useCart';
+import {
+  buttonsGroup,
+  cartBox,
+  cartButtonsBox,
+  cartInfoBox,
+  cartItemBox,
+  cartItemsBox,
+  emptyCartBox,
+  itemButtonsBox,
+  itemInfoBox,
+  priceBox,
+} from '../styles/cart';
 
 const Cart = () => {
   const { cart, totalAmount, addItem, substractItem, removeItem, emptyCart } =
@@ -15,14 +27,7 @@ const Cart = () => {
   if (cart.length === 0) {
     return (
       <Main>
-        <Box
-          sx={{
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <Box sx={emptyCartBox}>
           <Typography
             variant="h4"
             textAlign="center"
@@ -36,55 +41,25 @@ const Cart = () => {
 
   return (
     <Main>
-      <Box sx={{ width: '100%', maxWidth: 'lg', marginX: 'auto' }}>
+      <Box sx={cartBox}>
         <Box>
           <Typography variant="h5">Cart</Typography>
         </Box>
-        {cart.map((product) => (
-          <Box
-            key={product.id}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                gap: '4px',
-              }}
-            >
+        <Box sx={cartItemsBox}>
+          {cart.map((product) => (
+            <Box sx={cartItemBox}>
               <Box
-                sx={{
-                  width: '64px',
-                }}
-              >
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  width="100%"
-                />
-              </Box>
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-              >
+                key={product.id}
+                component="img"
+                src={product.image}
+                alt={product.title}
+                width={'64px'}
+                height={'64px'}
+              />
+              <Box sx={itemInfoBox}>
                 <Typography>{product.title}</Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
+                <Box sx={itemButtonsBox}>
+                  <Box sx={buttonsGroup}>
                     {product.quantity === 1 ? (
                       <IconButton onClick={() => removeItem(product.id)}>
                         <DeleteIcon />
@@ -99,13 +74,7 @@ const Cart = () => {
                       <AddIcon />
                     </IconButton>
                   </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'baseline',
-                      gap: '8px',
-                    }}
-                  >
+                  <Box sx={priceBox}>
                     {product.quantity > 1 && (
                       <Typography variant="caption">
                         x € {product.price}
@@ -118,27 +87,15 @@ const Cart = () => {
                 </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
-        <Box
-          sx={{
-            borderTopWidth: '2px',
-            borderColor: 'text.secondary',
-            borderTopStyle: 'solid',
-            paddingTop: '8px',
-          }}
-        >
+          ))}
+        </Box>
+
+        <Box sx={cartInfoBox}>
           <Typography sx={{ textAlign: 'end' }}>
             {cart.length} product{cart.length > 1 ? 's' : ''}, in total €{' '}
             {totalAmount}
           </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
+          <Box sx={cartButtonsBox}>
             <Button
               color="error"
               size="small"

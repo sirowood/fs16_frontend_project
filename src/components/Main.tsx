@@ -1,26 +1,13 @@
 import { ReactNode } from 'react';
-import { Box, SxProps, Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
-type MainProps = {
-  children: ReactNode;
-  sx?: SxProps<Theme>;
-};
+import mainStyle from '../styles/main';
 
-const Main = ({ children, sx }: MainProps) => {
+const Main = ({ children }: { children: ReactNode }) => {
   return (
     <Box
       component="main"
-      sx={{
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        padding: '24px',
-        ...sx,
-      }}
+      sx={mainStyle}
     >
       {children}
     </Box>

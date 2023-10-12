@@ -6,6 +6,7 @@ import UnAuthedPanel from './UnAuthedPanel';
 import AuthedPanel from './AuthedPanel';
 import DarkModeSwitch from './DarkModeSwitch';
 import CartButton from './CartButton';
+import { headerBox, headerButtonsBox } from '../../styles/header';
 
 const Header = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -13,19 +14,7 @@ const Header = () => {
   return (
     <Box
       component="header"
-      sx={{
-        position: 'sticky',
-        padding: '12px 24px',
-        top: '0px',
-        zIndex: '100',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '56px',
-        transition: 'all .5s ease',
-      }}
+      sx={headerBox}
     >
       <Link
         to="/"
@@ -33,13 +22,7 @@ const Header = () => {
       >
         <Typography color={'text.primary'}>Home</Typography>
       </Link>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-      >
+      <Box sx={headerButtonsBox}>
         <DarkModeSwitch />
         <CartButton />
         {user ? (

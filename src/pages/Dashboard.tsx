@@ -6,6 +6,7 @@ import Main from '../components/Main';
 import { useAppSelector } from '../redux/store';
 import useAddProductModal from '../hooks/useAddProductModal';
 import ProductsGrid from '../components/dashboard/ProductsGrid';
+import { addButton } from '../styles/dashboard';
 
 const Dashboard = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -27,12 +28,7 @@ const Dashboard = () => {
   return (
     <Main>
       <Button
-        sx={{
-          width: {
-            xs: '100%',
-            sm: 'max-content',
-          },
-        }}
+        sx={addButton}
         size="small"
         variant="contained"
         startIcon={<AddIcon />}

@@ -3,18 +3,14 @@ import LoginIcon from '@mui/icons-material/Login';
 
 import useAuthModal from '../../hooks/useLoginModal';
 import useRegisterModal from '../../hooks/useRegisterModal';
+import { unAuthedPanelBox } from '../../styles/header';
 
 const HeaderAuthPanel = () => {
   const { onOpen: openAuthModal } = useAuthModal();
   const { onOpen: openRegisterModal } = useRegisterModal();
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: '16px',
-      }}
-    >
+    <Box sx={unAuthedPanelBox}>
       <Button
         size="small"
         onClick={openRegisterModal}

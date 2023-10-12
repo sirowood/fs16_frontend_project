@@ -1,17 +1,12 @@
 import { Box } from '@mui/material';
 
+import footerBox from '../styles/footer';
+
 const Footer = () => {
   return (
     <Box
       component="footer"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '24px',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-      }}
+      sx={footerBox}
     >
       Copyright ©Xuefeng
     </Box>

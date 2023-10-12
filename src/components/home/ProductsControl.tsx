@@ -8,6 +8,14 @@ import {
   Box,
 } from '@mui/material';
 
+import {
+  orderBySelect,
+  pageSizeSelect,
+  productsControlBox,
+  searchInput,
+  selectorsBox,
+} from '../../styles/home';
+
 type ProductsControlProps = {
   searchTitle: string;
   pageSize: number;
@@ -26,21 +34,9 @@ const ProductsControl = ({
   setOrderBy,
 }: ProductsControlProps) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: { sm: 'flex-end' },
-        flexWrap: 'wrap',
-        gap: '8px',
-      }}
-    >
+    <Box sx={productsControlBox}>
       <TextField
-        sx={{
-          width: {
-            xs: '100%',
-            sm: '160px',
-          },
-        }}
+        sx={searchInput}
         label="Search"
         variant="outlined"
         value={searchTitle}
@@ -49,28 +45,8 @@ const ProductsControl = ({
         size="small"
       />
 
-      <Box
-        sx={{
-          display: 'flex',
-          width: {
-            xs: '100%',
-            sm: 'max-content',
-          },
-          justifyContent: {
-            xs: 'space-between',
-            sm: 'flex-start',
-          },
-          gap: '8px',
-        }}
-      >
-        <FormControl
-          sx={{
-            width: {
-              xs: '120px',
-              sm: '80px',
-            },
-          }}
-        >
+      <Box sx={selectorsBox}>
+        <FormControl sx={pageSizeSelect}>
           <InputLabel id="page-size-select-label">Page Size</InputLabel>
           <Select
             labelId="page-size-select-label"
@@ -89,10 +65,11 @@ const ProductsControl = ({
             ))}
           </Select>
         </FormControl>
+
         <FormControl>
           <InputLabel id="orderby-select-label">Order By</InputLabel>
           <Select
-            sx={{ minWidth: 120 }}
+            sx={orderBySelect}
             labelId="orderby-select-label"
             size="small"
             label="Orderby"
