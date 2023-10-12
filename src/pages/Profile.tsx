@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
+import { Box } from '@mui/material';
+
 import { useAppSelector } from '../redux/store';
-import { Container } from '@mui/material';
 import UpdateUserInfoForm from '../components/forms/UpdateUserInfoForm';
 import UpdateUserPasswordForm from '../components/forms/UpdateUserPasswordForm';
 
@@ -17,23 +18,35 @@ const Profile = () => {
   }
 
   return (
-    <Container
+    <Box
       component="main"
-      maxWidth="xl"
       sx={{
+        display: 'flex',
+        justifyContent: 'center',
         bgcolor: 'background.default',
         color: 'text.primary',
         transition: 'all .5s ease',
+        flexGrow: 1,
       }}
     >
-      <UpdateUserInfoForm
-        id={user.id}
-        name={user.name}
-        email={user.email}
-        avatar={user.avatar}
-      />
-      <UpdateUserPasswordForm id={user.id} />
-    </Container>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 'lg',
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          justifyContent: 'space-around',
+        }}
+      >
+        <UpdateUserInfoForm
+          id={user.id}
+          name={user.name}
+          email={user.email}
+          avatar={user.avatar}
+        />
+        <UpdateUserPasswordForm id={user.id} />
+      </Box>
+    </Box>
   );
 };
 
