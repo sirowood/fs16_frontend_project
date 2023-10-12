@@ -39,15 +39,13 @@ const Product = () => {
       <Box sx={productBox}>
         <Box sx={productImgBox}>
           <Carousel
-            showThumbs={false}
             infiniteLoop
             autoPlay
             showStatus={false}
           >
             {data.images.map((src) => (
-              <Box
+              <img
                 key={src}
-                component="img"
                 src={src}
                 alt={data.title}
               />
