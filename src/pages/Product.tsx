@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Badge, Box, Button, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Carousel } from 'react-responsive-carousel';
 
 import { useGetSingleProductQuery } from '../redux/services/productApi';
 import Main from '../components/Main';
@@ -9,6 +10,7 @@ import useCart from '../hooks/useCart';
 import {
   productAddButtonBox,
   productBox,
+  productImgBox,
   productInfoBox,
 } from '../styles/product';
 
@@ -35,14 +37,24 @@ const Product = () => {
         <Button onClick={() => navigate('/')}>Return</Button>
       </Box>
       <Box sx={productBox}>
-        <Box>
-          <Box
-            component="img"
-            src={data.images[0]}
-            alt={data.title}
-            width="100%"
-          />
+        <Box sx={productImgBox}>
+          <Carousel
+            showThumbs={false}
+            infiniteLoop
+            autoPlay
+            showStatus={false}
+          >
+            {data.images.map((src) => (
+              <Box
+                key={src}
+                component="img"
+                src={src}
+                alt={data.title}
+              />
+            ))}
+          </Carousel>
         </Box>
+
         <Box sx={productInfoBox}>
           <Box>
             <Typography variant="h4">{data.title}</Typography>

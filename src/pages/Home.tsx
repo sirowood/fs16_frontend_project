@@ -7,6 +7,7 @@ import PaginationControl from '../components/home/PaginationControl';
 import Products from '../components/home/Products';
 import useDebounce from '../hooks/useDebounce';
 import useProductsToShow from '../hooks/useProductsToShow';
+import { Box } from '@mui/material';
 
 const Home = () => {
   const [categoryId, setCategoryId] = useState(0);
@@ -37,7 +38,7 @@ const Home = () => {
   return (
     <Main>
       <Categories setCategoryId={setCategoryId} />
-      <section>
+      <Box component="section">
         <ProductsControl
           searchTitle={searchTitle}
           pageSize={pageSize}
@@ -57,7 +58,7 @@ const Home = () => {
           setPage={setPage}
           nextButtonDisabled={nextButtonDisabled}
         />
-      </section>
+      </Box>
     </Main>
   );
 };

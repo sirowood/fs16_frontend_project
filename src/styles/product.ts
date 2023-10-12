@@ -8,6 +8,13 @@ const productBox = {
   margin: 'auto',
 };
 
+const productImgBox = {
+  maxWidth: {
+    xs: '100%',
+    md: '512px',
+  },
+}
+
 const productInfoBox = {
   display: 'flex',
   flexDirection: 'column',
@@ -22,6 +29,7 @@ const productAddButtonBox = {
 
 export {
   productBox,
+  productImgBox,
   productInfoBox,
   productAddButtonBox,
 };
