@@ -50,6 +50,7 @@ Deployed [here](https://xuefeng-frontend-project.vercel.app/)
         ├── reducers
         └── services
     ├── schemas
+    ├── styles
     ├── test
         ├── redux
             ├── reducers
