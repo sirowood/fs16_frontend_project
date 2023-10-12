@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+import { Box, Button } from '@mui/material';
 
 type PaginationControlProps = {
   page: number;
@@ -20,20 +21,24 @@ const PaginationControl = ({
   };
 
   return (
-    <div>
-      <button
+    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+      <Button
+        size="small"
+        variant="text"
         onClick={handlePreviousButton}
         disabled={page === 0}
       >
         Previous
-      </button>
-      <button
+      </Button>
+      <Button
+        size="small"
+        variant="text"
         onClick={handleNextButton}
         disabled={nextButtonDisabled}
       >
         Next
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 

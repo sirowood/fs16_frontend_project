@@ -34,6 +34,7 @@ Deployed [here](https://xuefeng-frontend-project.vercel.app/)
 ## Structures
 
 ```
+├── images
 ├── public
 └── src
     ├── components
