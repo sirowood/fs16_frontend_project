@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Badge, Box, Button, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -8,9 +8,9 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 import useCart from '../hooks/useCart';
 
-// TODO
 const Product = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useGetSingleProductQuery(+params?.id!);
   const { cart, addItem } = useCart();
 
@@ -37,21 +37,24 @@ const Product = () => {
     <Box
       component="main"
       sx={{
+        padding: '24px',
         display: 'flex',
+        flexDirection: {
+          xs: 'column',
+          md: 'row',
+        },
         gap: '24px',
         bgcolor: 'background.default',
         color: 'text.primary',
         transition: 'all .5s ease',
       }}
     >
-      <Box
-        sx={{
-          width: '512px',
-          height: '512px',
-          flexShrink: '0',
-        }}
-      >
-        <img
+      <Box>
+        <Button onClick={() => navigate('/')}>Return</Button>
+      </Box>
+      <Box>
+        <Box
+          component="img"
           src={data.images[0]}
           alt={data.title}
           width="100%"
@@ -62,13 +65,19 @@ const Product = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          gap: '16px',
         }}
       >
-        <div>
+        <Box>
           <Typography variant="h4">{data.title}</Typography>
           <Typography>{data.description}</Typography>
-        </div>
-        <div>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
           <Badge
             badgeContent={getBadgeContent(data.id)}
             color="info"
@@ -88,7 +97,7 @@ const Product = () => {
               Add to Cart
             </Button>
           </Badge>
-        </div>
+        </Box>
       </Box>
     </Box>
   );
