@@ -45,6 +45,7 @@ const Home = () => {
         padding: '12px 24px',
         display: 'flex',
         flexDirection: 'column',
+        gap: '16px',
       }}
     >
       <Categories setCategoryId={setCategoryId} />

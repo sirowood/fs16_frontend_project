@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import { Box } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 
 import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
 
@@ -20,17 +20,35 @@ const Categories = ({ setCategoryId }: CategoriesProps) => {
       sx={{
         display: 'flex',
         padding: '24px 0px',
+        overflowX: 'auto',
+        gap: '8px',
       }}
     >
-      <button onClick={() => setCategoryId(0)}>All</button>
-      {/* TODO - Remove the slice  */}
-      {data.slice(0, 5).map((category) => (
-        <button
-          key={category.id}
+      <Avatar
+        sx={{
+          height: { xs: '96px', sm: '128px' },
+          width: { xs: '96px', sm: '128px' },
+          ':hover': {
+            cursor: 'pointer',
+          },
+        }}
+        onClick={() => setCategoryId(0)}
+      >
+        ALL
+      </Avatar>
+      {data.map((category) => (
+        <Avatar
+          alt={category.name}
+          src={category.image}
           onClick={() => setCategoryId(category.id)}
-        >
-          {category.name}
-        </button>
+          sx={{
+            height: { xs: '96px', sm: '128px' },
+            width: { xs: '96px', sm: '128px' },
+            ':hover': {
+              cursor: 'pointer',
+            },
+          }}
+        />
       ))}
     </Box>
   );
