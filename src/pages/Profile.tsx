@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '../redux/store';
 import UpdateUserInfoForm from '../components/forms/UpdateUserInfoForm';
 import UpdateUserPasswordForm from '../components/forms/UpdateUserPasswordForm';
+import Main from '../components/Main';
 
 const Profile = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -18,19 +19,10 @@ const Profile = () => {
   }
 
   return (
-    <Box
-      component="main"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-        flexGrow: 1,
-      }}
-    >
+    <Main>
       <Box
         sx={{
+          margin: 'auto',
           width: '100%',
           maxWidth: 'lg',
           display: 'flex',
@@ -46,7 +38,7 @@ const Profile = () => {
         />
         <UpdateUserPasswordForm id={user.id} />
       </Box>
-    </Box>
+    </Main>
   );
 };
 

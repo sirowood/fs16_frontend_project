@@ -15,7 +15,7 @@ const Header = () => {
       component="header"
       sx={{
         position: 'sticky',
-        padding: '0px 24px',
+        padding: '12px 24px',
         top: '0px',
         zIndex: '100',
         bgcolor: 'background.default',

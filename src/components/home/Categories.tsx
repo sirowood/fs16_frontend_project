@@ -38,6 +38,7 @@ const Categories = ({ setCategoryId }: CategoriesProps) => {
       </Avatar>
       {data.map((category) => (
         <Avatar
+          key={category.id}
           alt={category.name}
           src={category.image}
           onClick={() => setCategoryId(category.id)}

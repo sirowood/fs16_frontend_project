@@ -1,7 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
+import Main from '../components/Main';
 import { useAppSelector } from '../redux/store';
 import useAddProductModal from '../hooks/useAddProductModal';
 import ProductsGrid from '../components/dashboard/ProductsGrid';
@@ -24,19 +25,7 @@ const Dashboard = () => {
   }
 
   return (
-    <Box
-      component="main"
-      sx={{
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        padding: '24px',
-      }}
-    >
+    <Main>
       <Button
         sx={{
           width: {
@@ -53,7 +42,7 @@ const Dashboard = () => {
       </Button>
 
       <ProductsGrid />
-    </Box>
+    </Main>
   );
 };
 

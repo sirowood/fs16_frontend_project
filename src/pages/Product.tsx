@@ -7,6 +7,7 @@ import { useGetSingleProductQuery } from '../redux/services/productApi';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import useCart from '../hooks/useCart';
+import Main from '../components/Main';
 
 const Product = () => {
   const params = useParams();
@@ -34,72 +35,70 @@ const Product = () => {
   }
 
   return (
-    <Box
-      component="main"
-      sx={{
-        padding: '24px',
-        display: 'flex',
-        flexDirection: {
-          xs: 'column',
-          md: 'row',
-        },
-        gap: '24px',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-      }}
-    >
+    <Main>
       <Box>
         <Button onClick={() => navigate('/')}>Return</Button>
-      </Box>
-      <Box>
-        <Box
-          component="img"
-          src={data.images[0]}
-          alt={data.title}
-          width="100%"
-        />
       </Box>
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: '16px',
+          flexDirection: {
+            xs: 'column',
+            md: 'row',
+          },
+          gap: '24px',
+          margin: 'auto',
         }}
       >
         <Box>
-          <Typography variant="h4">{data.title}</Typography>
-          <Typography>{data.description}</Typography>
+          <Box
+            component="img"
+            src={data.images[0]}
+            alt={data.title}
+            width="100%"
+          />
         </Box>
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '16px',
           }}
         >
-          <Badge
-            badgeContent={getBadgeContent(data.id)}
-            color="info"
+          <Box>
+            <Typography variant="h4">{data.title}</Typography>
+            <Typography>{data.description}</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
           >
-            <Button
-              variant="contained"
-              startIcon={<AddShoppingCartIcon />}
-              onClick={() =>
-                addItem({
-                  id: data.id,
-                  title: data.title,
-                  price: data.price,
-                  image: data.images[0],
-                })
-              }
+            <Badge
+              badgeContent={getBadgeContent(data.id)}
+              color="info"
             >
-              Add to Cart
-            </Button>
-          </Badge>
+              <Button
+                variant="contained"
+                startIcon={<AddShoppingCartIcon />}
+                onClick={() =>
+                  addItem({
+                    id: data.id,
+                    title: data.title,
+                    price: data.price,
+                    image: data.images[0],
+                  })
+                }
+              >
+                Add to Cart
+              </Button>
+            </Badge>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Main>
   );
 };
 

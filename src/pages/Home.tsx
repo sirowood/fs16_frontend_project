@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 
+import Main from '../components/Main';
 import Categories from '../components/home/Categories';
-
-import useDebounce from '../hooks/useDebounce';
 import ProductsControl from '../components/home/ProductsControl';
 import PaginationControl from '../components/home/PaginationControl';
 import Products from '../components/home/Products';
+import useDebounce from '../hooks/useDebounce';
 import useProductsToShow from '../hooks/useProductsToShow';
 
 const Home = () => {
@@ -36,18 +35,7 @@ const Home = () => {
   }, [categoryId]);
 
   return (
-    <Box
-      component="main"
-      sx={{
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-        padding: '12px 24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-      }}
-    >
+    <Main>
       <Categories setCategoryId={setCategoryId} />
       <section>
         <ProductsControl
@@ -70,7 +58,7 @@ const Home = () => {
           nextButtonDisabled={nextButtonDisabled}
         />
       </section>
-    </Box>
+    </Main>
   );
 };
 

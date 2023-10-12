@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
+import Main from '../components/Main';
 import useCart from '../hooks/useCart';
 
 const Cart = () => {
@@ -13,38 +14,29 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <Box
-        component="main"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '24px',
-          bgcolor: 'background.default',
-          color: 'text.primary',
-          transition: 'all .5s ease',
-          flexGrow: 1,
-        }}
-      >
-        <Typography variant="h5">No products in cart</Typography>
-      </Box>
+      <Main>
+        <Box
+          sx={{
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            variant="h4"
+            textAlign="center"
+          >
+            No products in cart
+          </Typography>
+        </Box>
+      </Main>
     );
   }
 
   return (
-    <Box
-      component="main"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '24px',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        transition: 'all .5s ease',
-        flexGrow: 1,
-      }}
-    >
-      <Box sx={{ width: '100%', maxWidth: 'lg' }}>
+    <Main>
+      <Box sx={{ width: '100%', maxWidth: 'lg', marginX: 'auto' }}>
         <Box>
           <Typography variant="h5">Cart</Typography>
         </Box>
@@ -165,7 +157,7 @@ const Cart = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Main>
   );
 };
 
