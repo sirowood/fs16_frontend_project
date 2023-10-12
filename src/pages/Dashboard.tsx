@@ -22,6 +22,7 @@ const Dashboard = () => {
       />
     );
   }
+
   return (
     <Box
       component="main"
@@ -29,19 +30,27 @@ const Dashboard = () => {
         bgcolor: 'background.default',
         color: 'text.primary',
         transition: 'all .5s ease',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '24px',
       }}
     >
-      <Box>
-        <Button
-          fullWidth
-          size="small"
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={openAddProductModal}
-        >
-          Add product
-        </Button>
-      </Box>
+      <Button
+        sx={{
+          width: {
+            xs: '100%',
+            sm: 'max-content',
+          },
+        }}
+        size="small"
+        variant="contained"
+        startIcon={<AddIcon />}
+        onClick={openAddProductModal}
+      >
+        Add product
+      </Button>
 
       <ProductsGrid />
     </Box>
