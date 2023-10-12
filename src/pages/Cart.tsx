@@ -12,122 +12,157 @@ const Cart = () => {
     useCart();
 
   if (cart.length === 0) {
-    return <main>No products in cart</main>;
+    return (
+      <Box
+        component="main"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '24px',
+          bgcolor: 'background.default',
+          color: 'text.primary',
+          transition: 'all .5s ease',
+          flexGrow: 1,
+        }}
+      >
+        <Typography variant="h5">No products in cart</Typography>
+      </Box>
+    );
   }
 
   return (
     <Box
+      component="main"
       sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '24px',
         bgcolor: 'background.default',
         color: 'text.primary',
         transition: 'all .5s ease',
+        flexGrow: 1,
       }}
     >
-      <Box>
-        <Typography variant="h5">Cart</Typography>
-      </Box>
-      {cart.map((product) => (
-        <Box
-          key={product.id}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
+      <Box sx={{ width: '100%', maxWidth: 'lg' }}>
+        <Box>
+          <Typography variant="h5">Cart</Typography>
+        </Box>
+        {cart.map((product) => (
           <Box
+            key={product.id}
             sx={{
               display: 'flex',
-              gap: '4px',
+              flexDirection: 'column',
+              gap: '8px',
             }}
           >
             <Box
               sx={{
-                width: '64px',
+                display: 'flex',
+                gap: '4px',
               }}
             >
-              <img
-                src={product.image}
-                alt={product.title}
-                width="100%"
-              />
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography>{product.title}</Typography>
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  width: '64px',
                 }}
               >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  width="100%"
+                />
+              </Box>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+              >
+                <Typography>{product.title}</Typography>
                 <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
+                    justifyContent: 'flex-end',
                   }}
                 >
-                  {product.quantity === 1 ? (
-                    <IconButton onClick={() => removeItem(product.id)}>
-                      <DeleteIcon />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {product.quantity === 1 ? (
+                      <IconButton onClick={() => removeItem(product.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={() => substractItem(product.id)}>
+                        <RemoveIcon />
+                      </IconButton>
+                    )}
+                    <Typography>{product.quantity}</Typography>
+                    <IconButton onClick={() => addItem(product)}>
+                      <AddIcon />
                     </IconButton>
-                  ) : (
-                    <IconButton onClick={() => substractItem(product.id)}>
-                      <RemoveIcon />
-                    </IconButton>
-                  )}
-                  <Typography>{product.quantity}</Typography>
-                  <IconButton onClick={() => addItem(product)}>
-                    <AddIcon />
-                  </IconButton>
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: '8px',
-                  }}
-                >
-                  {product.quantity > 1 && (
-                    <Typography variant="caption">x {product.price}</Typography>
-                  )}
-                  <Typography>{product.price * product.quantity}</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: '8px',
+                    }}
+                  >
+                    {product.quantity > 1 && (
+                      <Typography variant="caption">
+                        x € {product.price}
+                      </Typography>
+                    )}
+                    <Typography>
+                      € {product.price * product.quantity}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
-        </Box>
-      ))}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton onClick={emptyCart}>
-          <ClearIcon />
-        </IconButton>
+        ))}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '8px',
+            borderTopWidth: '2px',
+            borderColor: 'text.secondary',
+            borderTopStyle: 'solid',
+            paddingTop: '8px',
           }}
         >
-          <Typography>
-            {cart.length} product{cart.length > 1 ? 's' : ''}, in total{' '}
-            <span>{totalAmount}</span>
+          <Typography sx={{ textAlign: 'end' }}>
+            {cart.length} product{cart.length > 1 ? 's' : ''}, in total €{' '}
+            {totalAmount}
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<ShoppingCartCheckoutIcon />}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
-            Checkout
-          </Button>
+            <Button
+              color="error"
+              size="small"
+              startIcon={<ClearIcon />}
+              onClick={emptyCart}
+            >
+              Empty cart
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              startIcon={<ShoppingCartCheckoutIcon />}
+            >
+              Checkout
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
