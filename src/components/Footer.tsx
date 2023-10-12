@@ -1,17 +1,19 @@
 import { Box } from '@mui/material';
 
-// TODO
 const Footer = () => {
   return (
     <Box
       component="footer"
       sx={{
-        padding: '12px 24px',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '24px',
         bgcolor: 'background.default',
         color: 'text.primary',
+        transition: 'all .5s ease',
       }}
     >
-      Footer
+      Copyright ©Xuefeng
     </Box>
   );
 };
