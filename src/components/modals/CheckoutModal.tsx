@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 
 import Modal from './Modal';
@@ -7,11 +7,19 @@ import useCheckoutModal from '../../hooks/useCheckoutModal';
 import getStripe from '../../libs/stripeClient';
 import { getClientSecret } from '../../libs/stripe';
 import CheckoutForm from '../forms/CheckoutForm';
+import { useDarkMode } from '../../providers/ThemeProvider';
+import { Appearance } from '@stripe/stripe-js';
 
 const CheckOutModal = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const { isOpen, onClose } = useCheckoutModal();
   const { totalAmount } = useCart();
+  const { darkMode } = useDarkMode();
+
+  const appearance = useMemo<Appearance>(
+    () => ({ theme: darkMode ? 'night' : 'stripe' }),
+    [darkMode]
+  );
 
   useEffect(() => {
     const fetchClientSecret = async () => {
@@ -39,7 +47,7 @@ const CheckOutModal = () => {
     >
       <Elements
         stripe={getStripe()}
-        options={{ clientSecret }}
+        options={{ clientSecret, appearance }}
       >
         <CheckoutForm />
       </Elements>
