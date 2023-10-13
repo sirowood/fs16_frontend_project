@@ -23,7 +23,12 @@ const ProductForm = ({
       onSubmit={onSubmit}
       sx={modalForm}
     >
-      <Typography variant="h6">{title}</Typography>
+      <Typography
+        variant="h6"
+        color="text.primary"
+      >
+        {title}
+      </Typography>
       <CategorySelect
         control={control}
         errorMessage={errors?.categoryId?.message}
