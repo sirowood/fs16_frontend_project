@@ -50,6 +50,7 @@ Features
         ├── home
         └── modals
     ├── hooks
+    ├── libs
     ├── pages
     ├── providers
     ├── redux

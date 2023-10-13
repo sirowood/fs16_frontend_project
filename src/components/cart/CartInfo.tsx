@@ -4,9 +4,12 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import useCart from '../../hooks/useCart';
 import { cartInfoBox, cartButtonsBox } from '../../styles/cart';
+import useCheckoutModal from '../../hooks/useCheckoutModal';
 
 const CartInfo = () => {
   const { cart, totalAmount, emptyCart } = useCart();
+  const { onOpen } = useCheckoutModal();
+
   return (
     <Box sx={cartInfoBox}>
       <Typography sx={{ textAlign: 'end' }}>
@@ -26,6 +29,7 @@ const CartInfo = () => {
           size="small"
           variant="contained"
           startIcon={<ShoppingCartCheckoutIcon />}
+          onClick={onOpen}
         >
           Checkout
         </Button>
