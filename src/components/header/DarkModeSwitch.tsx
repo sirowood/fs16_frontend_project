@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-import useDarkMode from '../../hooks/useDarkMode';
+import { useDarkMode } from '../../providers/ThemeProvider';
 
 const DarkModeSwitch = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();

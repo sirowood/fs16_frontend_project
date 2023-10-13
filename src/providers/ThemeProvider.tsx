@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { createTheme, ThemeProvider as Provider } from '@mui/material';
 
-import useDarkMode from '../hooks/useDarkMode';
+import DarkModeStore from '../types/darkMode';
+
+const DarkModeContext = createContext<DarkModeStore | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const { darkMode } = useDarkMode();
+  const [darkMode, setDarkMode] = useState(false);
+  const value = {
+    darkMode,
+    toggleDarkMode: () => setDarkMode(!darkMode),
+  };
 
   const theme = createTheme({
     breakpoints: {
@@ -21,7 +27,22 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  return <Provider theme={theme}>{children}</Provider>;
+  return (
+    <DarkModeContext.Provider value={value}>
+      <Provider theme={theme}>{children}</Provider>
+    </DarkModeContext.Provider>
+  );
 };
+
+const useDarkMode = () => {
+  const context = useContext(DarkModeContext);
+  if (context === undefined) {
+    throw new Error('useDarkMode must be used within a ThemeProvider');
+  }
+
+  return context;
+};
+
+export { useDarkMode };
 
 export default ThemeProvider;
