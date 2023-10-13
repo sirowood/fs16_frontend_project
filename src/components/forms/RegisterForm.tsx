@@ -20,7 +20,12 @@ const RegisterForm = ({
       onSubmit={onSubmit}
       sx={modalForm}
     >
-      <Typography variant="h6">{title}</Typography>
+      <Typography
+        variant="h6"
+        color="text.primary"
+      >
+        {title}
+      </Typography>
       <Input
         label="Email"
         name="email"
