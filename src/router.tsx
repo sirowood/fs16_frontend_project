@@ -1,7 +1,6 @@
-import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import Error from './components/Error';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
@@ -12,7 +11,7 @@ const routes: RouteObject[] = [
   {
     path: '/',
     element: <Layout />,
-    errorElement: <Error />,
+    errorElement: <Navigate to="/" />,
     children: [
       {
         path: '',

@@ -17,7 +17,7 @@ import {
 const Product = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { data } = useGetSingleProductQuery(+params?.id!);
+  const { data, isError } = useGetSingleProductQuery(+params?.id!);
   const { cart, addItem } = useCart();
 
   const getBadgeContent = useCallback(
@@ -26,6 +26,10 @@ const Product = () => {
     },
     [cart]
   );
+
+  if (isError) {
+    navigate('/');
+  }
 
   if (!data) {
     return null;
