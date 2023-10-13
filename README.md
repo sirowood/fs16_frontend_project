@@ -71,4 +71,5 @@ Features
 
 1. Clone this repo using this command: `git clone -b xuefeng https://github.com/sirowood/fs16_6-frontend-project.git`
 2. Under the root folder run this command: `npm install` to install dependencies
-3. Run `npm start` to start the app
+3. Create a `.env.local` file under the root folder, store your `REACT_APP_STRIPE_PUBLISHABLE_KEY` and `REACT_APP_STRIPE_SECRET_KEY` in it.
+4. Run `npm start` to start the app
