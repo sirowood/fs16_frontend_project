@@ -19,9 +19,11 @@ const CartItems = () => {
   return (
     <Box sx={cartItemsBox}>
       {cart.map((product) => (
-        <Box sx={cartItemBox}>
+        <Box
+          sx={cartItemBox}
+          key={product.id}
+        >
           <Box
-            key={product.id}
             component="img"
             src={product.image}
             alt={product.title}
