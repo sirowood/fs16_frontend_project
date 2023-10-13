@@ -17,7 +17,13 @@ Deployed [here](https://xuefeng-frontend-project.vercel.app/)
 
 ## Architecture
 
+Data flow
+
 ![Data Flow](./images/dataflow.png)
+
+Features
+
+![Features](./images/features.png)
 
 ## Technologies
 
