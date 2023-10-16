@@ -44,11 +44,14 @@ Features
 ├── public
 └── src
     ├── components
+        ├── cart
         ├── dashboard
         ├── forms
         ├── header
         ├── home
-        └── modals
+        ├── modals
+        ├── product
+        └── products
     ├── hooks
     ├── libs
     ├── pages

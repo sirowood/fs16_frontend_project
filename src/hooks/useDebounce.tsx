@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-const useDebounce = (text: string, delay: number) => {
-  const [debouncedText, setDebouncedText] = useState('');
+const useDebounce = (delay: number) => {
+  const [text, setText] = useState('');
+  const [debouncedText, setDebouncedText] = useState(text);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -10,7 +11,11 @@ const useDebounce = (text: string, delay: number) => {
     return () => clearTimeout(timer);
   });
 
-  return debouncedText;
+  return {
+    text,
+    setText,
+    debouncedText,
+  };
 };
 
 export default useDebounce;

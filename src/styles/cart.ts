@@ -1,75 +1,71 @@
-const emptyCartBox = {
-  height: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
 const cartBox = {
   width: '100%',
   maxWidth: 'lg',
   marginX: 'auto',
 };
 
-const cartItemsBox = {
+const itemBox = {
+  padding: '16px 0px',
+  borderBottomStyle: 'solid',
+  borderBottomWidth: '1px',
+  borderBottomColor: 'text.secondary',
+};
+
+const imgBox = {
+  width: {
+    xs: '96px',
+    md: '128px',
+  },
+  aspectRatio: 1,
+  borderRadius: '6px',
+  overflow: 'hidden',
+  flexShrink: 0,
+};
+
+const infoBox = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
-  padding: '12px 0px',
-}
-
-const cartItemBox = {
-  display: 'flex',
-  gap: '4px',
+  justifyContent: 'space-between',
+  flexGrow: 1,
+  height: '96px',
+  marginLeft: '8px',
 };
 
-const itemInfoBox = {
+const buttonsBox = {
   display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-};
-
-const itemButtonsBox = {
-  display: 'flex',
-  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'flex-end',
-};
-
-const buttonsGroup = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-};
-
-const priceBox = {
-  display: 'flex',
-  alignItems: 'baseline',
   gap: '8px',
 };
 
-const cartInfoBox = {
+const iconButton = {
+  padding: '0px',
+};
+
+const totalPriceBox = {
+  display: 'flex',
+  gap: '8px',
+  justifyContent: 'space-between',
+};
+
+const summaryDetailsBox = {
+  borderTopColor: 'lightgray',
   borderTopWidth: '2px',
-  borderColor: 'text.secondary',
   borderTopStyle: 'solid',
-  paddingTop: '8px',
-};
-
-const cartButtonsBox = {
+  padding: '16px 0px',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
 };
 
+const checkoutButton = { borderRadius: '20px' };
+
 export {
-  emptyCartBox,
   cartBox,
-  cartItemsBox,
-  cartItemBox,
-  itemInfoBox,
-  itemButtonsBox,
-  buttonsGroup,
-  priceBox,
-  cartInfoBox,
-  cartButtonsBox,
+  itemBox,
+  imgBox,
+  infoBox,
+  buttonsBox,
+  iconButton,
+  totalPriceBox,
+  summaryDetailsBox,
+  checkoutButton,
 };

@@ -1,64 +1,40 @@
-import { Box, Typography, IconButton } from '@mui/material';
-import RemoveIcon from '@mui/icons-material/Remove';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
+import { Typography, Grid, List, Button } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import useCart from '../../hooks/useCart';
-import {
-  cartItemBox,
-  itemInfoBox,
-  itemButtonsBox,
-  buttonsGroup,
-  priceBox,
-  cartItemsBox,
-} from '../../styles/cart';
+import SingleItem from './SingleItem';
 
 const CartItems = () => {
-  const { cart, addItem, substractItem, removeItem } = useCart();
+  const { cart, emptyCart } = useCart();
 
   return (
-    <Box sx={cartItemsBox}>
-      {cart.map((product) => (
-        <Box
-          sx={cartItemBox}
-          key={product.id}
-        >
-          <Box
-            component="img"
-            src={product.image}
-            alt={product.title}
-            width={'64px'}
-            height={'64px'}
+    <Grid
+      item
+      xs={12}
+      md={7}
+    >
+      {cart.length === 0 && (
+        <Typography color="text.secondary">No items added to cart.</Typography>
+      )}
+      <List>
+        {cart.map((product) => (
+          <SingleItem
+            product={product}
+            key={product.id}
           />
-          <Box sx={itemInfoBox}>
-            <Typography>{product.title}</Typography>
-            <Box sx={itemButtonsBox}>
-              <Box sx={buttonsGroup}>
-                {product.quantity === 1 ? (
-                  <IconButton onClick={() => removeItem(product.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={() => substractItem(product.id)}>
-                    <RemoveIcon />
-                  </IconButton>
-                )}
-                <Typography>{product.quantity}</Typography>
-                <IconButton onClick={() => addItem(product)}>
-                  <AddIcon />
-                </IconButton>
-              </Box>
-              <Box sx={priceBox}>
-                {product.quantity > 1 && (
-                  <Typography variant="caption">x € {product.price}</Typography>
-                )}
-                <Typography>€ {product.price * product.quantity}</Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      ))}
-    </Box>
+        ))}
+      </List>
+      {cart.length > 0 && (
+        <Button
+          color="error"
+          size="small"
+          startIcon={<ClearIcon />}
+          onClick={emptyCart}
+        >
+          Empty cart
+        </Button>
+      )}
+    </Grid>
   );
 };
 

@@ -6,6 +6,10 @@ import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Cart from './pages/Cart';
 import Dashboard from './pages/Dashboard';
+import Products from './pages/Products';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import SuccessPay from './pages/SuccessPay';
 
 const routes: RouteObject[] = [
   {
@@ -16,6 +20,18 @@ const routes: RouteObject[] = [
       {
         path: '',
         element: <Home />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'register',
+        element: <Register />,
+      },
+      {
+        path: 'category/:id',
+        element: <Products />,
       },
       {
         path: 'products/:id',
@@ -32,6 +48,14 @@ const routes: RouteObject[] = [
       {
         path: 'dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: 'success',
+        element: <SuccessPay />,
+      },
+      {
+        path: '*',
+        element: <Navigate to="/" />,
       },
     ],
   },

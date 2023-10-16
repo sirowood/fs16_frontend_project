@@ -6,8 +6,14 @@ const categoryApi = api.injectEndpoints({
     getCategories: build.query<Category[], void>({
       query: () => 'categories',
     }),
+    getSingleCategory: build.query<Category, number>({
+      query: (id) => `categories/${id}`,
+      transformErrorResponse() {
+        return { message: 'No such category' };
+      },
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery } = categoryApi;
+export const { useGetCategoriesQuery, useGetSingleCategoryQuery } = categoryApi;
 export default categoryApi;

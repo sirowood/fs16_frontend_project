@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 import mainStyle from '../styles/main';
 
@@ -9,7 +9,7 @@ const Main = ({ children }: { children: ReactNode }) => {
       component="main"
       sx={mainStyle}
     >
-      {children}
+      <Container maxWidth="xl">{children}</Container>
     </Box>
   );
 };

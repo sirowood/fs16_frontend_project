@@ -1,32 +1,67 @@
+import { useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
-import { FormProps, RegisterFormValues } from '../../types/form';
+import { useRegisterMutation } from '../../redux/services/userApi';
+import registerFormSchema from '../../schemas/registerFormSchema';
 import modalForm from '../../styles/form';
+import { RegisterFormValues } from '../../types/form';
 
-const RegisterForm = ({
-  title,
-  control,
-  errors,
-  disabled,
-  loading,
-  submitButtonText,
-  onSubmit,
-}: FormProps<RegisterFormValues>) => {
+const RegisterForm = () => {
+  const navigate = useNavigate();
+  const [register, { isLoading, isSuccess }] = useRegisterMutation();
+
+  const defaultValues = useMemo(
+    () => ({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      role: 'customer',
+      avatar: '',
+    }),
+    []
+  );
+
+  const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
+    register(data);
+  };
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(registerFormSchema),
+    mode: 'all',
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/login');
+    }
+  }, [isSuccess, navigate]);
+
   return (
     <Box
       component="form"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       sx={modalForm}
     >
       <Typography
-        variant="h6"
+        variant="h4"
         color="text.primary"
+        fontWeight="bold"
       >
-        {title}
+        Register
       </Typography>
       <Input
+        disabled={isLoading}
         label="Email"
         name="email"
         type="email"
@@ -34,18 +69,21 @@ const RegisterForm = ({
         errorMessage={errors.email?.message}
       />
       <Input
+        disabled={isLoading}
         label="Password"
         name="password"
         control={control}
         errorMessage={errors.password?.message}
       />
       <Input
+        disabled={isLoading}
         label="Confirm password"
         name="confirmPassword"
         control={control}
         errorMessage={errors.confirmPassword?.message}
       />
       <Input
+        disabled={isLoading}
         label="Avatar"
         name="avatar"
         control={control}
@@ -55,10 +93,10 @@ const RegisterForm = ({
         type="submit"
         fullWidth
         variant="contained"
-        disabled={disabled}
-        loading={loading}
+        disabled={isLoading || !isValid}
+        loading={isLoading}
       >
-        {submitButtonText}
+        Register
       </LoadingButton>
     </Box>
   );

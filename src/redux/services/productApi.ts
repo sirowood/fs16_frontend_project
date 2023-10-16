@@ -55,6 +55,12 @@ const productApi = api.injectEndpoints({
         return { message: 'No such product' };
       },
     }),
+    getPageCount: build.query<number, { limit: number, categoryId: number, title: string }>({
+      query: ({ categoryId, title }) => `/products/?categoryId=${categoryId}&&title=${title}`,
+      transformResponse(products: ProductRes[], _meta, { limit }) {
+        return Math.ceil(products.length / limit);
+      },
+    })
   }),
 });
 
@@ -64,5 +70,6 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useRemoveProductMutation,
+  useGetPageCountQuery,
 } = productApi;
 export default productApi;

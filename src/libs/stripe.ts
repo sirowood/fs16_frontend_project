@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 
+import { CartItem } from "../types/cart";
+
 const stripe = new Stripe(
   process.env.REACT_APP_STRIPE_SECRET_KEY ?? '',
   {
@@ -11,15 +13,28 @@ const stripe = new Stripe(
   }
 );
 
-const getClientSecret = async (amount: number) => {
-  const result = await stripe.paymentIntents.create({
-    amount,
-    currency: 'eur',
-    payment_method_types: ['card'],
-  });
-  return result.client_secret;
+const checkout = async (items: CartItem[]) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: items.map((item) => ({
+      quantity: item.quantity,
+      price_data: {
+        currency: 'EUR',
+        product_data: {
+          name: item.title,
+        },
+        unit_amount: item.price * 100,
+      }
+    })),
+    mode: 'payment',
+    billing_address_collection: 'required',
+    phone_number_collection: {
+      enabled: true,
+    },
+    success_url: `${window.location.origin}/success`,
+    cancel_url: `${window.location.origin}/cart`,
+  })
+
+  return session.url;
 };
 
-export { getClientSecret };
-
-export default stripe;
+export default checkout;

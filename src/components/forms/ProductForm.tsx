@@ -4,8 +4,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Input from './Input';
 import CategorySelect from './CategorySelect';
 import ImageURLFields from './ImageURLFields';
-import { FormProps, ProductFormValues } from '../../types/form';
 import modalForm from '../../styles/form';
+import { FormProps, ProductFormValues } from '../../types/form';
 
 const ProductForm = ({
   title,

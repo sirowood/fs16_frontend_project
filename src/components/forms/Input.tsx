@@ -4,6 +4,7 @@ import { TextField } from '@mui/material';
 import { InputProps } from '../../types/form';
 
 const Input = <T extends FieldValues>({
+  disabled,
   name,
   label,
   type = 'text',
@@ -17,6 +18,7 @@ const Input = <T extends FieldValues>({
       control={control}
       render={({ field }) => (
         <TextField
+          disabled={disabled}
           fullWidth
           variant="standard"
           label={label}
