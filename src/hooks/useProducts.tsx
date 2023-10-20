@@ -14,7 +14,7 @@ const useProducts = (categoryId: number) => {
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState('Default');
-  const { data, isLoading } = useGetProductsQuery(
+  const { data, isFetching } = useGetProductsQuery(
     {
       categoryId,
       title: debouncedText,
@@ -102,7 +102,7 @@ const useProducts = (categoryId: number) => {
     text,
     count,
     orderBy,
-    isLoading,
+    isFetching,
     products,
     changeText,
     changeOrderBy,

@@ -20,7 +20,7 @@ const Products = () => {
     count,
     text,
     orderBy,
-    isLoading,
+    isFetching,
     products,
     changeText,
     changeOrderBy,
@@ -44,7 +44,7 @@ const Products = () => {
         changeOrderBy={changeOrderBy}
       />
       <ProductList
-        isLoading={isLoading}
+        isLoading={isFetching}
         products={products}
         counts={limit}
       />
