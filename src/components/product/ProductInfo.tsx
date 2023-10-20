@@ -31,6 +31,7 @@ const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
     <Grid
       item
       sx={info}
+      xs={12}
       md={6}
     >
       <Box>
@@ -39,24 +40,52 @@ const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
             variant="h4"
             fontWeight="bold"
           >
-            {isLoading ? <Skeleton /> : product?.title}
+            {isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+              />
+            ) : (
+              product?.title
+            )}
           </Typography>
           <Typography
             variant="caption"
             color="text.secondary"
           >
-            {isLoading ? <Skeleton /> : product?.category.name}
+            {isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+              />
+            ) : (
+              product?.category.name
+            )}
           </Typography>
           <Typography
             variant="h6"
             fontWeight="bold"
           >
-            {isLoading ? <Skeleton /> : `€ ${product?.price}`}
+            {isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+              />
+            ) : (
+              `€ ${product?.price}`
+            )}
           </Typography>
         </Box>
         <Box sx={descriptionBox}>
           <Typography>
-            {isLoading ? <Skeleton /> : product?.description}
+            {isLoading ? (
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+              />
+            ) : (
+              product?.description
+            )}
           </Typography>
         </Box>
       </Box>

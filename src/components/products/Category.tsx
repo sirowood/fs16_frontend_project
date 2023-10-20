@@ -1,7 +1,7 @@
-import { Box, Typography, Skeleton } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { useGetSingleCategoryQuery } from '../../redux/services/categoryApi';
-import { imgSkeleton } from '../../styles/product';
+import ImgSkeleton from '../ImgSkeleton';
 import {
   categoryBox,
   categoryTitle,
@@ -16,11 +16,7 @@ const Category = ({ categoryId }: { categoryId: number }) => {
   return (
     <Box sx={categoryBox}>
       {isLoading ? (
-        <Skeleton
-          variant="rectangular"
-          animation="wave"
-          sx={imgSkeleton}
-        />
+        <ImgSkeleton />
       ) : (
         <>
           <Box

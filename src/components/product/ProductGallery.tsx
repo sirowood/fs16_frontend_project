@@ -1,7 +1,12 @@
-import { Box, Grid, Skeleton } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
+import { Box, Grid, Skeleton } from '@mui/material';
 
-import { gallery, imgSkeleton, skeletonBox } from '../../styles/product';
+import ImgSkeleton from '../ImgSkeleton';
+import {
+  gallery,
+  thumbImgSkeleton,
+  thumbsSkeletonBox,
+} from '../../styles/product';
 import { ProductGalleryProps } from '../../types/product';
 
 const ProductGallery = ({ title, images, isLoading }: ProductGalleryProps) => {
@@ -9,32 +14,41 @@ const ProductGallery = ({ title, images, isLoading }: ProductGalleryProps) => {
     <Grid
       justifyContent="center"
       item
+      xs={12}
       md={6}
       sx={gallery}
     >
       {isLoading ? (
-        <Box sx={skeletonBox}>
-          <Skeleton
-            variant="rectangular"
-            animation="wave"
-            sx={imgSkeleton}
-          />
+        <Box>
+          <ImgSkeleton />
+          <Box sx={thumbsSkeletonBox}>
+            {Array.from(new Array(3)).map((_, index) => (
+              <Skeleton
+                key={index}
+                variant="rectangular"
+                animation="wave"
+                sx={thumbImgSkeleton}
+              />
+            ))}
+          </Box>
         </Box>
       ) : (
-        <Carousel
-          infiniteLoop
-          autoPlay
-          showStatus={false}
-        >
-          {images?.map((src) => (
-            <img
-              key={src}
-              src={src}
-              alt={title}
-              style={{ borderRadius: '8px' }}
-            />
-          ))}
-        </Carousel>
+        <Box>
+          <Carousel
+            infiniteLoop
+            autoPlay
+            showStatus={false}
+          >
+            {images?.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt={title}
+                style={{ borderRadius: '8px' }}
+              />
+            ))}
+          </Carousel>
+        </Box>
       )}
     </Grid>
   );

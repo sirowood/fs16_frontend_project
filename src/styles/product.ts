@@ -11,6 +11,19 @@ const gallery = {
   },
 };
 
+const thumbsSkeletonBox = {
+  marginY: '16px',
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '16px',
+};
+
+const thumbImgSkeleton = {
+  borderRadius: '8px',
+  width: '70px',
+  height: '70px',
+};
+
 const info = {
   display: 'flex',
   flexDirection: 'column',
@@ -28,6 +41,7 @@ const descriptionBox = {
 };
 
 const skeletonBox = {
+  width: '100%',
   borderRadius: '8px',
   paddingTop: '100%',
   position: 'relative',
@@ -68,6 +82,8 @@ const addButton = {
 
 export {
   gallery,
+  thumbsSkeletonBox,
+  thumbImgSkeleton,
   info,
   titleBox,
   descriptionBox,

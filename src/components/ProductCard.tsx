@@ -3,20 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import {
   Grid,
   Card,
-  Box,
   Skeleton,
   CardMedia,
   CardContent,
   Typography,
 } from '@mui/material';
 
-import {
-  skeletonBox,
-  imgSkeleton,
-  cardContent,
-  cardMedia,
-  productCard,
-} from '../styles/product';
+import ImgSkeleton from './ImgSkeleton';
+import { cardContent, cardMedia, productCard } from '../styles/product';
 import { ProductCardProps } from '../types/product';
 
 const ProductCard = ({ index, product, isLoading }: ProductCardProps) => {
@@ -42,13 +36,7 @@ const ProductCard = ({ index, product, isLoading }: ProductCardProps) => {
         onClick={handleNavigate}
       >
         {isLoading ? (
-          <Box sx={skeletonBox}>
-            <Skeleton
-              variant="rectangular"
-              animation="wave"
-              sx={imgSkeleton}
-            />
-          </Box>
+          <ImgSkeleton />
         ) : (
           <CardMedia
             component="img"
