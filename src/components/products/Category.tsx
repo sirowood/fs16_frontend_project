@@ -9,13 +9,13 @@ import {
 } from '../../styles/products';
 
 const Category = ({ categoryId }: { categoryId: number }) => {
-  const { data: category, isLoading } = useGetSingleCategoryQuery(categoryId, {
+  const { data: category, isFetching } = useGetSingleCategoryQuery(categoryId, {
     skip: isNaN(categoryId),
   });
 
   return (
     <Box sx={categoryBox}>
-      {isLoading ? (
+      {isFetching ? (
         <ImgSkeleton />
       ) : (
         <>

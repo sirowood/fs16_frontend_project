@@ -16,6 +16,7 @@ const thumbsSkeletonBox = {
   display: 'flex',
   justifyContent: 'center',
   gap: '16px',
+  paddingY: '5px'
 };
 
 const thumbImgSkeleton = {

@@ -12,7 +12,7 @@ const Product = () => {
   const navigate = useNavigate();
   const {
     data: product,
-    isLoading,
+    isFetching,
     isError,
   } = useGetSingleProductQuery(+params?.id!);
 
@@ -28,19 +28,16 @@ const Product = () => {
         columnSpacing={6}
       >
         <ProductGallery
-          isLoading={isLoading}
+          isLoading={isFetching}
           title={product?.title}
           images={product?.images}
         />
         <ProductInfo
           product={product}
-          isLoading={isLoading}
+          isLoading={isFetching}
         />
       </Grid>
-      <RelatedProducts
-        categoryId={product?.category.id}
-        isLoading={isLoading}
-      />
+      <RelatedProducts categoryId={product?.category.id} />
     </Main>
   );
 };
