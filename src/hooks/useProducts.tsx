@@ -61,31 +61,35 @@ const useProducts = (categoryId: number) => {
     []
   );
 
-  const products = useMemo(() => {
-    return sortProducts(orderBy, data).slice(offset, offset + limit);
-  }, [sortProducts, orderBy, data, offset, limit]);
-
-  const changeLimit = (e: SelectChangeEvent<number>) => {
+  const changeLimit = useCallback((e: SelectChangeEvent<number>) => {
     setLimit(+e.target.value);
     setOffset(0);
     setPage(1);
-  };
+  }, []);
 
-  const changePage = (_: ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-    setOffset((value - 1) * limit);
-    window.scrollTo(0, 0);
-  };
+  const changePage = useCallback(
+    (_: ChangeEvent<unknown>, value: number) => {
+      setPage(value);
+      setOffset((value - 1) * limit);
+      window.scrollTo(0, 0);
+    },
+    [limit]
+  );
 
-  const changeText = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setText(e.target.value);
-  };
+  const changeText = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setText(e.target.value);
+    },
+    [setText]
+  );
 
-  const changeOrderBy = (e: SelectChangeEvent<string>) => {
+  const changeOrderBy = useCallback((e: SelectChangeEvent<string>) => {
     setOrderBy(e.target.value);
-  };
+  }, []);
+
+  const products = useMemo(() => {
+    return sortProducts(orderBy, data).slice(offset, offset + limit);
+  }, [sortProducts, orderBy, data, offset, limit]);
 
   useEffect(() => {
     setOffset(0);
