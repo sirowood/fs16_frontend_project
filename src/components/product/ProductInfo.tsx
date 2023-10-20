@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+import toast from 'react-hot-toast';
 import { Box, Button, Typography, Grid, Skeleton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -12,6 +14,18 @@ import { ProductInfoProps } from '../../types/product';
 
 const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
   const { addItem } = useCart();
+
+  const onClick = useCallback(() => {
+    if (product) {
+      addItem({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.images[0],
+      });
+      toast.success('Added to cart');
+    }
+  }, [addItem, product]);
 
   return (
     <Grid
@@ -52,14 +66,7 @@ const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
             variant="contained"
             sx={addButton}
             startIcon={<AddShoppingCartIcon />}
-            onClick={() =>
-              addItem({
-                id: product.id,
-                title: product.title,
-                price: product.price,
-                image: product.images[0],
-              })
-            }
+            onClick={onClick}
           >
             Add to Cart
           </Button>

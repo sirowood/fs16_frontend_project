@@ -74,6 +74,7 @@ const useProducts = (categoryId: number) => {
   const changePage = (_: ChangeEvent<unknown>, value: number) => {
     setPage(value);
     setOffset((value - 1) * limit);
+    window.scrollTo(0, 0);
   };
 
   const changeText = (

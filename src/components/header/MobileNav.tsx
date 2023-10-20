@@ -39,22 +39,20 @@ const MobileNav = ({ categories }: { categories?: Category[] }) => {
         }}
       >
         {categories?.slice(0, 5).map((category) => (
-          <MenuItem
+          <Link
             key={category.id}
-            onClick={handleClose}
+            to={`/category/${category.id}`}
+            style={{ textDecoration: 'none' }}
           >
-            <Link
-              to={`/category/${category.id}`}
-              style={{ textDecoration: 'none' }}
-            >
+            <MenuItem onClick={handleClose}>
               <Typography
                 variant="body2"
                 color="text.primary"
               >
                 {category.name}
               </Typography>
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         ))}
       </Menu>
     </Box>
