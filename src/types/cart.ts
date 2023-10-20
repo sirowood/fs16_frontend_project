@@ -6,7 +6,6 @@ type CartItem = {
   quantity: number,
 };
 
-
 type AddProductInCart = {
   id: number,
   title: string,

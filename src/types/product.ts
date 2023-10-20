@@ -55,7 +55,6 @@ type ProductInfoProps = {
   isLoading: boolean,
 };
 
-
 type PaginationBarProps = {
   limit: number,
   page: number,

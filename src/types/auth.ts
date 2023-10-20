@@ -10,7 +10,6 @@ type LoginRes = {
   refresh_token: string,
 };
 
-
 type AuthReducerInitialState = {
   user: User | null,
 };
