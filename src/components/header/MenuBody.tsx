@@ -6,7 +6,7 @@ const MenuBody = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   if (user) {
-    return <Authed role={user.role} />;
+    return <Authed user={user} />;
   }
 
   return <UnAuthed />;

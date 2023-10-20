@@ -1,11 +1,15 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  Avatar,
   Box,
+  Divider,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
+  Typography,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -13,8 +17,10 @@ import ExploreIcon from '@mui/icons-material/Explore';
 
 import { useAppDispatch } from '../../redux/store';
 import { logout } from '../../redux/reducers/authReducer';
+import { avatar, avatarPaper, menuAvatarBox } from '../../styles/header';
+import { User } from '../../types/user';
 
-const Authed = ({ role }: { role: string }) => {
+const Authed = ({ user }: { user: User }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -32,6 +38,26 @@ const Authed = ({ role }: { role: string }) => {
 
   return (
     <Box>
+      <Box sx={menuAvatarBox}>
+        <Paper
+          sx={avatarPaper}
+          elevation={24}
+        >
+          <Avatar
+            src={user.avatar}
+            sx={avatar}
+          />
+        </Paper>
+        <Typography
+          variant="h6"
+          fontWeight="bold"
+          fontFamily="monospace"
+          noWrap
+        >
+          {user.name}
+        </Typography>
+      </Box>
+      <Divider />
       <ListItem>
         <ListItemButton onClick={navigateToProfile}>
           <ListItemIcon>
@@ -40,7 +66,7 @@ const Authed = ({ role }: { role: string }) => {
           <ListItemText>Profile</ListItemText>
         </ListItemButton>
       </ListItem>
-      {role === 'admin' && (
+      {user.role === 'admin' && (
         <ListItem>
           <ListItemButton onClick={navigateToDashboard}>
             <ListItemIcon>

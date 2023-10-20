@@ -66,6 +66,26 @@ const menuHeader = {
   gap: '24px',
 };
 
+const menuAvatarBox = {
+  paddingY: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '8px',
+};
+
+const avatarPaper = {
+  outlineStyle: 'outset',
+  outlineWidth: '6px',
+  outlineOffset: '-1px',
+  borderRadius: '50%',
+};
+
+const avatar = {
+  width: '96px',
+  height: '96px',
+};
+
 export {
   headerBox,
   headerNav,
@@ -76,4 +96,7 @@ export {
   desktopNavLinkText,
   shoppingBag,
   menuHeader,
+  menuAvatarBox,
+  avatarPaper,
+  avatar,
 };
