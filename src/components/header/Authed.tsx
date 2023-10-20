@@ -14,7 +14,7 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import { useAppDispatch } from '../../redux/store';
 import { logout } from '../../redux/reducers/authReducer';
 
-const Authed = () => {
+const Authed = ({ role }: { role: string }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -40,14 +40,17 @@ const Authed = () => {
           <ListItemText>Profile</ListItemText>
         </ListItemButton>
       </ListItem>
-      <ListItem>
-        <ListItemButton onClick={navigateToDashboard}>
-          <ListItemIcon>
-            <ExploreIcon />
-          </ListItemIcon>
-          <ListItemText>Dashboard</ListItemText>
-        </ListItemButton>
-      </ListItem>
+      {role === 'admin' && (
+        <ListItem>
+          <ListItemButton onClick={navigateToDashboard}>
+            <ListItemIcon>
+              <ExploreIcon />
+            </ListItemIcon>
+            <ListItemText>Dashboard</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      )}
+
       <ListItem>
         <ListItemButton onClick={handleLogout}>
           <ListItemIcon>
