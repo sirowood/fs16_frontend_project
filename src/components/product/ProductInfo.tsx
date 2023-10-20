@@ -1,20 +1,17 @@
-import { useCallback } from 'react';
-import { Badge, Box, Button, Typography, Grid, Skeleton } from '@mui/material';
+import { Box, Button, Typography, Grid, Skeleton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import useCart from '../../hooks/useCart';
+import {
+  addButton,
+  descriptionBox,
+  info,
+  titleBox,
+} from '../../styles/product';
 import { ProductInfoProps } from '../../types/product';
-import { descriptionBox, info, titleBox } from '../../styles/product';
 
 const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
-  const { cart, addItem } = useCart();
-
-  const getBadgeContent = useCallback(
-    (id: number) => {
-      return cart.find((item) => item.id === id)?.quantity || 0;
-    },
-    [cart]
-  );
+  const { addItem } = useCart();
 
   return (
     <Grid
@@ -51,26 +48,21 @@ const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
       </Box>
       {product && (
         <Box>
-          <Badge
-            badgeContent={getBadgeContent(product.id)}
-            color="info"
+          <Button
+            variant="contained"
+            sx={addButton}
+            startIcon={<AddShoppingCartIcon />}
+            onClick={() =>
+              addItem({
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.images[0],
+              })
+            }
           >
-            <Button
-              variant="contained"
-              sx={{ borderRadius: '16px' }}
-              startIcon={<AddShoppingCartIcon />}
-              onClick={() =>
-                addItem({
-                  id: product.id,
-                  title: product.title,
-                  price: product.price,
-                  image: product.images[0],
-                })
-              }
-            >
-              Add to Cart
-            </Button>
-          </Badge>
+            Add to Cart
+          </Button>
         </Box>
       )}
     </Grid>

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
 import MainNav from './MainNav';
-import NavActions from './NavActions';
+import Menu from './Menu';
 import { headerBox } from '../../styles/header';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
       sx={headerBox}
     >
       <MainNav />
-      <NavActions />
+      <Menu />
     </Box>
   );
 };

@@ -51,18 +51,19 @@ const desktopNavLinkText = {
   },
 };
 
-const navActions = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '4px',
-};
-
 const shoppingBag = {
+  width: '100%',
   backgroundColor: 'text.primary',
   borderRadius: '16px',
   ':hover': {
     backgroundColor: 'text.primary',
   },
+};
+
+const menuHeader = {
+  justifyContent: 'space-between',
+  paddingX: '24px',
+  gap: '24px',
 };
 
 export {
@@ -73,6 +74,6 @@ export {
   mobileNavBox,
   mobileNavButton,
   desktopNavLinkText,
-  navActions,
   shoppingBag,
+  menuHeader,
 };

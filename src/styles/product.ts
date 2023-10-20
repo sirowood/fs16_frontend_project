@@ -61,6 +61,11 @@ const cardContent = {
   flexGrow: 1,
 };
 
+const addButton = {
+  borderRadius: '16px',
+  width: { xs: '100%', sm: 'fit-content' },
+};
+
 export {
   gallery,
   info,
@@ -71,4 +76,5 @@ export {
   productCard,
   cardMedia,
   cardContent,
+  addButton,
 };
