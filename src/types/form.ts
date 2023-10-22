@@ -4,7 +4,7 @@ import {
   FieldValues,
   Path,
 } from "react-hook-form";
-import { InputBaseComponentProps } from "@mui/material";
+import { FilledInputProps, InputBaseComponentProps, OutlinedInputProps, InputProps } from "@mui/material";
 
 import { LoginReq } from "./auth";
 import { RegisterUserReq } from "./user";
@@ -35,13 +35,14 @@ type FormProps<T extends FieldValues> = {
   onSubmit: React.FormEventHandler<HTMLFormElement>,
 };
 
-type InputProps<T extends FieldValues> = {
+type CustomInputProps<T extends FieldValues> = {
   disabled?: boolean,
   name: Path<T>,
   label: string,
   errorMessage?: string,
   type?: string,
   inputProps?: InputBaseComponentProps,
+  InputProps?: Partial<OutlinedInputProps> | Partial<FilledInputProps> | Partial<InputProps>,
   control: Control<T, any>,
 }
 
@@ -61,7 +62,7 @@ export type {
   RegisterFormValues,
   FullProductFormValues,
   ProductFormValues,
-  InputProps,
+  CustomInputProps,
   FormProps,
   CategorySelectProps,
   ImageURLFieldsProps,

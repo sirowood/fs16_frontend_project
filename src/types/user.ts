@@ -18,15 +18,10 @@ type UpdateUserInfoFormProps = Omit<User, 'role' | 'password'>;
 
 type UpdateUserPasswordFormProps = Pick<User, 'id'>;
 
-type CheckEmailRes = {
-  isAvailable: boolean,
-};
-
 export type {
   User,
   RegisterUserReq,
   UpdateUserInfoFormProps,
   UpdateUserPasswordFormProps,
   UpdateUserReq,
-  CheckEmailRes,
 };

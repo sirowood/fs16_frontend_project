@@ -2,11 +2,16 @@ import { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import CheckIcon from '@mui/icons-material/Check';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import Input from './Input';
-import { useRegisterMutation } from '../../redux/services/userApi';
+import {
+  useLazyCheckEmailQuery,
+  useRegisterMutation,
+} from '../../redux/services/userApi';
 import registerFormSchema from '../../schemas/registerFormSchema';
 import modalForm from '../../styles/form';
 import { RegisterFormValues } from '../../types/form';
@@ -14,6 +19,8 @@ import { RegisterFormValues } from '../../types/form';
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [register, { isLoading, isSuccess }] = useRegisterMutation();
+  const [checkEmail, { data: emailAvailable, isFetching }] =
+    useLazyCheckEmailQuery();
 
   const defaultValues = useMemo(
     () => ({
@@ -33,12 +40,21 @@ const RegisterForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    watch,
+    formState: { errors, isValid, touchedFields },
   } = useForm({
     defaultValues,
     resolver: yupResolver(registerFormSchema),
     mode: 'all',
   });
+
+  const email = watch('email');
+
+  useEffect(() => {
+    if (touchedFields.email && !errors.email) {
+      checkEmail(email);
+    }
+  }, [checkEmail, email, errors.email, touchedFields.email]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -73,6 +89,26 @@ const RegisterForm = () => {
         type="email"
         control={control}
         errorMessage={errors.email?.message}
+        InputProps={{
+          endAdornment: isFetching ? (
+            <CircularProgress
+              size={16}
+              color="primary"
+            />
+          ) : !errors.email && emailAvailable ? (
+            <CheckIcon
+              fontSize="small"
+              color="success"
+            />
+          ) : (
+            email && (
+              <HighlightOffIcon
+                fontSize="small"
+                color="error"
+              />
+            )
+          ),
+        }}
       />
       <Input
         disabled={isLoading}
@@ -101,7 +137,7 @@ const RegisterForm = () => {
         type="submit"
         fullWidth
         variant="contained"
-        disabled={isLoading || !isValid}
+        disabled={isLoading || isFetching || !isValid || !emailAvailable}
         loading={isLoading}
       >
         Register

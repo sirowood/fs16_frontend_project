@@ -1,7 +1,7 @@
 import { Controller, FieldValues } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
-import { InputProps } from '../../types/form';
+import { CustomInputProps } from '../../types/form';
 
 const Input = <T extends FieldValues>({
   disabled,
@@ -9,9 +9,10 @@ const Input = <T extends FieldValues>({
   label,
   type = 'text',
   inputProps,
+  InputProps,
   control,
   errorMessage,
-}: InputProps<T>) => {
+}: CustomInputProps<T>) => {
   return (
     <Controller
       name={name}
@@ -25,6 +26,7 @@ const Input = <T extends FieldValues>({
           type={type}
           error={!!errorMessage}
           helperText={errorMessage}
+          InputProps={InputProps}
           inputProps={inputProps}
           sx={{ height: 70 }}
           {...field}

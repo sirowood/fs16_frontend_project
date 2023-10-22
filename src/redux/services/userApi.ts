@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 import api from "./api";
-import { CheckEmailRes, RegisterUserReq, UpdateUserReq, User } from "../../types/user";
+import { RegisterUserReq, UpdateUserReq, User } from "../../types/user";
 import { setUser } from "../reducers/authReducer";
 
 const userApi = api.injectEndpoints({
@@ -35,11 +35,10 @@ const userApi = api.injectEndpoints({
       },
       transformErrorResponse() { return { message: 'Update faild' }; },
     }),
-    checkEmail: build.query<CheckEmailRes, string>({
+    checkEmail: build.query<boolean, string>({
       query: () => ({ url: 'users' }),
       transformResponse(response: User[], _meta, email) {
-        const isAvailable = response.findIndex((user) => user.email === email) < 0;
-        return { isAvailable };
+        return response.findIndex((user) => user.email === email) < 0;
       },
     }),
   }),
