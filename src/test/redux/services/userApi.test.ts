@@ -46,7 +46,7 @@ describe('userApi', () => {
       userApi.endpoints.checkEmail.initiate('john@mail.com')
     );
 
-    expect(result.data).toEqual({ isAvailable: false });
+    expect(result.data).toEqual(false);
   });
 
   test('should check invalid email successfully', async () => {
@@ -54,6 +54,6 @@ describe('userApi', () => {
       userApi.endpoints.checkEmail.initiate('invalid@mail.com')
     );
 
-    expect(result.data).toEqual({ isAvailable: true });
+    expect(result.data).toEqual(true);
   });
 });
