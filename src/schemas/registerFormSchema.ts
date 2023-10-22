@@ -9,7 +9,6 @@ const schema = yup.object({
     .required('Required')
     .oneOf([yup.ref('password')], 'Passwords must match'),
   avatar: yup.string().required('Avatar required'),
-  role: yup.string().required(),
 });
 
 export default schema;

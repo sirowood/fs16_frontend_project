@@ -11,7 +11,7 @@ import { RegisterUserReq } from "./user";
 
 type LoginFormValues = LoginReq;
 
-type RegisterFormValues = RegisterUserReq & { confirmPassword: string };
+type RegisterFormValues = Omit<RegisterUserReq, 'role'> & { confirmPassword: string };
 
 type FullProductFormValues = {
   id: number,

@@ -21,14 +21,13 @@ const RegisterForm = () => {
       email: '',
       password: '',
       confirmPassword: '',
-      role: 'customer',
       avatar: '',
     }),
     []
   );
 
   const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
-    register(data);
+    register({ ...data, role: 'customer' });
   };
 
   const {
@@ -62,6 +61,13 @@ const RegisterForm = () => {
       </Typography>
       <Input
         disabled={isLoading}
+        label="Name"
+        name="name"
+        control={control}
+        errorMessage={errors.name?.message}
+      />
+      <Input
+        disabled={isLoading}
         label="Email"
         name="email"
         type="email"
@@ -72,6 +78,7 @@ const RegisterForm = () => {
         disabled={isLoading}
         label="Password"
         name="password"
+        type="password"
         control={control}
         errorMessage={errors.password?.message}
       />
@@ -79,6 +86,7 @@ const RegisterForm = () => {
         disabled={isLoading}
         label="Confirm password"
         name="confirmPassword"
+        type="password"
         control={control}
         errorMessage={errors.confirmPassword?.message}
       />
