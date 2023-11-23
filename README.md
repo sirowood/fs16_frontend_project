@@ -6,6 +6,19 @@
 
 This is the frontend project of Integrify Fullstack programme 2023-08.
 
+It use [Platzi Fake Store API](https://fakeapi.platzi.com/) as the data source.
+
+Test accounts:
+
+- Admin
+  - email: `admin@mail.com`
+  - password: `admin123`
+- Customer
+  - email: `john@mail.com`
+  - password: `changeme`
+
+❗**CAUTION: DO NOT USE YOUR PASSWORD WHEN REGISTER NEW ACCOUNT**❗
+
 Deployed [here](https://xuefeng-frontend-project.vercel.app/)
 
 ## Table of content
