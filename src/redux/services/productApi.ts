@@ -1,9 +1,15 @@
 import api from "./api";
-import { ProductRes, GetProductsReq, AddProductReq, UpdateProductReq } from "../../types/product";
+import {
+  ProductRes,
+  GetProductsReq,
+  AddProductReq,
+  UpdateProductReq,
+  GetProductRes
+} from "../../types/product";
 
 const productApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getProducts: build.query<ProductRes[], GetProductsReq>({
+    getProducts: build.query<GetProductRes, GetProductsReq>({
       query: (params) => ({
         url: 'products',
         params,
@@ -11,16 +17,16 @@ const productApi = api.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-            ...result.map(({ id }) => ({ type: 'Products' as const, id })),
+            ...result.items.map(({ id }) => ({ type: 'Products' as const, id })),
             { type: 'Products', id: 'LIST' },
           ]
           : [{ type: 'Products', id: 'LIST' }],
     }),
-    getSingleProduct: build.query<ProductRes, number>({
+    getSingleProduct: build.query<ProductRes, string>({
       query: (id) => `products/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'Products', id }],
-      transformErrorResponse() {
-        return { message: 'No such product' };
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
     }),
     addProduct: build.mutation<ProductRes, AddProductReq>({
@@ -30,37 +36,31 @@ const productApi = api.injectEndpoints({
         body: newProduct,
       }),
       invalidatesTags: [{ type: 'Products', id: 'LIST' }],
-      transformErrorResponse() {
-        return { message: 'Something went wrong while adding new product' };
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
     }),
     updateProduct: build.mutation<ProductRes, UpdateProductReq>({
       query: ({ id, productNewData }) => ({
         url: `products/${id}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: productNewData,
       }),
       invalidatesTags: (_result, _error, { id }) => [{ type: 'Products', id }],
-      transformErrorResponse() {
-        return { message: 'Something went wrong while updating the product' };
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
     }),
-    removeProduct: build.mutation<boolean, number>({
+    removeProduct: build.mutation<boolean, string>({
       query: (id) => ({
         url: `products/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: (_result, _error, id) => [{ type: 'Products', id }],
-      transformErrorResponse() {
-        return { message: 'No such product' };
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
     }),
-    getPageCount: build.query<number, { limit: number, categoryId: number, title: string }>({
-      query: ({ categoryId, title }) => `/products/?categoryId=${categoryId}&&title=${title}`,
-      transformResponse(products: ProductRes[], _meta, { limit }) {
-        return Math.ceil(products.length / limit);
-      },
-    })
   }),
 });
 
@@ -70,6 +70,5 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useRemoveProductMutation,
-  useGetPageCountQuery,
 } = productApi;
 export default productApi;

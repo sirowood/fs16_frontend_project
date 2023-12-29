@@ -2,9 +2,10 @@ import { Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { useAppSelector } from '../redux/store';
-import UpdateUserInfoForm from '../components/forms/UpdateUserInfoForm';
-import UpdateUserPasswordForm from '../components/forms/UpdateUserPasswordForm';
+import UpdateProfileForm from '../components/forms/UpdateProfileForm';
+import UpdatePasswordForm from '../components/forms/UpdatePasswordForm';
 import Main from '../components/Main';
+import DeleteMe from '../components/profile/DeleteMe';
 import { profileBox } from '../styles/profile';
 
 const Profile = () => {
@@ -22,14 +23,16 @@ const Profile = () => {
   return (
     <Main>
       <Box sx={profileBox}>
-        <UpdateUserInfoForm
+        <UpdateProfileForm
           id={user.id}
-          name={user.name}
+          firstName={user.firstName}
+          lastName={user.lastName}
           email={user.email}
           avatar={user.avatar}
         />
-        <UpdateUserPasswordForm id={user.id} />
+        <UpdatePasswordForm />
       </Box>
+      <DeleteMe />
     </Main>
   );
 };

@@ -5,17 +5,25 @@ import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
-import updateUserPasswordFormScheme from '../../schemas/updateUserPasswordFormSchema';
-import { useUpdateUserMutation } from '../../redux/services/userApi';
+import updatePasswordFormScheme from '../../schemas/updatePasswordFormSchema';
+import { useChangePasswordMutation } from '../../redux/services/userApi';
 import { updateUserForm } from '../../styles/profile';
-import { UpdateUserPasswordFormProps, User } from '../../types/user';
+import { ChangePasswordReq } from '../../types/user';
+import toast from 'react-hot-toast';
 
-const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
-  const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
-  const defaultValues = { password: '', confirmPassword: '' };
+const UpdatePasswordForm = () => {
+  const [updateUser, { isLoading, isSuccess }] = useChangePasswordMutation();
+  const defaultValues = {
+    originalPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  };
 
-  const onSubmit: SubmitHandler<Pick<User, 'password'>> = (data) => {
-    updateUser({ id, userNewData: { password: data.password } });
+  const onSubmit: SubmitHandler<ChangePasswordReq> = (data) => {
+    updateUser({
+      originalPassword: data.originalPassword,
+      newPassword: data.newPassword,
+    });
   };
 
   const {
@@ -25,13 +33,14 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(updateUserPasswordFormScheme),
+    resolver: yupResolver(updatePasswordFormScheme),
     mode: 'all',
   });
 
   useEffect(() => {
     if (isSuccess) {
       reset();
+      toast.success('Password change success!');
     }
   }, [reset, isSuccess]);
 
@@ -45,10 +54,17 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
 
       <Input
         control={control}
-        name="password"
-        label="Password"
+        name="originalPassword"
+        label="Current Password"
         type="password"
-        errorMessage={errors.password?.message}
+        errorMessage={errors.originalPassword?.message}
+      />
+      <Input
+        control={control}
+        name="newPassword"
+        label="New Password"
+        type="password"
+        errorMessage={errors.newPassword?.message}
       />
       <Input
         control={control}
@@ -70,4 +86,4 @@ const UpdateUserPasswordForm = ({ id }: UpdateUserPasswordFormProps) => {
   );
 };
 
-export default UpdateUserPasswordForm;
+export default UpdatePasswordForm;

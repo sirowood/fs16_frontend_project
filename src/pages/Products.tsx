@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Main from '../components/Main';
 import PaginationBar from '../components/products/PaginationBar';
@@ -10,10 +9,8 @@ import ProductList from '../components/ProductList';
 
 const Products = () => {
   const params = useParams();
-  const id = params.id!;
-  const categoryId = +id;
+  const categoryId = params.id!;
 
-  const navigate = useNavigate();
   const {
     limit,
     page,
@@ -27,12 +24,6 @@ const Products = () => {
     changeLimit,
     changePage,
   } = useProducts(categoryId);
-
-  useEffect(() => {
-    if (isNaN(parseInt(id))) {
-      navigate('/');
-    }
-  }, [id, navigate]);
 
   return (
     <Main>

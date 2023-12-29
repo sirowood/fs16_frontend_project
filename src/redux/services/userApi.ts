@@ -1,52 +1,82 @@
-import toast from "react-hot-toast";
-
 import api from "./api";
-import { RegisterUserReq, UpdateUserReq, User } from "../../types/user";
-import { setUser } from "../reducers/authReducer";
+import {
+  UpdateUserReq,
+  ChangePasswordReq,
+  GetUsersRes,
+  GetUsersReq,
+  UserRes,
+  AddUserReq
+} from "../../types/user";
 
 const userApi = api.injectEndpoints({
   endpoints: (build) => ({
-    register: build.mutation<User, RegisterUserReq>({
-      query: (body) => ({
+    getUsers: build.query<GetUsersRes, GetUsersReq>({
+      query: (params) => ({
+        url: 'users',
+        params,
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.items.map(({ id }) => ({ type: 'Users' as const, id })),
+            { type: 'Users', id: 'LIST' },
+          ]
+          : [{ type: 'Users', id: 'LIST' }],
+    }),
+    getSingleUser: build.query<UserRes, string>({
+      query: (id) => `users/${id}`,
+      providesTags: (_result, _error, id) => [{ type: 'Users', id }],
+      transformErrorResponse(e) {
+        return { message: e.data };
+      },
+    }),
+    addUser: build.mutation<UserRes, AddUserReq>({
+      query: (newUser) => ({
         url: 'users',
         method: 'POST',
-        body,
+        body: newUser,
       }),
-      async onQueryStarted(_args, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          toast.success('Register success!');
-        } catch (e) { }
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
-      transformErrorResponse() { return { message: 'Register faild' }; },
     }),
-    updateUser: build.mutation<User, UpdateUserReq>({
+    updateUser: build.mutation<UserRes, UpdateUserReq>({
       query: ({ id, userNewData }) => ({
         url: `users/${id}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: userNewData,
       }),
-      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setUser(data));
-          toast.success('Update success!');
-        } catch (e) { }
-      },
-      transformErrorResponse() { return { message: 'Update faild' }; },
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'Users', id }],
+      transformErrorResponse(e) { return { message: e.data }; },
     }),
-    checkEmail: build.query<boolean, string>({
-      query: () => ({ url: 'users' }),
-      transformResponse(response: User[], _meta, email) {
-        return response.findIndex((user) => user.email === email) < 0;
+    changePassword: build.mutation<boolean, ChangePasswordReq>({
+      query: (data) => ({
+        url: `users/change-password`,
+        method: 'POST',
+        body: data,
+      }),
+      transformErrorResponse(e) { return { message: e.data }; },
+    }),
+    removeUser: build.mutation<boolean, string>({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: 'Users', id }],
+      transformErrorResponse(e) {
+        return { message: e.data };
       },
     }),
   }),
 });
 
 export const {
-  useRegisterMutation,
+  useGetUsersQuery,
+  useAddUserMutation,
+  useGetSingleUserQuery,
   useUpdateUserMutation,
-  useLazyCheckEmailQuery,
+  useChangePasswordMutation,
+  useRemoveUserMutation,
 } = userApi;
 export default userApi;

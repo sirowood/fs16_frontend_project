@@ -46,7 +46,7 @@ const SingleItem = ({ product }: { product: CartItem }) => {
             variant="caption"
             color="text.secondary"
           >
-            € {product.price}
+            € {product.priceAtPurchase}
           </Typography>
         </Box>
         <Box sx={totalPriceBox}>
@@ -75,7 +75,7 @@ const SingleItem = ({ product }: { product: CartItem }) => {
             </IconButton>
           </Box>
           <Typography sx={{ flexShrink: 0 }}>
-            € {product.price * product.quantity}
+            € {(product.priceAtPurchase * product.quantity).toFixed(2)}
           </Typography>
         </Box>
       </Box>

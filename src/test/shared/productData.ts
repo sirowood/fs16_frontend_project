@@ -9,13 +9,13 @@ const products = [
       "https://source.unsplash.com/random",
       "https://source.unsplash.com/random"
     ],
-    "creationAt": "2023-09-27T18:34:51.000Z",
+    "createdAt": "2023-09-27T18:34:51.000Z",
     "updatedAt": "2023-09-28T03:35:49.000Z",
     "category": {
       "id": 1,
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -29,13 +29,13 @@ const products = [
       "https://source.unsplash.com/random",
       "https://source.unsplash.com/random"
     ],
-    "creationAt": "2023-09-27T18:36:43.000Z",
+    "createdAt": "2023-09-27T18:36:43.000Z",
     "updatedAt": "2023-09-28T03:36:04.000Z",
     "category": {
       "id": 1,
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -49,13 +49,13 @@ const products = [
       "https://source.unsplash.com/random",
       "https://source.unsplash.com/random"
     ],
-    "creationAt": "2023-09-27T18:44:53.000Z",
+    "createdAt": "2023-09-27T18:44:53.000Z",
     "updatedAt": "2023-09-28T03:36:44.000Z",
     "category": {
       "id": 1,
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -69,13 +69,13 @@ const products = [
       "https://source.unsplash.com/random",
       "https://source.unsplash.com/random"
     ],
-    "creationAt": "2023-09-27T18:44:58.000Z",
+    "createdAt": "2023-09-27T18:44:58.000Z",
     "updatedAt": "2023-09-28T03:36:48.000Z",
     "category": {
       "id": 1,
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -89,13 +89,13 @@ const products = [
       "https://source.unsplash.com/random",
       "https://source.unsplash.com/random"
     ],
-    "creationAt": "2023-09-27T18:54:36.000Z",
+    "createdAt": "2023-09-27T18:54:36.000Z",
     "updatedAt": "2023-09-28T03:36:52.000Z",
     "category": {
       "id": 2,
       "name": "Electronics",
       "image": "https://picsum.photos/640/640?r=9478",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T14:46:55.000Z"
     }
   },
@@ -107,13 +107,13 @@ const products = [
     "images": [
       "https://firebasestorage.googleapis.com/v0/b/platzi-store-forms.appspot.com/o/image.png?alt=media&token=9aa27b09-faea-4570-953d-f99c101f9db5"
     ],
-    "creationAt": "2023-09-27T19:00:17.000Z",
+    "createdAt": "2023-09-27T19:00:17.000Z",
     "updatedAt": "2023-09-27T19:00:17.000Z",
     "category": {
       "id": 2,
       "name": "Electronics",
       "image": "https://picsum.photos/640/640?r=9478",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T14:46:55.000Z"
     }
   },
@@ -125,13 +125,13 @@ const products = [
     "images": [
       "pepe.png"
     ],
-    "creationAt": "2023-09-27T19:15:48.000Z",
+    "createdAt": "2023-09-27T19:15:48.000Z",
     "updatedAt": "2023-09-27T19:15:48.000Z",
     "category": {
       "id": 4,
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -143,13 +143,13 @@ const products = [
     "images": [
       "https://placeimg.com/640/480/any"
     ],
-    "creationAt": "2023-09-27T19:44:37.000Z",
+    "createdAt": "2023-09-27T19:44:37.000Z",
     "updatedAt": "2023-09-27T19:44:37.000Z",
     "category": {
       "id": 4,
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },
@@ -161,13 +161,13 @@ const products = [
     "images": [
       "pepe.png"
     ],
-    "creationAt": "2023-09-27T19:45:08.000Z",
+    "createdAt": "2023-09-27T19:45:08.000Z",
     "updatedAt": "2023-09-27T19:45:08.000Z",
     "category": {
       "id": 4,
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=2293",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T14:46:55.000Z"
     }
   },
@@ -179,13 +179,13 @@ const products = [
     "images": [
       "https://placeimg.com/640/480/any"
     ],
-    "creationAt": "2023-09-27T20:17:29.000Z",
+    "createdAt": "2023-09-27T20:17:29.000Z",
     "updatedAt": "2023-09-27T20:17:29.000Z",
     "category": {
       "id": 4,
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
-      "creationAt": "2023-09-27T14:46:55.000Z",
+      "createdAt": "2023-09-27T14:46:55.000Z",
       "updatedAt": "2023-09-27T15:16:05.000Z"
     }
   },

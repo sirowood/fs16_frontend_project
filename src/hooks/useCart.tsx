@@ -14,10 +14,12 @@ const useCart = () => {
   const cart = useAppSelector((state) => state.cart);
 
   const totalAmount = useMemo(() => {
-    return cart.reduce(
-      (total, product) => total + product.quantity * product.price,
-      0
-    );
+    return cart
+      .reduce(
+        (total, product) => total + product.quantity * product.priceAtPurchase,
+        0
+      )
+      .toFixed(2);
   }, [cart]);
 
   const cartBadgeContent = useMemo(() => {
@@ -32,14 +34,14 @@ const useCart = () => {
   );
 
   const substractItem = useCallback(
-    (id: number) => {
+    (id: string) => {
       dispatch(substractProductInCart(id));
     },
     [dispatch]
   );
 
   const removeItem = useCallback(
-    (id: number) => {
+    (id: string) => {
       dispatch(removeProductInCart(id));
     },
     [dispatch]

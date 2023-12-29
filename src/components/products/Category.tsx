@@ -8,9 +8,9 @@ import {
   categoryTitleBox,
 } from '../../styles/products';
 
-const Category = ({ categoryId }: { categoryId: number }) => {
+const Category = ({ categoryId }: { categoryId: string }) => {
   const { data: category, isFetching } = useGetSingleCategoryQuery(categoryId, {
-    skip: isNaN(categoryId),
+    skip: !categoryId,
   });
 
   return (

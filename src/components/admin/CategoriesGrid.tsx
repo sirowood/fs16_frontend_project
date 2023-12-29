@@ -1,40 +1,44 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { Box } from '@mui/material';
+import { Box, LinearProgress } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
-  GridValueGetterParams,
   GridActionsCellItem,
   GridRowId,
+  GridSortModel,
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
-  useGetProductsQuery,
-  useRemoveProductMutation,
-} from '../../redux/services/productApi';
-import useEditProductModal from '../../hooks/useEditProductModal';
-import { Product, ProductRes } from '../../types/product';
+  useGetCategoriesQuery,
+  useRemoveCategoryMutation,
+} from '../../redux/services/categoryApi';
+import useEditCategoryModal from '../../hooks/useEditCategoryModal';
 import { dataGrid } from '../../styles/dashboard';
+import { Category } from '../../types/category';
 
-const ProductsGrid = () => {
-  const { onOpen, setDefaultValues } = useEditProductModal();
-  const [removeProduct, { isLoading, isSuccess }] = useRemoveProductMutation();
+const CategoriesGrid = () => {
+  const { onOpen, setDefaultValues } = useEditCategoryModal();
+  const [removeCateogry, { isLoading, isSuccess }] =
+    useRemoveCategoryMutation();
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
     page: 0,
   });
-  const { data, isLoading: loadingProducts } = useGetProductsQuery({});
+  const [queryOptions, setQueryOptions] = useState({});
 
-  const openEditProductModal = ({ row }: { row: ProductRes }) => {
+  const { data, isFetching: loadingCategories } = useGetCategoriesQuery({
+    limit: paginationModel.pageSize,
+    offset: paginationModel.page * paginationModel.pageSize,
+    ...queryOptions,
+  });
+
+  const openEditProductModal = ({ row }: { row: Category }) => {
     const productValues = {
       id: row.id,
-      title: row.title,
-      price: row.price,
-      description: row.description,
-      categoryId: row.category.id,
-      images: row.images.map((url) => ({ url })),
+      name: row.name,
+      image: row.image,
     };
     setDefaultValues(productValues);
     onOpen();
@@ -43,35 +47,22 @@ const ProductsGrid = () => {
   const handleDelete = useCallback(
     (id: GridRowId) => {
       setTimeout(() => {
-        removeProduct(+id);
+        removeCateogry(id as string);
       });
     },
-    [removeProduct]
+    [removeCateogry]
   );
 
   const columns: GridColDef[] = useMemo(
     () => [
       {
-        field: 'title',
-        headerName: 'Title',
+        field: 'name',
+        headerName: 'Name',
         flex: 4,
       },
       {
-        field: 'category',
-        valueGetter: (params: GridValueGetterParams<Product>) => {
-          return params.row.category.name;
-        },
-        headerName: 'Category',
-        flex: 2,
-      },
-      {
-        field: 'price',
-        headerName: 'Price',
-        flex: 1,
-      },
-      {
-        field: 'description',
-        headerName: 'Description',
+        field: 'image',
+        headerName: 'Image',
         flex: 4,
       },
       {
@@ -104,9 +95,18 @@ const ProductsGrid = () => {
     [handleDelete, isLoading]
   );
 
+  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
+    const orderBy = sortModel[0]?.field;
+    const direction = sortModel[0]?.sort;
+    setQueryOptions({
+      orderBy,
+      direction,
+    });
+  }, []);
+
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Product Removed');
+      toast.success('Category Removed');
     }
   }, [isSuccess]);
 
@@ -115,20 +115,27 @@ const ProductsGrid = () => {
       {data && (
         <DataGrid
           autoHeight
+          keepNonExistentRowsSelected
           sx={dataGrid}
-          rows={data}
           columns={columns}
-          pageSizeOptions={[5, 10, 20, 40]}
+          rows={data.items}
+          rowCount={data.total}
+          sortingMode="server"
+          onSortModelChange={handleSortModelChange}
+          paginationMode="server"
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          rowCount={data.length}
-          loading={loadingProducts}
+          pageSizeOptions={[5, 10, 20, 40]}
+          loading={loadingCategories}
           disableRowSelectionOnClick={true}
           onRowClick={openEditProductModal}
+          slots={{
+            loadingOverlay: LinearProgress,
+          }}
         />
       )}
     </Box>
   );
 };
 
-export default ProductsGrid;
+export default CategoriesGrid;

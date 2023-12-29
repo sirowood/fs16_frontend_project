@@ -6,7 +6,7 @@ const users = [
     "name": "Jhon",
     "role": "customer",
     "avatar": "https://picsum.photos/640/640?r=5207",
-    "creationAt": "2023-09-27T02:42:27.000Z",
+    "createdAt": "2023-09-27T02:42:27.000Z",
     "updatedAt": "2023-09-27T02:42:27.000Z"
   },
   {
@@ -16,7 +16,7 @@ const users = [
     "name": "Maria",
     "role": "customer",
     "avatar": "https://picsum.photos/640/640?r=9443",
-    "creationAt": "2023-09-27T02:42:27.000Z",
+    "createdAt": "2023-09-27T02:42:27.000Z",
     "updatedAt": "2023-09-27T02:42:27.000Z"
   },
   {
@@ -26,7 +26,7 @@ const users = [
     "name": "Admin",
     "role": "admin",
     "avatar": "https://picsum.photos/640/640?r=9185",
-    "creationAt": "2023-09-27T02:42:27.000Z",
+    "createdAt": "2023-09-27T02:42:27.000Z",
     "updatedAt": "2023-09-27T02:42:27.000Z"
   },
 ];

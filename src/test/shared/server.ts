@@ -155,7 +155,7 @@ const server = setupServer(
         id: products.length + 1,
         ...newProduct,
         category,
-        creationAt: "2023-01-03T16:51:33.000Z",
+        createdAt: "2023-01-03T16:51:33.000Z",
         updatedAt: "2023-01-03T16:51:33.000Z",
       }),
     );

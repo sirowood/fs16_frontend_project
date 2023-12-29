@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
-import { useGetUserQuery } from '../redux/services/authApi';
-import { LoginRes } from '../types/auth';
+import { useLazyGetProfileQuery } from '../redux/services/authApi';
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const localToken = localStorage.getItem('token');
-  const token: LoginRes = JSON.parse(localToken || '{}');
+  const [getUserProfile, { isUninitialized, isSuccess, isError }] =
+    useLazyGetProfileQuery();
+  const token = localStorage.getItem('token') || '';
 
-  useGetUserQuery(token.access_token, { skip: !token.access_token });
+  if (token && isUninitialized) {
+    getUserProfile(token);
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Welcome back!');
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      localStorage.removeItem('token');
+    }
+  }, [isError]);
 
   return <>{children}</>;
 };

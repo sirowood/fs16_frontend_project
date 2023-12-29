@@ -117,7 +117,7 @@ describe('productApi', () => {
       description: newProduct.description,
       images: newProduct.images,
       category: categories.find((category) => category.id === newProduct.categoryId),
-      creationAt: "2023-01-03T16:51:33.000Z",
+      createdAt: "2023-01-03T16:51:33.000Z",
       updatedAt: "2023-01-03T16:51:33.000Z",
     };
 

@@ -1,10 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = 'https://api.escuelajs.co/api/v1/';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ['Products', 'Categories'],
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+
+      return headers;
+    }
+  }),
+  tagTypes: ['Products', 'Categories', 'Users', 'Profile', 'Orders'],
   endpoints: () => ({}),
 });
 

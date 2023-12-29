@@ -6,7 +6,7 @@ const updateCart = (newCart: CartItem[]) => {
   localStorage.setItem('cart', JSON.stringify(newCart));
 };
 
-const getProductIndex = (productId: number, cart: CartItem[]) => {
+const getProductIndex = (productId: string, cart: CartItem[]) => {
   return cart.findIndex((item) => item.id === productId);
 };
 
@@ -32,13 +32,13 @@ const cartSlice = createSlice({
 
       updateCart(state);
     },
-    substractProductInCart: (state, action: PayloadAction<number>) => {
+    substractProductInCart: (state, action: PayloadAction<string>) => {
       const productIndex = getProductIndex(action.payload, state);
       state[productIndex].quantity -= 1;
 
       updateCart(state);
     },
-    removeProductInCart: (state, action: PayloadAction<number>) => {
+    removeProductInCart: (state, action: PayloadAction<string>) => {
       const newCart = state.filter((item) => item.id !== action.payload);
 
       updateCart(newCart);

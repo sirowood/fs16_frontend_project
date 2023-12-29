@@ -4,11 +4,11 @@ import { EditProductModalStore } from "../types/modal";
 import { FullProductFormValues } from '../types/form';
 
 const defaultValues = {
-  id: 0,
+  id: '',
   title: '',
   price: 0,
   description: '',
-  categoryId: 0,
+  categoryId: '',
   images: [{ url: '' }],
 }
 

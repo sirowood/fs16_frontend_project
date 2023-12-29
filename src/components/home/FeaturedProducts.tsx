@@ -11,7 +11,7 @@ const FeaturedProducts = () => {
     <ProductList
       title="Featured Products"
       isLoading={isLoading}
-      products={suggestedProducts}
+      products={suggestedProducts?.items}
     />
   );
 };

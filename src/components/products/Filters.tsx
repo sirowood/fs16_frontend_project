@@ -39,10 +39,10 @@ const Filters = ({
         >
           {[
             'Default',
-            'Cheapest first',
-            'Expensive first',
-            'Title A-Z',
-            'Title Z-A',
+            'Price Asc',
+            'Price Desc',
+            'Title Asc',
+            'Title Desc',
           ].map((order) => (
             <MenuItem
               key={order}

@@ -49,11 +49,11 @@ const ProductForm = ({
       <Input
         label="Price"
         name="price"
-        type="number"
         control={control}
         errorMessage={errors.price?.message}
         inputProps={{
-          min: 0,
+          pattern: '[0-9]+([.][0-9]{1,2})?',
+          inputMode: 'numeric',
         }}
       />
       <ImageURLFields

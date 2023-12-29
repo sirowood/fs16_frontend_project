@@ -9,7 +9,7 @@ const DesktopNav = ({ categories }: { categories?: Category[] }) => {
 
   return (
     <Box sx={desktopNavBox}>
-      {categories?.slice(0, 5).map((category) => (
+      {categories?.map((category) => (
         <Link
           key={category.id}
           to={`/category/${category.id}`}

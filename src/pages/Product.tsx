@@ -14,7 +14,7 @@ const Product = () => {
     data: product,
     isFetching,
     isError,
-  } = useGetSingleProductQuery(+params?.id!);
+  } = useGetSingleProductQuery(params?.id!);
 
   if (isError) {
     navigate('/');
@@ -30,7 +30,7 @@ const Product = () => {
         <ProductGallery
           isLoading={isFetching}
           title={product?.title}
-          images={product?.images}
+          images={product?.images.map((image) => image.url)}
         />
         <ProductInfo
           product={product}

@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User, UserRes } from "./user";
 
 type LoginReq = {
   email: string,
@@ -6,16 +6,18 @@ type LoginReq = {
 };
 
 type LoginRes = {
-  access_token: string,
-  refresh_token: string,
+  token: string,
 };
 
+type RegisterUserReq = Omit<User, 'id' | 'addresses'>;
+
 type AuthReducerInitialState = {
-  user: User | null,
+  user: UserRes | null,
 };
 
 export type {
   LoginReq,
   LoginRes,
   AuthReducerInitialState,
+  RegisterUserReq,
 };

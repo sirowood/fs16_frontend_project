@@ -1,17 +1,13 @@
 import { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import CheckIcon from '@mui/icons-material/Check';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import Input from './Input';
-import {
-  useLazyCheckEmailQuery,
-  useRegisterMutation,
-} from '../../redux/services/userApi';
+import { useRegisterMutation } from '../../redux/services/authApi';
 import registerFormSchema from '../../schemas/registerFormSchema';
 import modalForm from '../../styles/form';
 import { RegisterFormValues } from '../../types/form';
@@ -19,45 +15,36 @@ import { RegisterFormValues } from '../../types/form';
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [register, { isLoading, isSuccess }] = useRegisterMutation();
-  const [checkEmail, { data: emailAvailable, isFetching }] =
-    useLazyCheckEmailQuery();
 
   const defaultValues = useMemo(
     () => ({
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
-      avatar: '',
+      avatar: 'https://picsum.photos/200',
     }),
     []
   );
 
   const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
-    register({ ...data, role: 'customer' });
+    register({ ...data, role: 'Customer' });
   };
 
   const {
     handleSubmit,
     control,
-    watch,
-    formState: { errors, isValid, touchedFields },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues,
     resolver: yupResolver(registerFormSchema),
     mode: 'all',
   });
 
-  const email = watch('email');
-
-  useEffect(() => {
-    if (touchedFields.email && !errors.email) {
-      checkEmail(email);
-    }
-  }, [checkEmail, email, errors.email, touchedFields.email]);
-
   useEffect(() => {
     if (isSuccess) {
+      toast.success('Register success!');
       navigate('/login');
     }
   }, [isSuccess, navigate]);
@@ -77,10 +64,17 @@ const RegisterForm = () => {
       </Typography>
       <Input
         disabled={isLoading}
-        label="Name"
-        name="name"
+        label="First Name"
+        name="firstName"
         control={control}
-        errorMessage={errors.name?.message}
+        errorMessage={errors.firstName?.message}
+      />
+      <Input
+        disabled={isLoading}
+        label="Last Name"
+        name="lastName"
+        control={control}
+        errorMessage={errors.lastName?.message}
       />
       <Input
         disabled={isLoading}
@@ -89,26 +83,6 @@ const RegisterForm = () => {
         type="email"
         control={control}
         errorMessage={errors.email?.message}
-        InputProps={{
-          endAdornment: isFetching ? (
-            <CircularProgress
-              size={16}
-              color="primary"
-            />
-          ) : !errors.email && emailAvailable ? (
-            <CheckIcon
-              fontSize="small"
-              color="success"
-            />
-          ) : (
-            email && (
-              <HighlightOffIcon
-                fontSize="small"
-                color="error"
-              />
-            )
-          ),
-        }}
       />
       <Input
         disabled={isLoading}
@@ -137,7 +111,7 @@ const RegisterForm = () => {
         type="submit"
         fullWidth
         variant="contained"
-        disabled={isLoading || isFetching || !isValid || !emailAvailable}
+        disabled={isLoading || !isValid}
         loading={isLoading}
       >
         Register

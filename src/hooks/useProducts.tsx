@@ -1,14 +1,10 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 
 import useDebounce from './useDebounce';
-import {
-  useGetPageCountQuery,
-  useGetProductsQuery,
-} from '../redux/services/productApi';
-import { ProductRes } from '../types/product';
+import { useGetProductsQuery } from '../redux/services/productApi';
 
-const useProducts = (categoryId: number) => {
+const useProducts = (categoryId: string) => {
   const { debouncedText, text, setText } = useDebounce(500);
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(12);
@@ -17,48 +13,13 @@ const useProducts = (categoryId: number) => {
   const { data, isFetching } = useGetProductsQuery(
     {
       categoryId,
+      limit,
+      offset,
       title: debouncedText,
+      orderBy: orderBy.split(' ')[0],
+      direction: orderBy.split(' ')[1],
     },
-    { skip: isNaN(categoryId) }
-  );
-
-  const { data: count } = useGetPageCountQuery(
-    { limit, categoryId, title: debouncedText },
-    { skip: isNaN(categoryId) }
-  );
-
-  const sortProducts = useCallback(
-    (orderBy: string, products?: ProductRes[]) => {
-      const result: ProductRes[] = products ? [...products] : [];
-
-      switch (orderBy) {
-        case 'Cheapest first':
-          result.sort((prev, next) => prev.price - next.price);
-          break;
-        case 'Expensive first':
-          result.sort((prev, next) => next.price - prev.price);
-          break;
-        case 'Title A-Z':
-          result.sort((prev, next) => {
-            const titlePrev = prev.title.toLowerCase();
-            const titleNext = next.title.toLowerCase();
-            return titlePrev.localeCompare(titleNext);
-          });
-          break;
-        case 'Title Z-A':
-          result.sort((prev, next) => {
-            const titlePrev = prev.title.toLowerCase();
-            const titleNext = next.title.toLowerCase();
-            return titleNext.localeCompare(titlePrev);
-          });
-          break;
-        default:
-          break;
-      }
-
-      return result;
-    },
-    []
+    { skip: !categoryId }
   );
 
   const changeLimit = useCallback((e: SelectChangeEvent<number>) => {
@@ -87,10 +48,6 @@ const useProducts = (categoryId: number) => {
     setOrderBy(e.target.value);
   }, []);
 
-  const products = useMemo(() => {
-    return sortProducts(orderBy, data).slice(offset, offset + limit);
-  }, [sortProducts, orderBy, data, offset, limit]);
-
   useEffect(() => {
     setOffset(0);
     setPage(1);
@@ -100,10 +57,10 @@ const useProducts = (categoryId: number) => {
     limit,
     page,
     text,
-    count,
+    count: data?.pages,
     orderBy,
     isFetching,
-    products,
+    products: data?.items,
     changeText,
     changeOrderBy,
     changeLimit,

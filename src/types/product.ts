@@ -4,31 +4,55 @@ import { SelectChangeEvent } from "@mui/material";
 import { Category } from "./category";
 
 type Product = {
-  id: number,
+  id: string,
   title: string,
   price: number,
   description: string,
   category: Category,
-  categoryId: number,
-  images: string[],
-  creationAt: string,
+  categoryId: string,
+  images: {
+    id: string,
+    url: string
+  }[],
+  createdAt: string,
   updatedAt: string,
 };
 
 type GetProductsReq = {
-  categoryId?: number,
+  categoryId?: string,
   offset?: number,
   limit?: number,
   title?: string,
+  orderBy?: string,
+  direction?: string,
+};
+
+type GetProductRes = {
+  items: Omit<Product, 'categoryId'>[],
+  total: number,
+  pages: number,
 };
 
 type ProductRes = Omit<Product, 'categoryId'>;
 
-type AddProductReq = Omit<Product, 'id' | 'category' | 'creationAt' | 'updatedAt'>;
+type AddProductReq = {
+  title: string,
+  price: number,
+  description: string,
+  categoryId: string,
+  images: {
+    url: string
+  }[],
+};
 
 type UpdateProductReq = {
-  id: number,
-  productNewData: Partial<AddProductReq>,
+  id: string,
+  productNewData: {
+    title: string,
+    price: number,
+    description: string,
+    categoryId: string,
+  },
 };
 
 type ProductListProps = {
@@ -73,6 +97,7 @@ type FiltersProps = {
 export type {
   Product,
   GetProductsReq,
+  GetProductRes,
   ProductRes,
   AddProductReq,
   UpdateProductReq,

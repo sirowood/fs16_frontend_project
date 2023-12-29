@@ -40,7 +40,7 @@ const ProductCard = ({ index, product, isLoading }: ProductCardProps) => {
         ) : (
           <CardMedia
             component="img"
-            image={product?.images[0]}
+            image={product?.images[0].url}
             title={product?.title}
             sx={cardMedia}
           />

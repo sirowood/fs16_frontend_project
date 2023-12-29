@@ -15,7 +15,7 @@ const CategorySelect = ({
   defaultValue,
   control,
 }: CategorySelectProps) => {
-  const { data: categories } = useGetCategoriesQuery();
+  const { data: categories } = useGetCategoriesQuery({ limit: 100, offset: 0 });
 
   return (
     <FormControl
@@ -40,7 +40,7 @@ const CategorySelect = ({
             >
               Select one...
             </MenuItem>
-            {categories?.map((category) => (
+            {categories?.items.map((category) => (
               <MenuItem
                 key={category.id}
                 value={category.id}

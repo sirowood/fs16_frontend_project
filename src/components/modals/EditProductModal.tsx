@@ -21,7 +21,7 @@ const EditProductModal = () => {
       price: rest.price,
       description: rest.description,
       categoryId: rest.categoryId,
-      images: rest.images.map((image) => image.url),
+      images: data.images.map((image) => ({ url: image.url })),
     };
     updateProduct({ id, productNewData });
   };

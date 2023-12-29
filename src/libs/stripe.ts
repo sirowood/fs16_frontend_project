@@ -22,7 +22,7 @@ const checkout = async (items: CartItem[]) => {
         product_data: {
           name: item.title,
         },
-        unit_amount: item.price * 100,
+        unit_amount: item.priceAtPurchase * 100,
       }
     })),
     mode: 'payment',

@@ -5,17 +5,17 @@ import { Box, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Input from './Input';
-import updateUserInfoFormSchema from '../../schemas/updateUserInfoFormSchema';
-import { useUpdateUserMutation } from '../../redux/services/userApi';
+import updateProfileFormSchema from '../../schemas/updateProfileFormSchema';
 import { updateUserForm } from '../../styles/profile';
-import { UpdateUserInfoFormProps } from '../../types/user';
+import { UpdateProfileFormProps } from '../../types/user';
+import { useUpdateProfileMutation } from '../../redux/services/authApi';
 
-const UpdateUserInfoForm = ({
+const UpdateProfileForm = ({
   id,
   ...defaultValues
-}: UpdateUserInfoFormProps) => {
+}: UpdateProfileFormProps) => {
   const [updateUser, { isLoading, isSuccess, isError }] =
-    useUpdateUserMutation();
+    useUpdateProfileMutation();
 
   const {
     handleSubmit,
@@ -25,11 +25,11 @@ const UpdateUserInfoForm = ({
     formState: { errors, isValid, isDirty },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(updateUserInfoFormSchema),
+    resolver: yupResolver(updateProfileFormSchema),
     mode: 'all',
   });
 
-  const onSubmit: SubmitHandler<Omit<UpdateUserInfoFormProps, 'id'>> = (
+  const onSubmit: SubmitHandler<Omit<UpdateProfileFormProps, 'id'>> = (
     data
   ) => {
     updateUser({ id, userNewData: data });
@@ -38,7 +38,8 @@ const UpdateUserInfoForm = ({
   useEffect(() => {
     if (isSuccess) {
       reset({
-        name: getValues().name,
+        firstName: getValues().firstName,
+        lastName: getValues().lastName,
         email: getValues().email,
         avatar: getValues().avatar,
       });
@@ -55,10 +56,16 @@ const UpdateUserInfoForm = ({
     >
       <Typography variant="h6">User information</Typography>
       <Input
-        name="name"
-        label="Name"
+        name="firstName"
+        label="First Name"
         control={control}
-        errorMessage={errors.name?.message}
+        errorMessage={errors.firstName?.message}
+      />
+      <Input
+        name="lastName"
+        label="Last Name"
+        control={control}
+        errorMessage={errors.lastName?.message}
       />
       <Input
         name="email"
@@ -85,4 +92,4 @@ const UpdateUserInfoForm = ({
   );
 };
 
-export default UpdateUserInfoForm;
+export default UpdateProfileForm;

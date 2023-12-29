@@ -12,9 +12,8 @@ const schema = yup.object({
     .min(4, 'At least 4 characters')
     .required('Required'),
   categoryId: yup
-    .number()
-    .min(1, 'Please select a category')
-    .required('required'),
+    .string()
+    .required('Please select a category'),
   images: yup
     .array()
     .of(

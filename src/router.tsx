@@ -5,11 +5,16 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Cart from './pages/Cart';
-import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import SuccessPay from './pages/SuccessPay';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminCategories from './pages/admin/AdminCategories';
+import AdminUsers from './pages/admin/AdminUsers';
+import Addresses from './pages/Addresses';
+import UserOrders from './pages/UserOrders';
+import Order from './pages/Order';
+import AdminOrders from './pages/admin/AdminOrders';
 
 const routes: RouteObject[] = [
   {
@@ -46,12 +51,32 @@ const routes: RouteObject[] = [
         element: <Profile />,
       },
       {
-        path: 'dashboard',
-        element: <Dashboard />,
+        path: 'admin/categories',
+        element: <AdminCategories />,
       },
       {
-        path: 'success',
-        element: <SuccessPay />,
+        path: 'admin/products',
+        element: <AdminProducts />,
+      },
+      {
+        path: 'admin/users',
+        element: <AdminUsers />,
+      },
+      {
+        path: 'admin/orders',
+        element: <AdminOrders />,
+      },
+      {
+        path: 'addresses',
+        element: <Addresses />,
+      },
+      {
+        path: 'orders',
+        element: <UserOrders />,
+      },
+      {
+        path: 'orders/:id',
+        element: <Order />,
       },
       {
         path: '*',

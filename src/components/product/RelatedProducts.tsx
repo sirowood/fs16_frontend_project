@@ -1,7 +1,7 @@
 import ProductList from '../ProductList';
 import { useGetProductsQuery } from '../../redux/services/productApi';
 
-const RelatedProducts = ({ categoryId }: { categoryId?: number }) => {
+const RelatedProducts = ({ categoryId }: { categoryId?: string }) => {
   const { data: suggestedProducts, isFetching } = useGetProductsQuery(
     { categoryId: categoryId, offset: 0, limit: 4 },
     { skip: !categoryId }
@@ -11,7 +11,7 @@ const RelatedProducts = ({ categoryId }: { categoryId?: number }) => {
     <ProductList
       title="Related Products"
       isLoading={!categoryId || isFetching}
-      products={suggestedProducts}
+      products={suggestedProducts?.items}
     />
   );
 };

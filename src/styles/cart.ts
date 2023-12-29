@@ -56,7 +56,7 @@ const summaryDetailsBox = {
   justifyContent: 'space-between',
 };
 
-const checkoutButton = { borderRadius: '20px' };
+const checkoutButton = { borderRadius: '20px', marginBottom: '8px' };
 
 export {
   cartBox,

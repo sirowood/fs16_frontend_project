@@ -1,4 +1,5 @@
-import { FullProductFormValues } from "./form";
+import { Address } from "./address";
+import { FullCategoryFormValues, FullProductFormValues, FullUserFormValues } from "./form";
 
 type ModalStore = {
   isOpen: boolean,
@@ -11,6 +12,21 @@ type EditProductModalStore = ModalStore & {
   setDefaultValues: (defaultValues: FullProductFormValues) => void,
 };
 
+type EditCategoryModalStore = ModalStore & {
+  defaultValues: FullCategoryFormValues,
+  setDefaultValues: (defaultValues: FullCategoryFormValues) => void,
+};
+
+type EditUserModalStore = ModalStore & {
+  defaultValues: FullUserFormValues,
+  setDefaultValues: (defaultValues: FullUserFormValues) => void,
+};
+
+type EditAddressModalStore = ModalStore & {
+  defaultValues: Address,
+  setDefaultValues: (defaultValues: Address) => void,
+};
+
 type ModalProps = {
   children: React.ReactNode,
   open: boolean,
@@ -20,5 +36,8 @@ type ModalProps = {
 export type {
   ModalStore,
   EditProductModalStore,
+  EditCategoryModalStore,
+  EditUserModalStore,
+  EditAddressModalStore,
   ModalProps,
 };

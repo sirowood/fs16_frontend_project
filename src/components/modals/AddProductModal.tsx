@@ -18,7 +18,7 @@ const AddProductModal = () => {
       title: '',
       price: 0,
       description: '',
-      categoryId: 0,
+      categoryId: '',
       images: [{ url: '' }],
     }),
     []
@@ -30,7 +30,7 @@ const AddProductModal = () => {
       price: data.price,
       description: data.description,
       categoryId: data.categoryId,
-      images: data.images.map((image) => image.url),
+      images: data.images.map((image) => ({ url: image.url })),
     };
     addProduct(newProduct);
   };

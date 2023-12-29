@@ -7,7 +7,7 @@ import { useGetCategoriesQuery } from '../../redux/services/categoryApi';
 import { headerNav, headerTitle } from '../../styles/header';
 
 const MainNav = () => {
-  const { data: categories } = useGetCategoriesQuery();
+  const { data: categories } = useGetCategoriesQuery({ limit: 100, offset: 0 });
 
   return (
     <Box
@@ -25,8 +25,8 @@ const MainNav = () => {
           STORE
         </Typography>
       </Link>
-      <MobileNav categories={categories} />
-      <DesktopNav categories={categories} />
+      <MobileNav categories={categories?.items} />
+      <DesktopNav categories={categories?.items} />
     </Box>
   );
 };

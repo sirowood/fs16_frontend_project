@@ -20,8 +20,8 @@ const ProductInfo = ({ product, isLoading }: ProductInfoProps) => {
       addItem({
         id: product.id,
         title: product.title,
-        price: product.price,
-        image: product.images[0],
+        priceAtPurchase: product.price,
+        image: product.images[0].url,
       });
       toast.success('Added to cart');
     }

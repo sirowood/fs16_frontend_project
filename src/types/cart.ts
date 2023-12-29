@@ -1,16 +1,16 @@
 type CartItem = {
-  id: number,
+  id: string,
   title: string,
-  price: number,
+  priceAtPurchase: number,
   image: string,
   quantity: number,
 };
 
 type AddProductInCart = {
-  id: number,
+  id: string,
   title: string,
   image: string,
-  price: number,
+  priceAtPurchase: number,
 };
 
 export type {
