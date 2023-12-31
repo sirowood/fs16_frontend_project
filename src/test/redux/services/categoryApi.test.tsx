@@ -18,9 +18,9 @@ afterEach(() => {
 describe('categoryApi', () => {
   test('should return categories successfully', async () => {
     const { data } = await store.dispatch(
-      categoryApi.endpoints.getCategories.initiate()
+      categoryApi.endpoints.getCategories.initiate({ limit: 20, offset: 0 })
     );
 
-    expect(data).toEqual(categories);
+    expect(data?.items).toEqual(categories);
   });
 });

@@ -6,7 +6,7 @@ import { categories } from './categoryData';
 import { users } from './userData';
 import { products } from './productData';
 
-const baseUrl = 'https://api.escuelajs.co/api/v1';
+const baseUrl = 'https://localhost:7060/api/v1';
 
 const server = setupServer(
   rest.post(`${baseUrl}/auth/login`, async (req, res, ctx) => {
@@ -27,7 +27,7 @@ const server = setupServer(
   rest.get(`${baseUrl}/auth/profile`, async (req, res, ctx) => {
     const authorizationHeader = req.headers.get('Authorization');
 
-    if (authorizationHeader && authorizationHeader === `Bearer ${token.access_token}`) {
+    if (authorizationHeader && authorizationHeader === `Bearer ${token.token}`) {
       return res(
         ctx.json(user),
       );
@@ -41,11 +41,15 @@ const server = setupServer(
 
   rest.get(`${baseUrl}/categories`, async (req, res, ctx) => {
     return res(
-      ctx.json(categories),
+      ctx.json({
+        items: categories,
+        total: categories.length,
+        pages: 1
+      }),
     );
   }),
 
-  rest.post(`${baseUrl}/users`, async (req, res, ctx) => {
+  rest.post(`${baseUrl}/auth/register`, async (req, res, ctx) => {
     const body = await req.json();
 
     return res(
@@ -54,10 +58,10 @@ const server = setupServer(
     );
   }),
 
-  rest.put(`${baseUrl}/users/:id`, async (req, res, ctx) => {
+  rest.patch(`${baseUrl}/users/:id`, async (req, res, ctx) => {
     const { id } = req.params;
 
-    const user = users.find((user) => user.id === +id);
+    const user = users.find((user) => user.id === id);
 
     if (!user) {
       return res(
@@ -93,7 +97,7 @@ const server = setupServer(
     let resData = [...products];
 
     if (categoryId && +categoryId) {
-      resData = resData.filter((product) => product.category.id === +categoryId);
+      resData = resData.filter((product) => product.category.id === categoryId);
     }
 
     if (title) {
@@ -109,14 +113,14 @@ const server = setupServer(
     }
 
     return res(
-      ctx.json(resData),
+      ctx.json({ items: resData, total: resData.length, pages: 10 }),
     );
   }),
 
   rest.get(`${baseUrl}/products/:id`, async (req, res, ctx) => {
     const { id: productId } = req.params;
 
-    const product = products.find((item) => item.id === +productId);
+    const product = products.find((item) => item.id === productId);
     if (!product) {
       return res(
         ctx.status(400),
@@ -161,11 +165,11 @@ const server = setupServer(
     );
   }),
 
-  rest.put(`${baseUrl}/products/:id`, async (req, res, ctx) => {
+  rest.patch(`${baseUrl}/products/:id`, async (req, res, ctx) => {
     const { id } = req.params;
     const productNewData = await req.json();
 
-    const product = products.find((product) => product.id === +id);
+    const product = products.find((product) => product.id === id);
 
     if (!product) {
       return res(
@@ -199,7 +203,7 @@ const server = setupServer(
   rest.delete(`${baseUrl}/products/:id`, async (req, res, ctx) => {
     const { id } = req.params;
 
-    const product = products.find((product) => product.id === +id);
+    const product = products.find((product) => product.id === id);
 
     if (!product) {
       return res(

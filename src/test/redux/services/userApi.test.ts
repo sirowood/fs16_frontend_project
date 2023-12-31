@@ -16,44 +16,14 @@ afterEach(() => {
 });
 
 describe('userApi', () => {
-  test('should register user successfully', async () => {
-    const newUser = {
-      name: 'test name',
-      password: 'test password',
-      email: 'test@mail.com',
-      avatar: 'http://test.avatar.com/avatar.jpg',
-      role: 'customer',
-    };
-
-    const result: any = await store.dispatch(userApi.endpoints.register.initiate(newUser));
-
-    expect(result.data).toEqual({ ...newUser, id: 4 });
-  });
-
   test('should update user successfully', async () => {
     const result: any = await store.dispatch(
       userApi.endpoints.updateUser.initiate({
-        id: 3,
-        userNewData: { name: 'updated name' },
+        id: '3',
+        userNewData: { firstName: 'updated firstName' },
       })
     );
 
-    expect(result.data).toEqual({ ...(users[2]), name: 'updated name' });
-  });
-
-  test('should check valid email successfully', async () => {
-    const result: any = await store.dispatch(
-      userApi.endpoints.checkEmail.initiate('john@mail.com')
-    );
-
-    expect(result.data).toEqual(false);
-  });
-
-  test('should check invalid email successfully', async () => {
-    const result: any = await store.dispatch(
-      userApi.endpoints.checkEmail.initiate('invalid@mail.com')
-    );
-
-    expect(result.data).toEqual(true);
+    expect(result.data).toEqual({ ...(users[2]), firstName: 'updated firstName' });
   });
 });

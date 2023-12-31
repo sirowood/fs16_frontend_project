@@ -1,6 +1,6 @@
 const products = [
   {
-    "id": 1,
+    "id": '1',
     "title": "Nuevo Titulo",
     "price": 10,
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore consequuntur magnam dolorem earum nemo cupiditate a voluptates fugiat ipsa voluptatibus!",
@@ -12,7 +12,7 @@ const products = [
     "createdAt": "2023-09-27T18:34:51.000Z",
     "updatedAt": "2023-09-28T03:35:49.000Z",
     "category": {
-      "id": 1,
+      "id": "1",
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -20,7 +20,7 @@ const products = [
     }
   },
   {
-    "id": 2,
+    "id": '2',
     "title": "Nuevo Titulo",
     "price": 10,
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore consequuntur magnam dolorem earum nemo cupiditate a voluptates fugiat ipsa voluptatibus!",
@@ -32,7 +32,7 @@ const products = [
     "createdAt": "2023-09-27T18:36:43.000Z",
     "updatedAt": "2023-09-28T03:36:04.000Z",
     "category": {
-      "id": 1,
+      "id": '1',
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -40,7 +40,7 @@ const products = [
     }
   },
   {
-    "id": 3,
+    "id": "3",
     "title": "Nuevo Titulo",
     "price": 10,
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore consequuntur magnam dolorem earum nemo cupiditate a voluptates fugiat ipsa voluptatibus!",
@@ -52,7 +52,7 @@ const products = [
     "createdAt": "2023-09-27T18:44:53.000Z",
     "updatedAt": "2023-09-28T03:36:44.000Z",
     "category": {
-      "id": 1,
+      "id": "1",
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -60,7 +60,7 @@ const products = [
     }
   },
   {
-    "id": 4,
+    "id": "4",
     "title": "Nuevo Titulo",
     "price": 10,
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore consequuntur magnam dolorem earum nemo cupiditate a voluptates fugiat ipsa voluptatibus!",
@@ -72,7 +72,7 @@ const products = [
     "createdAt": "2023-09-27T18:44:58.000Z",
     "updatedAt": "2023-09-28T03:36:48.000Z",
     "category": {
-      "id": 1,
+      "id": "1",
       "name": "Clothe",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -80,7 +80,7 @@ const products = [
     }
   },
   {
-    "id": 5,
+    "id": "5",
     "title": "Nuevo Titulo",
     "price": 123,
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore consequuntur magnam dolorem earum nemo cupiditate a voluptates fugiat ipsa voluptatibus!",
@@ -92,7 +92,7 @@ const products = [
     "createdAt": "2023-09-27T18:54:36.000Z",
     "updatedAt": "2023-09-28T03:36:52.000Z",
     "category": {
-      "id": 2,
+      "id": "2",
       "name": "Electronics",
       "image": "https://picsum.photos/640/640?r=9478",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -100,7 +100,7 @@ const products = [
     }
   },
   {
-    "id": 6,
+    "id": "6",
     "title": "Otro producto nuevo",
     "price": 1111,
     "description": "Descripción nueva",
@@ -110,7 +110,7 @@ const products = [
     "createdAt": "2023-09-27T19:00:17.000Z",
     "updatedAt": "2023-09-27T19:00:17.000Z",
     "category": {
-      "id": 2,
+      "id": "2",
       "name": "Electronics",
       "image": "https://picsum.photos/640/640?r=9478",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -118,7 +118,7 @@ const products = [
     }
   },
   {
-    "id": 7,
+    "id": "7",
     "title": "aaaaaaaq",
     "price": 1,
     "description": "a",
@@ -128,7 +128,7 @@ const products = [
     "createdAt": "2023-09-27T19:15:48.000Z",
     "updatedAt": "2023-09-27T19:15:48.000Z",
     "category": {
-      "id": 4,
+      "id": "4",
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -136,7 +136,7 @@ const products = [
     }
   },
   {
-    "id": 8,
+    "id": "8",
     "title": "Gaaaa",
     "price": 10,
     "description": "A description",
@@ -146,7 +146,7 @@ const products = [
     "createdAt": "2023-09-27T19:44:37.000Z",
     "updatedAt": "2023-09-27T19:44:37.000Z",
     "category": {
-      "id": 4,
+      "id": "4",
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -154,7 +154,7 @@ const products = [
     }
   },
   {
-    "id": 9,
+    "id": "9",
     "title": "gggg",
     "price": 2,
     "description": "gasdfgdsf",
@@ -164,7 +164,7 @@ const products = [
     "createdAt": "2023-09-27T19:45:08.000Z",
     "updatedAt": "2023-09-27T19:45:08.000Z",
     "category": {
-      "id": 4,
+      "id": "4",
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=2293",
       "createdAt": "2023-09-27T14:46:55.000Z",
@@ -172,7 +172,7 @@ const products = [
     }
   },
   {
-    "id": 10,
+    "id": "10",
     "title": "New Product Course",
     "price": 9999,
     "description": "A description",
@@ -182,7 +182,7 @@ const products = [
     "createdAt": "2023-09-27T20:17:29.000Z",
     "updatedAt": "2023-09-27T20:17:29.000Z",
     "category": {
-      "id": 4,
+      "id": "4",
       "name": "Shoes",
       "image": "https://picsum.photos/640/640?r=1389",
       "createdAt": "2023-09-27T14:46:55.000Z",

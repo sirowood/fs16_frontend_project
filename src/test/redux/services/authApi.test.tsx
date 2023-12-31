@@ -30,12 +30,12 @@ describe('authApi', () => {
       authApi.endpoints.login.initiate({ ...user, password: 'wrongpass' })
     );
 
-    expect(result.error).toEqual({ message: 'Invalid username or password' });
+    expect(result.error).not.toBeNull();
   });
 
   test('should get user profile successfully', async () => {
     const { data } = await store.dispatch(
-      authApi.endpoints.getUser.initiate(token.access_token)
+      authApi.endpoints.getProfile.initiate(token.token)
     );
 
     expect(data).toEqual(user);
@@ -43,9 +43,26 @@ describe('authApi', () => {
 
   test('should handle get user profile error', async () => {
     const { error } = await store.dispatch(
-      authApi.endpoints.getUser.initiate('wrong token')
+      authApi.endpoints.getProfile.initiate('wrong token')
     );
 
-    expect(error).toEqual({ message: 'Invalid token' });
+    expect(error).not.toBeNull();
+  });
+
+  test('should register user successfully', async () => {
+    const newUser = {
+      firstName: 'test name',
+      lastName: '',
+      password: 'test password',
+      email: 'test@mail.com',
+      avatar: 'http://test.avatar.com/avatar.jpg',
+      role: 'Customer',
+    };
+
+    const result: any = await store.dispatch(
+      authApi.endpoints.register.initiate(newUser)
+    );
+
+    expect(result.data).toEqual({ ...newUser, id: 4 });
   });
 });

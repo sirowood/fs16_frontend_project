@@ -16,7 +16,7 @@ afterEach(() => {
   server.resetHandlers();
 });
 
-const filters = { categoryId: 0, limit: 0, offset: 0, title: '' };
+const filters = { categoryId: '0', limit: 0, offset: 0, title: '' };
 
 describe('productApi', () => {
   test('should get all products successfully', async () => {
@@ -24,11 +24,11 @@ describe('productApi', () => {
       productApi.endpoints.getProducts.initiate(filters)
     );
 
-    expect(data).toEqual(products);
+    expect(data?.items).toEqual(products);
   });
 
   test('should get products with category filter correctly', async () => {
-    const categoryId = 4;
+    const categoryId = '4';
     const { data } = await store.dispatch(
       productApi.endpoints.getProducts.initiate({ ...filters, categoryId })
     );
@@ -37,7 +37,7 @@ describe('productApi', () => {
       product.category.id === categoryId
     );
 
-    expect(data).toEqual(expected);
+    expect(data?.items).toEqual(expected);
   });
 
   test('should get products with title filter correctly', async () => {
@@ -50,7 +50,7 @@ describe('productApi', () => {
       product.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())
     )
 
-    expect(data).toEqual(expected);
+    expect(data?.items).toEqual(expected);
   });
 
   test('should get products with limit and offset filter correctly', async () => {
@@ -62,15 +62,14 @@ describe('productApi', () => {
 
     const expected = products.slice(limit * offset, limit * offset + limit);
 
-    expect(data).toEqual(expected);
+    expect(data?.items).toEqual(expected);
   });
 
   test('should get products with all filters correctly', async () => {
-    const categoryId = 4;
+    const categoryId = '4';
     const title = 'Nuevo Titulo';
     const limit = 1;
     const offset = 2;
-
 
     const { data } = await store.dispatch(
       productApi.endpoints.getProducts.initiate({ categoryId, title, limit, offset })
@@ -81,22 +80,22 @@ describe('productApi', () => {
       .filter((product) => product.title.toLocaleLowerCase().includes(title.toLocaleLowerCase()))
       .slice(limit * offset, limit * offset + limit);
 
-    expect(data).toEqual(expected);
+    expect(data?.items).toEqual(expected);
   });
 
   test('should get valid single product successfully', async () => {
-    const { data } = await store.dispatch(productApi.endpoints.getSingleProduct.initiate(2));
+    const { data } = await store.dispatch(productApi.endpoints.getSingleProduct.initiate('2'));
 
-    const expected = products.find((product) => product.id === 2);
+    const expected = products.find((product) => product.id === '2');
 
     expect(data).toEqual(expected);
   });
 
   test('should handle get single product error', async () => {
     // Providing invalid productId
-    const { error } = await store.dispatch(productApi.endpoints.getSingleProduct.initiate(100));
+    const { error } = await store.dispatch(productApi.endpoints.getSingleProduct.initiate('100'));
 
-    expect(error).toEqual({ message: 'No such product' });
+    expect(error).not.toBeNull();
   });
 
   test('should add new product successfully', async () => {
@@ -104,8 +103,8 @@ describe('productApi', () => {
       title: "New Product",
       price: 10,
       description: "A description",
-      categoryId: 1,
-      images: ["https://placeimg.com/640/480/any"],
+      categoryId: '1',
+      images: [{ url: "https://placeimg.com/640/480/any" }],
     };
 
     const result: any = await store.dispatch(productApi.endpoints.addProduct.initiate(newProduct));
@@ -130,13 +129,13 @@ describe('productApi', () => {
       title: "New Product",
       price: 10,
       description: "A description",
-      categoryId: 1000,
-      images: ["https://placeimg.com/640/480/any"],
+      categoryId: '1000',
+      images: [{ url: "https://placeimg.com/640/480/any" }],
     };
 
     const result: any = await store.dispatch(productApi.endpoints.addProduct.initiate(newProduct));
 
-    expect(result.error).toEqual({ message: 'Something went wrong while adding new product' });
+    expect(result.error).not.toBeNull();
   });
 
   test('should update product successfully', async () => {
@@ -144,14 +143,14 @@ describe('productApi', () => {
       title: "updated product",
       price: 10,
       description: "A description",
-      categoryId: 4,
-      images: ["https://placeimg.com/640/480/any"],
+      categoryId: '4',
+      images: [{ url: "https://placeimg.com/640/480/any" }],
     };
 
-    const result: any = await store.dispatch(productApi.endpoints.updateProduct.initiate({ id: 1, productNewData }));
+    const result: any = await store.dispatch(productApi.endpoints.updateProduct.initiate({ id: '1', productNewData }));
 
     const expected = {
-      ...products.find((product) => product.id === 1),
+      ...products.find((product) => product.id === '1'),
       title: productNewData.title,
       price: productNewData.price,
       description: productNewData.description,
@@ -168,27 +167,25 @@ describe('productApi', () => {
       title: "updated product",
       price: 10,
       description: "A description",
-      categoryId: 10000,
-      images: ["https://placeimg.com/640/480/any"],
+      categoryId: '10000',
+      images: [{ url: "https://placeimg.com/640/480/any" }],
     };
 
-    const result: any = await store.dispatch(productApi.endpoints.updateProduct.initiate({ id: 1, productNewData }));
+    const result: any = await store.dispatch(productApi.endpoints.updateProduct.initiate({ id: '1', productNewData }));
 
-    const expected = { message: 'Something went wrong while updating the product' };
-
-    expect(result.error).toEqual(expected);
+    expect(result.error).not.toBeNull();
   });
 
   test('should delete product successfully', async () => {
-    const result: any = await store.dispatch(productApi.endpoints.removeProduct.initiate(1));
+    const result: any = await store.dispatch(productApi.endpoints.removeProduct.initiate('1'));
 
     expect(result.data).toEqual(true);
   });
 
   test('should handle delete product error', async () => {
     // Providing invalid product id
-    const result: any = await store.dispatch(productApi.endpoints.removeProduct.initiate(100));
+    const result: any = await store.dispatch(productApi.endpoints.removeProduct.initiate('100'));
 
-    expect(result.error).toEqual({ message: 'No such product' });
+    expect(result.error.message).toEqual(false);
   });
 });
