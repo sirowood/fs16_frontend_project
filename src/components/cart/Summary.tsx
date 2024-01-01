@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom';
 const Summary = () => {
   const navigate = useNavigate();
   const { cart, totalAmount, emptyCart } = useCart();
-  const addresses = useAppSelector((state) => state.auth.user?.addresses);
+  const user = useAppSelector((state) => state.auth.user);
   const [addOrder, { data, isLoading, isSuccess }] = useAddOrderMutation();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
@@ -49,6 +49,9 @@ const Summary = () => {
   }
 
   const handleConfirmOrder = () => {
+    if (!user) {
+      navigate('/login');
+    }
     setOpenDialog(true);
   };
 
@@ -111,7 +114,7 @@ const Summary = () => {
           >
             Add Address
           </Button>
-          {addresses?.map((address) => (
+          {user?.addresses?.map((address) => (
             <Paper
               elevation={3}
               key={address.id}
