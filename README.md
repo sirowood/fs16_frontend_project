@@ -6,7 +6,11 @@
 
 This is the frontend project of Integrify Fullstack programme 2023-08.
 
-It use [Platzi Fake Store API](https://fakeapi.platzi.com/) as the data source.
+And this project has been upgraded so it connects with the backend which was written by C# .Net Core instead of FakeApi.
+
+[This](https://github.com/sirowood/fs16_backend_project) is the repo of the corresponding backend repo.
+
+[This](https://xuefeng-frontend-project.vercel.app/) is the deployed link of this frontend project.
 
 Test accounts:
 
@@ -16,10 +20,6 @@ Test accounts:
 - Customer
   - email: `john@mail.com`
   - password: `changeme`
-
-❗**CAUTION: DO NOT USE YOUR PASSWORD WHEN REGISTER NEW ACCOUNT**❗
-
-Deployed [here](https://xuefeng-frontend-project.vercel.app/)
 
 ## Table of content
 
