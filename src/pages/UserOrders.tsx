@@ -59,11 +59,13 @@ const UserOrders = () => {
                 <Typography>{order.orderDetails.length} Items</Typography>
                 <Typography>
                   Total: €{' '}
-                  {order.orderDetails.reduce(
-                    (total, next) =>
-                      total + next.priceAtPurchase * next.quantity,
-                    0
-                  )}
+                  {order.orderDetails
+                    .reduce(
+                      (total, next) =>
+                        total + next.priceAtPurchase * next.quantity,
+                      0
+                    )
+                    .toFixed(2)}
                 </Typography>
               </Paper>
             </Grid>

@@ -21,6 +21,12 @@ Test accounts:
   - email: `john@mail.com`
   - password: `changeme`
 
+Payment
+
+- Card number: 4242 4242 4242 4242
+- Expire date: Any date in the future
+- CVC: Any 3-digits
+
 ## Table of content
 
 - [Architecture](#architecture)

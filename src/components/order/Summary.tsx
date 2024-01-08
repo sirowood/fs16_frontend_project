@@ -1,6 +1,6 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { checkoutButton, summaryDetailsBox } from '../../styles/cart';
@@ -9,15 +9,13 @@ import {
   useCancelOrderMutation,
   useDeliveredOrderMutation,
   useDeliveryOrderMutation,
-  usePayOrderMutation,
   useReturnOrderMutation,
 } from '../../redux/services/orderApi';
 import { useAppSelector } from '../../redux/store';
+import checkout from '../../libs/stripe';
 
 const Summary = ({ order }: { order?: OrderRes }) => {
   const userRole = useAppSelector((state) => state.auth.user?.role);
-  const [payOrder, { isLoading: paying, isSuccess: paySuccess }] =
-    usePayOrderMutation();
   const [cancelOrder, { isLoading: canceling, isSuccess: cancelSuccess }] =
     useCancelOrderMutation();
   const [returnOrder, { isLoading: returning, isSuccess: returnSuccess }] =
@@ -31,11 +29,21 @@ const Summary = ({ order }: { order?: OrderRes }) => {
     { isLoading: deliveredLoading, isSuccess: deliveredSuccess },
   ] = useDeliveredOrderMutation();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const handleCheckout = useCallback(async () => {
+    if (order) {
+      setIsLoading(true);
+      const sessionUrl = await checkout(order);
+      if (sessionUrl) {
+        window.location.replace(sessionUrl);
+        setIsLoading(false);
+      }
+    }
+  }, [order]);
+
   useEffect(() => {
     if (cancelSuccess) {
       toast.success('Cancel order success!');
-    } else if (paySuccess) {
-      toast.success('Pay order success!');
     } else if (returnSuccess) {
       toast.success('Return order success!');
     } else if (deliveringSuccess) {
@@ -43,13 +51,7 @@ const Summary = ({ order }: { order?: OrderRes }) => {
     } else if (deliveredSuccess) {
       toast.success('Order delivered success!');
     }
-  }, [
-    cancelSuccess,
-    deliveredSuccess,
-    deliveringSuccess,
-    paySuccess,
-    returnSuccess,
-  ]);
+  }, [cancelSuccess, deliveredSuccess, deliveringSuccess, returnSuccess]);
 
   if (!order) {
     return null;
@@ -94,15 +96,26 @@ const Summary = ({ order }: { order?: OrderRes }) => {
         </Typography>
       </Box>
       {order.status === 'Unpaid' && (
-        <LoadingButton
-          loading={paying}
-          variant="contained"
-          fullWidth
-          sx={checkoutButton}
-          onClick={() => payOrder(order.id)}
-        >
-          Pay
-        </LoadingButton>
+        <>
+          <Typography variant="caption">
+            Card number: 4242 4242 4242 4242
+          </Typography>
+          <br />
+          <Typography variant="caption">
+            Expire date: Any date in the future
+          </Typography>
+          <br />
+          <Typography variant="caption">CVC: Any 3-digits</Typography>
+          <LoadingButton
+            loading={isLoading}
+            variant="contained"
+            fullWidth
+            sx={checkoutButton}
+            onClick={handleCheckout}
+          >
+            Pay
+          </LoadingButton>
+        </>
       )}
       {(order.status === 'Unpaid' || order.status === 'Paid') &&
         userRole === 'Customer' && (

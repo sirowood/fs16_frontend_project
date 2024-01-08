@@ -46,13 +46,6 @@ const productApi = api.injectEndpoints({
         return { message: e.data };
       },
     }),
-    payOrder: build.mutation<boolean, string>({
-      query: (id) => ({
-        url: `orders/${id}/pay`,
-        method: 'PATCH',
-      }),
-      invalidatesTags: (_result, _error, id) => [{ type: 'Orders', id }],
-    }),
     cancelOrder: build.mutation<boolean, string>({
       query: (id) => ({
         url: `orders/${id}/cancel`,
@@ -89,7 +82,6 @@ export const {
   useGetAllOrdersQuery,
   useGetSingleOrderQuery,
   useAddOrderMutation,
-  usePayOrderMutation,
   useCancelOrderMutation,
   useReturnOrderMutation,
   useDeliveryOrderMutation,

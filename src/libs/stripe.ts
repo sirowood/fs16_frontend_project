@@ -1,11 +1,11 @@
 import Stripe from "stripe";
 
-import { CartItem } from "../types/cart";
+import { OrderRes } from "../types/order";
 
 const stripe = new Stripe(
   process.env.REACT_APP_STRIPE_SECRET_KEY ?? '',
   {
-    apiVersion: '2023-08-16',
+    apiVersion: '2023-10-16',
     appInfo: {
       name: 'E-commerce App',
       version: '0.1.0',
@@ -13,26 +13,26 @@ const stripe = new Stripe(
   }
 );
 
-const checkout = async (items: CartItem[]) => {
+const checkout = async (order: OrderRes) => {
   const session = await stripe.checkout.sessions.create({
-    line_items: items.map((item) => ({
+    line_items: order.orderDetails.map((item) => ({
       quantity: item.quantity,
       price_data: {
         currency: 'EUR',
         product_data: {
-          name: item.title,
+          name: item.product.title,
         },
-        unit_amount: item.priceAtPurchase * 100,
+        unit_amount: +(item.priceAtPurchase * 100).toFixed(2),
       }
     })),
+    customer_email: order.user.email,
     mode: 'payment',
-    billing_address_collection: 'required',
-    phone_number_collection: {
-      enabled: true,
-    },
-    success_url: `${window.location.origin}/success`,
-    cancel_url: `${window.location.origin}/cart`,
-  })
+    success_url: `${window.location.origin}/orders/${order.id}`,
+    cancel_url: `${window.location.origin}/orders/${order.id}`,
+    metadata: {
+      orderId: order.id
+    }
+  });
 
   return session.url;
 };
